@@ -8,13 +8,20 @@ Sub RunUserInterface()
     screen.Show()
     
     oneRow = GetApiArray()
+    request = CreateObject("roUrlTransfer")
+        request.setRequest("GET")
+    request.SetURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
+    request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+    jsonString = request.GetToString()
+
+    test = "TEST"
     list = [
         {
-            TITLE : "First row"
+            TITLE : jsonString
             ContentList : oneRow
         }
         {
-            TITLE : "Second row"
+            TITLE : test
             ContentList : oneRow
         }
     ]
@@ -57,6 +64,7 @@ End Function
 
 
 Function GetApiArray()
+
     url = CreateObject("roUrlTransfer")
     url.SetUrl("http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss")
     rsp = url.GetToString()
