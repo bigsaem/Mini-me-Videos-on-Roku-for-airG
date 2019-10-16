@@ -14,11 +14,11 @@ Sub RunUserInterface()
     
     list = [
         {
-            TITLE : test
+            TITLE : "Continue watching"
             ContentList : oneRow  
         }
         {
-            TITLE : test
+            TITLE : "Series"
             ContentList : oneRow
         }
     ]

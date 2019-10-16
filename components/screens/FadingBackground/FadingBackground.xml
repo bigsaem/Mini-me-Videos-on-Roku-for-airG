@@ -24,11 +24,12 @@ FadingBackground - Background for all nodes. It is basically poster that gets pi
             id="oldBackground"/>
         <Poster
             id="background"
-            opacity="0"/>
+            uri = "pkg:/images/Background.jpg"
+            opacity="0.8"/>
         <Rectangle
             id="shade"
             color="0x000000"
-            opacity="0.65"/>
+            opacity="0.1"/>  
             
         <Animation
             id="fadeoutAnimation"

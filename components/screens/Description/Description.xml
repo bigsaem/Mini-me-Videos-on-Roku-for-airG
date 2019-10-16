@@ -4,6 +4,7 @@
 <!-- 
     node - description of the content item
     -->
+  
 <component name="Description" extends="LayoutGroup">
     <interface>
         <!-- Alias to Title label -->
@@ -50,4 +51,4 @@
             text=""/>
     </children>
 
-</component> 
+</component>

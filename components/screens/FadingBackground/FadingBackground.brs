@@ -19,10 +19,10 @@ End Sub
 ' If background changes, start animation and populate fields
 Sub OnBackgroundUriChange()
     oldUrl = m.background.uri
-    m.background.uri = m.top.uri
+    m.background.uri = m.background.uri
     if oldUrl <> "" then
         m.oldBackground.uri = oldUrl
-        m.oldbackgroundInterpolator = [m.background.opacity, 0]
+'        m.oldbackgroundInterpolator = [m.background.opacity, 0]
         m.fadeoutAnimation.control = "start"
     end if
 End Sub

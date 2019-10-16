@@ -6,9 +6,10 @@ Function Init()
     ? "[GridScreen] Init"
 
     m.rowList       =   m.top.findNode("RowList")
-    m.description   =   m.top.findNode("Description")
+'    m.description   =   m.top.findNode("Description")
     m.background    =   m.top.findNode("Background")
-
+'    m.itemposter = m.top.findNode("itemPoster")
+    m.itemmask = m.top.findNode("itemMask")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
 End Function
@@ -24,8 +25,9 @@ Sub OnItemFocused()
         focusedContent          = m.top.content.getChild(itemFocused[0]).getChild(itemFocused[1])
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
-            m.description.content   = focusedContent
-            m.background.uri        = focusedContent.hdBackgroundImageUrl
+'            m.itemmask.uri          = 
+'            m.description.content   = focusedContent
+'            m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
 End Sub
