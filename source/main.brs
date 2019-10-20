@@ -86,9 +86,8 @@ function GetApiArray(APIURL)
         item.hdBackgroundImageUrl = show.thumbnail.large
         item.Title = show.name
         item.ReleaseDate = " "
-        item.Description = show.description
+        item.Description = " " 'show.description
         result.push(item)
-        item.apitest = "teeeest"
 
     end for
 

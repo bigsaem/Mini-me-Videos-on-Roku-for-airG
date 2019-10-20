@@ -36,7 +36,7 @@ Sub OnItemFocused()
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
             
-'            m.description.content   = focusedContent
+            m.description.content   = focusedContent
             m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
@@ -69,16 +69,16 @@ function gotContent()
 
     result  = []
     
-    for each season in jsonParsed._embedded.items
+    for each episode in jsonParsed._embedded.items
         item = {}
-        item.HDPosterUrl = season.thumbnail.medium
-        item.hdBackgroundImageUrl = season.thumbnail.large
-        item.Title = season.name
+        item.HDPosterUrl = episode.thumbnail.medium
+        item.hdBackgroundImageUrl = episode.thumbnail.large
+        item.Title = episode.name   
+        item.Description = " "     
         item.ReleaseDate = " "
         result.push(item)
     end for
     
-    print result
     row = result
     
     series = "Episodes"
