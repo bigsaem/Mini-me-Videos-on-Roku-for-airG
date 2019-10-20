@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="GetEpisodes" extends="Task">
+  <interface>
+    <field id = "contenturi" type = "string" />
+    <field id = "content" type = "assocarray" />
+  </interface>
+  <script type="text/brightscript">
+    
+  <![CDATA[
+  
+  	sub init()
+  		m.top.functionName = "getAPIResponse"
+  	end sub
+  	
+  	sub getAPIResponse()  	
+  		port = CreateObject("roMessagePort")
+    	req = CreateObject("roUrlTransfer")
+    	req.setRequest("GET")
+    	req.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
+    	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+    	jsonTaskString = req.GetToString()
+    	jsonTaskParsed = ParseJson(jsonTaskString)
+    	m.top.content = jsonTaskParsed    	
+    	
+    	
+  	end sub
+  ]]> 
+  </script>
+</component>

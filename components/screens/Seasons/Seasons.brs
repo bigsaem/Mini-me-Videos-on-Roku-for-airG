@@ -3,19 +3,15 @@
  ' creates all children
  ' sets all observers 
 Function Init()
-    ? "[GridScreen] Init"
-
+    ? "[EmptyScreen] Init"
 
     m.rowList       =   m.top.findNode("RowList")
 '    m.description   =   m.top.findNode("Description")
     m.background    =   m.top.findNode("Background")
-    m.itemposter = m.top.findNode("itemPoster")
-    m.itemmask = m.top.findNode("itemMask")
-      
+      m.itemposter = m.top.findNode("itemPoster")
+      m.itemmask = m.top.findNode("itemMask")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
-    
-    
 End Function
 
 ' handler of focused item in RowList
@@ -38,8 +34,6 @@ End Sub
 
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
-print "in GS on visible change"
-
     if m.top.visible = true then
         m.rowList.setFocus(true)
     end if

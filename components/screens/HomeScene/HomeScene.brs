@@ -10,7 +10,11 @@ Function Init()
     m.gridScreen = m.top.findNode("GridScreen")
 
     ' DetailsScreen Node with description, Video Player
-    m.detailsScreen = m.top.findNode("DetailsScreen")
+     m.detailsScreen = m.top.findNode("DetailsScreen")
+    
+    
+   ' Empty
+    m.episodes = m.top.findNode("Episodes")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
@@ -22,16 +26,23 @@ End Function
 ' if content set, focus on GridScreen
 Function OnChangeContent()
     m.gridScreen.setFocus(true)
+    'm.episodes.setFocus(true)
     m.loadingIndicator.control = "stop"
 End Function
 
 ' Row item selected handler
 Function OnRowItemSelected()
     ' On select any item on home scene, show Details node and hide Grid
+'    m.gridScreen.visible = "false"
+'    m.detailsScreen.content = m.gridScreen.focusedContent
+'    m.detailsScreen.setFocus(true)
+'    m.detailsScreen.visible = "true"
+    
     m.gridScreen.visible = "false"
-    m.detailsScreen.content = m.gridScreen.focusedContent
-    m.detailsScreen.setFocus(true)
-    m.detailsScreen.visible = "true"
+    m.episodes.content = m.gridScreen.focusedContent
+    'm.episodes.content = m.gridScreen.content
+    m.episodes.setFocus(true)
+    m.episodes.visible = "true"
 End Function
 
 ' Main Remote keypress event loop
@@ -43,16 +54,21 @@ Function OnKeyEvent(key, press) as Boolean
             ' option key handler
         else if key = "back"
 
-            ' if Details opened
-            if m.gridScreen.visible = false and m.detailsScreen.videoPlayerVisible = false
-                m.gridScreen.visible = "true"
-                m.detailsScreen.visible = "false"
+            ' if Episodes opened
+            if m.gridScreen.visible = false and m.episodes.visible = true
                 m.gridScreen.setFocus(true)
+                m.gridScreen.visible = "true"
+                'm.detailsScreen.visible = "false"
+                 m.episodes.visible = "false"
+                
+
                 result = true
 
             ' if video player opened
-            else if m.gridScreen.visible = false and m.detailsScreen.videoPlayerVisible = true
-                m.detailsScreen.videoPlayerVisible = false
+            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
+                'm.detailsScreen.videoPlayerVisible = false
+                 m.episodes.videoPlayerVisible = false
+                
                 result = true
             end if
 
