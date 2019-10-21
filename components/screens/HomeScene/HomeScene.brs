@@ -39,6 +39,7 @@ Function OnRowItemSelected()
 '    m.detailsScreen.visible = "true"
     
     m.gridScreen.visible = "false"
+    m.episodes.showName = m.gridScreen.focusedContent.title
     m.episodes.content = m.gridScreen.focusedContent
     'm.episodes.content = m.gridScreen.content
     m.episodes.setFocus(true)

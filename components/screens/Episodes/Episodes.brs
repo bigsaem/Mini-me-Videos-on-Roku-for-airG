@@ -10,9 +10,10 @@ Function Init()
     m.itemposter = m.top.findNode("itemPoster")
     m.itemmask = m.top.findNode("itemMask")
     m.description   =   m.top.findNode("Description")
-    jsonReturned = "t"
+    
     
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
+    m.sceneTask.contenturi =  "http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342"
     
     print "in ep init"
     
@@ -25,6 +26,8 @@ End Function
 ' handler of focused item in RowList
 Sub OnItemFocused()
     print("in on item focused")
+
+    'print m.top.showName
 
     itemFocused = m.top.itemFocused
 
@@ -45,9 +48,13 @@ End Sub
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 print "in on visible change"
+
+if m.top.showName <> ""
+    m.sceneTask.showName = m.top.showName
     m.sceneTask.observeField("content","gotContent")
     m.sceneTask.control = "RUN"
-    
+end if
+
     if m.top.visible = true then
             
         m.rowList.setFocus(true)

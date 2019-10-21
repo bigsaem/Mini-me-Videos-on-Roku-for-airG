@@ -87,8 +87,9 @@ function GetApiArray(APIURL)
         item.Title = show.name
         item.ReleaseDate = " "
         item.Description = " " 'show.description
-        result.push(item)
+        item.SeasonAPI = show._links.seasons.href
 
+        result.push(item)
     end for
 
     return result

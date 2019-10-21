@@ -3,6 +3,7 @@
 <component name="GetEpisodes" extends="Task">
   <interface>
     <field id = "contenturi" type = "string" />
+    <field id = "showName" type = "string" />
     <field id = "content" type = "assocarray" />
   </interface>
   <script type="text/brightscript">
@@ -17,8 +18,36 @@
   		port = CreateObject("roMessagePort")
     	req = CreateObject("roUrlTransfer")
     	req.setRequest("GET")
-    	req.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
+    	req.setURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
+    	'req.setURL(m.top.contenturi)    	
     	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+    	jsonTaskString = req.GetToString()
+    	jsonTaskParsed = ParseJson(jsonTaskString)
+    	print jsonTaskString
+    	
+    	seasonsAPI = ""
+    	
+    	for each show in jsonTaskParsed._embedded.collections
+        	if show.name = m.top.showName
+        		seasonsAPI = show._links.seasons.href
+        	end if
+    	end for
+    	
+    	
+    	req.setUrl(seasonsAPI)
+    	jsonTaskString = req.GetToString()
+    	jsonTaskParsed = ParseJson(jsonTaskString)
+    	
+    	print jsonTaskString
+    	
+    	episodesAPI = ""
+    	
+     	for each season in jsonTaskParsed._embedded.items
+        	episodesAPI = season._links.episodes.href
+    	end for
+    	
+    	
+    	req.setUrl(episodesAPI)
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
     	m.top.content = jsonTaskParsed    	
