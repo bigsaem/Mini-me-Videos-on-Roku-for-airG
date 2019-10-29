@@ -7,9 +7,9 @@ Function Init()
 
 
     m.rowList       =   m.top.findNode("RowList")
-    m.description   =   m.top.findNode("Description")
-    m.background    =   m.top.findNode("Background")
-    m.itemposter = m.top.findNode("itemPoster")
+'    m.description   =   m.top.findNode("Description")
+'    m.background    =   m.top.findNode("Background")
+'    m.itemposter = m.top.findNode("itemPoster")
     m.itemmask = m.top.findNode("itemMask")
       
     m.top.observeField("visible", "onVisibleChange")
@@ -29,9 +29,8 @@ Sub OnItemFocused()
         focusedContent          = m.top.content.getChild(itemFocused[0]).getChild(itemFocused[1])
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
-            
-            m.description.content   = focusedContent
-            m.background.uri        = "pkg:/images/focus_grid.9.png"
+'            m.description.content   = focusedContent
+'            m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
 End Sub

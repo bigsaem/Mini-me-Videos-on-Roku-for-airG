@@ -7,7 +7,7 @@ Function Init()
         
     m.rowList       =   m.top.findNode("RowList")
     m.background    =   m.top.findNode("Background")
-    m.itemposter = m.top.findNode("itemPoster")
+'    m.itemposter = m.top.findNode("itemPoster")
     m.itemmask = m.top.findNode("itemMask")
     m.description   =   m.top.findNode("Description")
     
@@ -40,7 +40,6 @@ Sub OnItemFocused()
             m.top.focusedContent    = focusedContent
             
             m.description.content   = focusedContent
-            m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
 End Sub

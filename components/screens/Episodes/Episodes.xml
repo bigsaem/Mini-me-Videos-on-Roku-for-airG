@@ -30,31 +30,40 @@
     <children>
                
             
-        <FadingBackground
+         <Poster
             id="Background"
-			width="1280"
-			height="720"
-            color="0xAAAAAA"
-            ShadeOpacity="0.8"/>
+            width = "1280"
+            height = "720"
+            loadSync = "true"
+            uri = "pkg:/images/Background.png"
+            /> 
+         
+       <Poster
+            id = "itemMask"
+            width = "1280"
+            height = "400"
+            loadSync = "true"
+            translation = "[ 0, 350 ]"
+            uri="pkg:/images/bg-tile.png"
+            />
             
         <RowList
             id="RowList"
             focusBitmapUri="pkg:/images/focus_grid.9.png"
-			translation="[-60, 372]"
-			itemSize="[1327, 218]"
-			numRows="1"
+			translation="[0, 420]"
+			itemSize="[1280, 218]"
+			numRows="2"
 			itemSpacing="[13, 0]"
 			focusXOffset="[147]"
-			rowFocusAnimationStyle="fixedFocusWrap"
+			rowFocusAnimationStyle="floatingFocus"
 			rowItemSize="[[262, 147]]"
 			rowItemSpacing="[[16.5, 3]]"
-			showRowLabel="false"
+			showRowLabel="true"
 			showRowCounter="false"
 			rowLabelOffset="[[147, 20]]"
             />
             
 
-        
         
         
         <Poster
@@ -63,9 +72,9 @@
             width="2000"
             height="95" />
 
-        <Description
+          <Description
             id="Description"
-			translation="[106, 119]"
+			translation="[106, 372]"
             itemSpacings="[7,17]"/>
     </children>
 </component>

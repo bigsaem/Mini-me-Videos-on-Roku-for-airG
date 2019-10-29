@@ -83,10 +83,10 @@ function GetApiArray(APIURL)
     for each show in jsonParsed._embedded.collections
         item = {}
         item.HDPosterUrl = show.thumbnail.medium
-        item.hdBackgroundImageUrl = show.thumbnail.large
+        'item.hdBackgroundImageUrl = show.thumbnail.large '
         item.Title = show.name
-        item.ReleaseDate = " "
-        item.Description = " " 'show.description
+        'item.ReleaseDate = " "'
+        'item.Description = " " '
         item.SeasonAPI = show._links.seasons.href
 
         result.push(item)
