@@ -6,8 +6,9 @@ Function Init()
     ? "[GridScreen] Init"
 
     m.rowList       =   m.top.findNode("RowList")
+    m.rowList2      =   m.top.findNode("RowList2")
 '    m.description   =   m.top.findNode("Description")
-    m.background    =   m.top.findNode("Background")
+'    m.background    =   m.top.findNode("Background")
 '    m.itemposter = m.top.findNode("itemPoster")
     m.itemmask = m.top.findNode("itemMask")
     m.top.observeField("visible", "onVisibleChange")

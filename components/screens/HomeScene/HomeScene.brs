@@ -9,9 +9,6 @@ Function Init()
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
 
-    ' DetailsScreen Node with description, Video Player
-    m.detailsScreen = m.top.findNode("DetailsScreen")
-
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     
@@ -27,11 +24,13 @@ End Function
 
 ' Row item selected handler
 Function OnRowItemSelected()
+m.gridScreen.rowList.visible="false"
+'m.gridScreen.rowList2.visible="true"
     ' On select any item on home scene, show Details node and hide Grid
-    m.gridScreen.visible = "false"
+'    m.gridScreen.visible = "false"
     m.detailsScreen.content = m.gridScreen.focusedContent
-    m.detailsScreen.setFocus(true)
-    m.detailsScreen.visible = "true"
+'    m.detailsScreen.setFocus(true)
+'    m.detailsScreen.visible = "true"
 End Function
 
 ' Main Remote keypress event loop

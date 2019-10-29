@@ -82,7 +82,7 @@ Sub OnContentChange()
     m.videoPlayer.content   = m.top.content
     m.top.streamUrl         = m.top.content.url
     m.poster.uri            = m.top.content.hdBackgroundImageUrl
-    m.background.uri            = m.top.content.hdBackgroundImageUrl
+    m.background.uri        = m.top.content.hdBackgroundImageUrl
 End Sub
 
 '///////////////////////////////////////////'

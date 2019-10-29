@@ -6,7 +6,6 @@ Sub RunUserInterface()
     port = CreateObject("roMessagePort")
     screen.SetMessagePort(port)
     screen.Show()
-    
     oneRow = GetApiArray()
     
 

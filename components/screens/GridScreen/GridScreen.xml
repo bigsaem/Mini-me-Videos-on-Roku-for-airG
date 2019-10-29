@@ -24,24 +24,23 @@
     <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
     
     <children>
-        <FadingBackground
+         <Poster
             id="Background"
-			width="1280"
-			height="720"
-            color="0xAAAAAA"  
-            ShadeOpacity="0.2" 
-            />
+            width = "1280"
+            height = "720"
+            uri = "pkg:/images/Background3.png"
+            /> 
          
-        <Poster
+       <Poster
 	        id = "itemMask"
-	        width = "2000"
+	        width = "1280"
 	        height = "400"
-	        translation = "[ -50, 350 ]"
+	        translation = "[ 0, 350 ]"
 	        uri="pkg:/images/bg-tile.png"
 	        />
 	        
         <RowList
-            id="RowList"
+            id="RowList2"
             focusBitmapUri="pkg:/images/focus_grid.9.png"
 			translation="[-60, 372]"
 			itemSize="[1327, 218]"
@@ -55,6 +54,22 @@
 			showRowCounter="true"
 			rowLabelOffset="[[147, 20]]"
             />
+         <RowList
+            id="RowList"
+            focusBitmapUri="pkg:/images/focus_grid.9.png"
+            translation="[-60, 372]"
+            itemSize="[1327, 218]"
+            numRows="2"
+            itemSpacing="[13, 0]"
+            focusXOffset="[147]"
+            rowFocusAnimationStyle="fixedFocusWrap"
+            rowItemSize="[[262, 147]]"
+            rowItemSpacing="[[16.5, 3]]"
+            showRowLabel="true"
+            showRowCounter="true"
+            rowLabelOffset="[[147, 20]]"
+            />
+            
     <Poster
       id = "itemPoster"
       translation = "[ 10, 10 ]"
