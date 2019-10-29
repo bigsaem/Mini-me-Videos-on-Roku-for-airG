@@ -1,52 +1,52 @@
 ' ********** Copyright 2015 Roku Corp.  All Rights Reserved. ********** 
 
-Sub RunUserInterface()
+sub RunUserInterface(APIURL)
     screen = CreateObject("roSGScreen")
     scene = screen.CreateScene("HomeScene")
     port = CreateObject("roMessagePort")
     screen.SetMessagePort(port)
     screen.Show()
-    
-    oneRow = GetApiArray()
-    
 
-    test = "TEST"
-    
+    oneRow = GetApiArray(APIURL)
+
+    series = "Series"
+    continue = "Continue watching..."
     list = [
         {
-            TITLE : test
-            ContentList : oneRow  
+            TITLE: series
+            ContentList: oneRow
         }
         {
-            TITLE : test
-            ContentList : oneRow
+            TITLE: continue
+            ContentList: oneRow
         }
     ]
-    scene.gridContent = ParseXMLContent(list)
-
-    while true
-        msg = wait(0, port)
-        print "------------------"
-        print "msg = "; 
-    end while
     
+    
+    scene.gridContent = parseJSONObject(list)
+    
+    while true
+        msg = Wait(0, port)
+        ? "------------------"
+        ? "msg = ";
+    end while
+
     if screen <> invalid then
         screen.Close()
         screen = invalid
     end if
-End Sub
+end sub
 
+function parseJSONObject(list as Object)
+    RowItems = CreateObject("RoSGNode", "ContentNode")
 
-Function ParseXMLContent(list As Object)
-    RowItems = createObject("RoSGNode","ContentNode")
-    
     for each rowAA in list
-    'for index = 0 to 1
-        row = createObject("RoSGNode","ContentNode")
+        ' for index = 0 to 1
+        row = CreateObject("RoSGNode", "ContentNode")
         row.Title = rowAA.Title
 
         for each itemAA in rowAA.ContentList
-            item = createObject("RoSGNode","ContentNode")
+            item = CreateObject("RoSGNode", "ContentNode")
             ' We don't use item.setFields(itemAA) as doesn't cast streamFormat to proper value
             for each key in itemAA
                 item[key] = itemAA[key]
@@ -57,41 +57,56 @@ Function ParseXMLContent(list As Object)
     end for
 
     return RowItems
-End Function
+end function
 
-
-Function GetApiArray()
-
+function GetApiArray(APIURL)
 
     request = CreateObject("roUrlTransfer")
     request.setRequest("GET")
+    request.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
     request.SetURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
+    ' request.SetUrl(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
-    jsonParsed = parseJSON(jsonString)
+    jsonParsed = ParseJson(jsonString)
     jsonParsed = jsonParsed
-    
-    'JSONArray = jasonParsed().getChildElements()
-    
-    'for each collection in jsonParsed._embedded.collections
-     'test = collection.name
 
-    'end for
+    ' JSONArray = jasonParsed().getChildElements()
+
+    ' for each collection in jsonParsed._embedded.collections
+    ' test = collection.name
+
+    ' end for
 
     result = []
-        
-    for each collection in jsonParsed._embedded.collections
-                item = {}
-                item.HDPosterUrl = collection.thumbnail.medium
-                item.hdBackgroundImageUrl = collection.thumbnail.large
-                item.Title = collection.name
-                item.ReleaseDate = " "
-                item.Description = collection.description
-                result.push(item)
+
+    for each show in jsonParsed._embedded.collections
+        item = {}
+        item.HDPosterUrl = show.thumbnail.medium
+        item.hdBackgroundImageUrl = show.thumbnail.large
+        item.Title = show.name
+        item.ReleaseDate = " "
+        item.Description = " " 'show.description
+        item.SeasonAPI = show._links.seasons.href
+
+        result.push(item)
     end for
-        
-        
-        
+
+    return result
+end function
+
+
+
+'    for each season in jsonParsed._embedded.items
+'                item = {}
+'                item.HDPosterUrl = season.thumbnail.medium
+'                item.hdBackgroundImageUrl = season.thumbnail.large
+'                item.Title = season.name
+'                item.ReleaseDate = " "
+'                item.Description = season.description
+'                result.push(item)
+'    end for
+
 '    url = CreateObject("roUrlTransfer")
 '    url.SetUrl("http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss")
 '    rsp = url.GetToString()
@@ -103,7 +118,7 @@ Function GetApiArray()
 '    result = []
 
 '   for each xmlItem in responseArray
-''        if xmlItem.getName() = "item"
+'        if xmlItem.getName() = "item"
 '            itemAA = xmlItem.GetChildElements()
 '            if itemAA <> invalid
 '                item = {}
@@ -113,7 +128,7 @@ Function GetApiArray()
 '                        item.stream = "https://gcs-vimeo.akamaized.net/exp=1570076855~acl=%2A%2F1226668184.mp4%2A~hmac=9e109b3465f27fd060a210d334adff79f127c54912d568b4fc8aa409650ac0e5/vimeo-prod-skyfire-std-us/01/3386/12/316932154/1226668184.mp4"
 '                        item.url = "https://gcs-vimeo.akamaized.net/exp=1570076855~acl=%2A%2F1226668184.mp4%2A~hmac=9e109b3465f27fd060a210d334adff79f127c54912d568b4fc8aa409650ac0e5/vimeo-prod-skyfire-std-us/01/3386/12/316932154/1226668184.mp4"
 '                        item.streamFormat = "mp4"
-'                        
+
 '                        mediaContent = xmlItem.GetChildElements()
 '                        for each mediaContentItem in mediaContent
 '                            if mediaContentItem.getName() = "media:thumbnail"
@@ -127,14 +142,3 @@ Function GetApiArray()
 '            end if
 '        end if
 '    end for
-
-    return result
-End Function
-
-
-Function ParseXML(str As String) As dynamic
-    if str = invalid return invalid
-    xml=CreateObject("roXMLElement")
-    if not xml.Parse(str) return invalid
-    return xml
-End Function
