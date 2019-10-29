@@ -8,8 +8,8 @@
     
     <interface>
         <!-- Content for RowList in GridScreen on Home Scene -->
-        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />            
-		
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />
+
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
     </interface>
@@ -24,13 +24,7 @@
             id="GridScreen"
             visible="true"
             translation="[0,0]" />
-            
-        <Episodes
-            id="Episodes"
-            visible="false"
-            translation="[0,0]" />
-            
-            
+
         <!-- Overhang logo -->
         <Poster
             translation="[79, 36]"
@@ -42,7 +36,6 @@
         <DetailsScreen
             id="DetailsScreen"
             visible="false"/>
-            
             
         <LoadingIndicator
 		      id="loadingIndicator"
