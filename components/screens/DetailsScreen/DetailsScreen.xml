@@ -6,6 +6,7 @@
     handles start of video playback
  -->
 <component name="DetailsScreen" extends="Group" initialFocus="Buttons">
+    
     <interface>
         <!-- Button press handler -->
         <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />
