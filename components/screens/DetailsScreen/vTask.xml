@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+<component name="getVideos" extends="Task">
+  <interface>
+    <field id = "contenturi" type = "string" />
+    <field id = "episodeName" type = "string" />
+    <field id = "fEpUrl" type = "string" />
+    <field id = "passNode" type = "node" />
+  </interface>
+  <script type="text/brightscript">
+    
+  <![CDATA[
+  
+  	sub init()
+  		m.top.functionName = "getAPIResponse"
+  	end sub
+  	
+  	sub getAPIResponse()  	
+  		
+  		port = CreateObject("roMessagePort")
+    	req = CreateObject("roUrlTransfer")
+    	req.setRequest("GET")
+    	req.setURL(m.top.contenturi)    	
+    	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+    	jsonTaskString = req.GetToString()
+    	jsonTaskParsed = ParseJson(jsonTaskString)
+    	
+    	videoLink = ""
+    	
+    	videosArray = []
+    	
+    	print jsonTaskParsed
+
+    	
+    	for each video in jsonTaskParsed
+        	if video.size.bytes > 1000
+        		videos = {}
+        		videos.quality = video.quality
+        		videos.url = video._links.source.href
+        		videosArray.push(videos)
+        	end if
+    	end for
+    	
+    	fUrl = ""
+    	
+    	for each item in videosArray
+    		if item.quality = "1080p"
+    			fUrl = item.url
+    		end if
+    	end for
+    	
+
+  		tempNode = CreateObject("roSGNode", "ContentNode")
+  		tempNode.streamFormat = "mp4"
+  		tempNode.url = fUrl
+  		m.content = tempNode
+  		m.top.passNode = tempNode
+  		print m.top.passNode
+  		'print tempNode
+  		'print "*************************************************"
+  		'print fUrl
+  		'print tempNode.url
+  		'print m.content.url
+  		'print "************************************************"
+		m.top.fEpUrl = fUrl
+		m.fEpUrl = m.top.fEpUrl
+    	
+    	
+  	end sub
+  ]]> 
+  </script>
+</component>

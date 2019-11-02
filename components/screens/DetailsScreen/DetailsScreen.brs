@@ -8,13 +8,19 @@ Function Init()
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
 
+    'm.content           =   CreateObject("roSGNode", "ContentNode") 
+    m.gVideos = m.top.findNode("getVideos")
+     
     m.buttons           =   m.top.findNode("Buttons")
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
     m.poster            =   m.top.findNode("Poster")
     m.description       =   m.top.findNode("Description")
     m.background        =   m.top.findNode("Background")
-
-
+    
+    fileUrl = ""
+    
+    m.epTask = CreateObject("roSGNode", "getVideos")
+    m.epTask.observeField("fEpUrl", "gotContent")
     ' create buttons
     result = []
     for each button in ["Play", "Second button"]
@@ -26,6 +32,15 @@ End Function
 ' set proper focus to buttons if Details opened and stops Video if Details closed
 Sub onVisibleChange()
     ? "[DetailsScreen] onVisibleChange"
+
+    
+    if m.top.epUrl <> "" 
+        m.epTask.contenturi = m.top.epUrl
+
+        m.epTask.control = "RUN"
+    end if
+    
+    
     if m.top.visible = true then
         m.buttons.jumpToItem = 0
         m.buttons.setFocus(true)
@@ -52,6 +67,25 @@ Sub onVideoVisibleChange()
     end if
 End Sub
 
+function gotContent()
+    
+    print "got url"
+    print "got url"
+    print "got url"
+    'just changed
+    print  m.epTask.fEpUrl
+    print m.epTask.passNode
+    'print fileUrl
+    print "got url"
+    print "got url"
+    print "after"
+    
+    m.top.content = m.epTask.passNode
+    OnContentChange()
+      
+    
+end function
+
 ' event handler of Video player msg
 Sub OnVideoPlayerStateChange()
     if m.videoPlayer.state = "error"
@@ -77,12 +111,17 @@ End Sub
 
 ' Content change handler
 Sub OnContentChange()
-    m.description.content   = m.top.content
-    m.description.Description.width = "770"
+'?"on content change"
+    'm.description.content   = m.top.content
+    'm.description.Description.width = "770"
     m.videoPlayer.content   = m.top.content
-    m.top.streamUrl         = m.top.content.url
-    m.poster.uri            = m.top.content.hdBackgroundImageUrl
-    m.background.uri            = m.top.content.hdBackgroundImageUrl
+
+    m.top.streamUrl = m.top.content.url
+      
+    onItemSelected()
+    
+    'm.top.streamUrl         = m.top.content.url
+    'm.top.streamUrl         = m.top.content.url
 End Sub
 
 '///////////////////////////////////////////'
