@@ -71,12 +71,6 @@ function GetApiArray(APIURL)
     jsonParsed = ParseJson(jsonString)
     jsonParsed = jsonParsed
 
-    ' JSONArray = jasonParsed().getChildElements()
-
-    ' for each collection in jsonParsed._embedded.collections
-    ' test = collection.name
-
-    ' end for
 
     result = []
 
@@ -87,8 +81,8 @@ function GetApiArray(APIURL)
         item.Title = show.name
         'item.ReleaseDate = " "'
         'item.Description = " " '
-        item.SeasonAPI = show._links.seasons.href
-
+        item.seasonUrl = show._links.seasons.href
+        item.seasonNumber = show.seasons_count.ToStr()
         result.push(item)
     end for
 

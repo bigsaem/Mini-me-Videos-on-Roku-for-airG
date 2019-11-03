@@ -12,6 +12,11 @@
 		
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
+        
+        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.rowItemSelected"/>
+        
+        <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
+        
     </interface>
     
     <!-- main handler -->
