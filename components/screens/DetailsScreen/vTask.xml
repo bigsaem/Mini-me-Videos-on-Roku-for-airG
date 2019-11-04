@@ -37,6 +37,7 @@
         		videos = {}
         		videos.quality = video.quality
         		videos.url = video._links.source.href
+        		videos.id = video.id
         		videosArray.push(videos)
         	end if
     	end for
@@ -46,6 +47,7 @@
     	for each item in videosArray
     		if item.quality = "1080p"
     			fUrl = item.url
+    			id = item.id
     		end if
     	end for
     	
@@ -53,6 +55,7 @@
   		tempNode = CreateObject("roSGNode", "ContentNode")
   		tempNode.streamFormat = "mp4"
   		tempNode.url = fUrl
+  		tempNode.id = id
   		m.content = tempNode
   		m.top.passNode = tempNode
   		print m.top.passNode
