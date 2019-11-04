@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
 
-<!-- node that renders Grid Screen 
+<!-- node that renders Episodes Screen 
     handles bookmark buttons
     handles start of video playback
  -->
-<component name="GridScreen" extends="Group" initialFocus="RowList">
+<component name="Episodes" extends="Group" initialFocus="RowList" >
     <interface>
-        <!-- Grid Content Node -->
+        	        
+        
+        <!-- Episodes Content Node -->
         <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
         
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
+        
+        <field id="seasonUrl" type="string"/>
+        <field id="seasonCount" type="string"/>
+        <field id="epUrl" type="string"/>
         
         <!-- Row item focused handler -->
         <field id="itemFocused" type="intarray" alias="RowList.rowItemFocused" onChange="OnItemFocused"/>
@@ -21,57 +27,56 @@
     </interface>
     
     <!-- main handler -->
-    <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
     
     <children>
+               
+            
          <Poster
             id="Background"
             width = "1280"
             height = "720"
-            />
+            loadSync = "true"
+            uri = "pkg:/images/Background.png"
+            /> 
          
        <Poster
-	        id = "itemMask"
-	        width = "1280"
-	        height = "400"
-	        translation = "[ 0, 350 ]"
-	        uri="pkg:/images/bg-tile.png"
-	        />
-	        
-
-         <RowList
-            id="RowList"
-            focusBitmapUri="pkg:/images/focus_grid.9.png"
-            translation="[-60, 372]"
-            itemSize="[1327, 218]"
-            numRows="2"
-            itemSpacing="[13, 0]"
-            focusXOffset="[147]"
-            rowFocusAnimationStyle="fixedFocusWrap"
-            rowItemSize="[[262, 147]]"
-            rowItemSpacing="[[16.5, 3]]"
-            showRowLabel="true"
-            showRowCounter="true"
-            rowLabelOffset="[[147, 20]]"
+            id = "itemMask"
+            width = "1280"
+            height = "400"
+            loadSync = "true"
+            translation = "[ 0, 350 ]"
+            uri="pkg:/images/bg-tile.png"
             />
             
-    <Poster
-      id = "itemPoster"
-      translation = "[ 10, 10 ]"
-      width = "512"
-      height = "288"
-      scaleRotateCenter = "[ 256.0, 144.0 ]" >
-    </Poster>
+        <RowList
+            id="RowList"
+            focusBitmapUri="pkg:/images/focus_grid.9.png"
+			translation="[0, 420]"
+			itemSize="[1280, 218]"
+			numRows="2"
+			itemSpacing="[13, 0]"
+			focusXOffset="[147]"
+			rowFocusAnimationStyle="floatingFocus"
+			rowItemSize="[[262, 147]]"
+			rowItemSpacing="[[16.5, 3]]"
+			showRowLabel="true"
+			showRowCounter="false"
+			rowLabelOffset="[[147, 20]]"
+            />
+            
+
+        
+        
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
             width="2000"
             height="95" />
 
-        <Description
+          <Description
             id="Description"
-			translation="[106, 400]"
+			translation="[106, 372]"
             itemSpacings="[7,17]"/>
-
     </children>
 </component>

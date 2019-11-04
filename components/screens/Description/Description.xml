@@ -15,7 +15,7 @@
 
         <!-- Alias to StarRating label -->
         <field id="StarRating"      type="node" alias=""/>
-
+            
         <!-- Alias to UserStarRating label -->
         <field id="UserStarRating"  type="node" alias=""/>
 

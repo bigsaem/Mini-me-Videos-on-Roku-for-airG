@@ -6,16 +6,22 @@
     handles start of video playback
  -->
 <component name="DetailsScreen" extends="Group" initialFocus="Buttons">
-    
     <interface>
         <!-- Button press handler -->
         <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />
 
+        <field id="epUrl" type="string"/>
+
+        <field id="fEpUrl" type="string"/>
+        
+        
         <!-- Playback flag -->
         <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
 
         <!-- Content fields -->
-        <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" />
+        <!-- <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" /> -->
+        <field id="content" type="node" />
+        
     </interface>
     
     <!-- main handler -->

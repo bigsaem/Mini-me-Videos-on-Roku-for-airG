@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
 
-<!-- node that renders Grid Screen 
+<!-- node that renders Seasons Screen 
     handles bookmark buttons
     handles start of video playback
  -->
-<component name="GridScreen" extends="Group" initialFocus="RowList">
+<component name="EmptyScreen" extends="Group" initialFocus="RowList">
     <interface>
-        <!-- Grid Content Node -->
+        <!-- Seasons Content Node -->
         <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
         
         <!-- Row item selection handler -->
@@ -21,47 +21,32 @@
     </interface>
     
     <!-- main handler -->
-    <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/Seasons/Seasons.brs" />
     
     <children>
-         <Poster
+        <FadingBackground
             id="Background"
-            width = "1280"
-            height = "720"
-            />
-         
-       <Poster
-	        id = "itemMask"
-	        width = "1280"
-	        height = "400"
-	        translation = "[ 0, 350 ]"
-	        uri="pkg:/images/bg-tile.png"
-	        />
-	        
-
-         <RowList
+			width="1280"
+			height="720"
+            color="0xAAAAAA"
+            ShadeOpacity="0.8"/>
+            
+        <RowList
             id="RowList"
             focusBitmapUri="pkg:/images/focus_grid.9.png"
-            translation="[-60, 372]"
-            itemSize="[1327, 218]"
-            numRows="2"
-            itemSpacing="[13, 0]"
-            focusXOffset="[147]"
-            rowFocusAnimationStyle="fixedFocusWrap"
-            rowItemSize="[[262, 147]]"
-            rowItemSpacing="[[16.5, 3]]"
-            showRowLabel="true"
-            showRowCounter="true"
-            rowLabelOffset="[[147, 20]]"
+			translation="[-60, 372]"
+			itemSize="[1327, 218]"
+			numRows="2"
+			itemSpacing="[13, 0]"
+			focusXOffset="[147]"
+			rowFocusAnimationStyle="fixedFocusWrap"
+			rowItemSize="[[262, 147]]"
+			rowItemSpacing="[[16.5, 3]]"
+			showRowLabel="true"
+			showRowCounter="true"
+			rowLabelOffset="[[147, 20]]"
             />
             
-    <Poster
-      id = "itemPoster"
-      translation = "[ 10, 10 ]"
-      width = "512"
-      height = "288"
-      scaleRotateCenter = "[ 256.0, 144.0 ]" >
-    </Poster>
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
@@ -70,8 +55,7 @@
 
         <Description
             id="Description"
-			translation="[106, 400]"
+			translation="[106, 119]"
             itemSpacings="[7,17]"/>
-
     </children>
 </component>
