@@ -96,7 +96,7 @@ Function OnKeyEvent(key, press) as Boolean
 
         else if key = "back"
             if m.option.hasFocus() = true
-                m.optionCont.visible = "true"
+                m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
                 result = true
             ' if Episodes opened
