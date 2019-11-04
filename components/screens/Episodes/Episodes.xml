@@ -5,7 +5,7 @@
     handles bookmark buttons
     handles start of video playback
  -->
-<component name="Episodes" extends="Group" initialFocus="RowListe" >
+<component name="Episodes" extends="Group" initialFocus="RowList" >
     <interface>
         	        
         
@@ -15,7 +15,9 @@
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
         
-        <field id="showName" type="string"/>
+        <field id="seasonUrl" type="string"/>
+        <field id="seasonCount" type="string"/>
+        <field id="epUrl" type="string"/>
         
         <!-- Row item focused handler -->
         <field id="itemFocused" type="intarray" alias="RowList.rowItemFocused" onChange="OnItemFocused"/>

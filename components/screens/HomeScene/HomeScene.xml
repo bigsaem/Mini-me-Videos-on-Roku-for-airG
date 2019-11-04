@@ -15,6 +15,12 @@
         
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
+
+        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.rowItemSelected"/>
+        
+        <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
+        
+
     </interface>
     
     <!-- main handler -->
