@@ -11,16 +11,22 @@ Function Init()
 
     ' DetailsScreen Node with description, Video Player
      m.detailsScreen = m.top.findNode("DetailsScreen")
-    
+    m.option = m.top.findNode("option_btn")
     
    ' Empty
     m.episodes = m.top.findNode("Episodes")
+    m.optionCont = m.top.findNode("testRectangle")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     
+    ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
+    m.top.observeField("optionSelected", "OnOptionSelected")
     ' loading indicator starts at initializatio of channel
     m.loadingIndicator = m.top.findNode("loadingIndicator")
+    
+    'animation for option bar
+    m.animation = m.top.FindNode("myAnim1")
 End Function 
 
 ' if content set, focus on GridScreen
@@ -30,6 +36,11 @@ Function OnChangeContent()
     m.loadingIndicator.control = "stop"
 End Function
 
+'Option button selected handler
+Function OnOptionSelected()
+    m.optionCont.visible = "true"
+    m.animation.control = "start"
+End Function 
 ' Row item selected handler
 Function OnRowItemSelected()
     ' On select any item on home scene, show Details node and hide Grid
@@ -53,9 +64,16 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
+            m.option.setFocus(true)
+            print m.option.hasFocus()
+            result  = true
         else if key = "back"
-
+            if m.option.hasFocus() = true
+                m.optionCont.visible = "true"
+                m.gridScreen.setFocus(true)
+                result = true
             ' if Episodes opened
+            end if
             if m.gridScreen.visible = false and m.episodes.visible = true
                 m.gridScreen.setFocus(true)
                 m.gridScreen.visible = "true"

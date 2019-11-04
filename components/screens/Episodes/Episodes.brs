@@ -93,6 +93,10 @@ function gotContent()
             TITLE: series
             ContentList: row
         }
+        {
+            TITLE: series
+            ContentList: row
+        }
     ]
     
     m.top.content = parseJSONObject(list)

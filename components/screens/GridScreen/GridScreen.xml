@@ -38,7 +38,7 @@
             translation = "[ 0, 350 ]"
             uri="pkg:/images/bg-tile-720.png"
             />
-            
+
         <RowList
             id="RowList"
             focusBitmapUri="pkg:/images/focus_grid.9.png"
