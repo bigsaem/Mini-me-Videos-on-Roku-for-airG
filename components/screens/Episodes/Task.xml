@@ -43,6 +43,7 @@
     	
     	
     	req.setUrl(episodesAPI)
+    	print episodesAPI
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
     	print type(jsonTaskParsed)

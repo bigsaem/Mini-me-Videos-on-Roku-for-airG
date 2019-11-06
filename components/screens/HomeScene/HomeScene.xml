@@ -16,7 +16,7 @@
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
 
-        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.rowItemSelected"/>
+        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
         
         <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
         
@@ -69,6 +69,7 @@
         <DetailsScreen
             id="DetailsScreen"
             visible="false"/>
+
         <!-- animation for option bar -->    
         <Animation id="myAnim1" 
 			duration="0.5"

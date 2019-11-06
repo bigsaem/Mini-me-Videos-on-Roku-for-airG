@@ -6,12 +6,10 @@ Function Init()
     ? "[GridScreen] Init"
 
 
-    m.rowList       =   m.top.findNode("RowList")
-'    m.description   =   m.top.findNode("Description")
-'    m.background    =   m.top.findNode("Background")
-'    m.itemposter = m.top.findNode("itemPoster")
+    m.rowList =   m.top.findNode("RowList")
     m.itemmask = m.top.findNode("itemMask")
-      
+
+
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
     

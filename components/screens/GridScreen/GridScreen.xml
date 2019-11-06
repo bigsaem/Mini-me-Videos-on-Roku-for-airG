@@ -28,33 +28,42 @@
             id="Background"
             width = "1280"
             height = "720"
+            loadSync = "true"
             uri = "pkg:/images/Background720.png"
             /> 
-            
-         <Poster
-            id = "itemMask"
-            width = "1280"
-            height = "400"
-            translation = "[ 0, 350 ]"
-            uri="pkg:/images/bg-tile-720.png"
-            />
+         
+       <Poster
+	        id = "itemMask"
+	        width = "1280"
+	        height = "400"
+	        translation = "[ 0, 350 ]"
+	        uri="pkg:/images/bg-tile.png"
+	        />
+	        
 
-        <RowList
+         <RowList
             id="RowList"
             focusBitmapUri="pkg:/images/focus_grid.9.png"
-			translation="[0, 372]"
-			itemSize="[1280, 218]"
-			numRows="2"
-			itemSpacing="[13, 0]"
-			focusXOffset="[147]"
-			rowFocusAnimationStyle="fixedFocusWrap"
-			rowItemSize="[[262, 147]]"
-			rowItemSpacing="[[16.5, 3]]"
-			showRowLabel="true"
-			showRowCounter="true"
-			rowLabelOffset="[[147, 20]]"
+            translation="[-60, 372]"
+            itemSize="[1327, 218]"
+            numRows="2"
+            itemSpacing="[13, 0]"
+            focusXOffset="[147]"
+            rowFocusAnimationStyle="fixedFocusWrap"
+            rowItemSize="[[262, 147]]"
+            rowItemSpacing="[[16.5, 3]]"
+            showRowLabel="true"
+            showRowCounter="true"
+            rowLabelOffset="[[147, 20]]"
             />
             
+    <Poster
+      id = "itemPoster"
+      translation = "[ 10, 10 ]"
+      width = "512"
+      height = "288"
+      scaleRotateCenter = "[ 256.0, 144.0 ]" >
+    </Poster>
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
@@ -65,5 +74,6 @@
             id="Description"
 			translation="[106, 400]"
             itemSpacings="[7,17]"/>
+
     </children>
 </component>
