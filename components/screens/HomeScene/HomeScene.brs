@@ -11,11 +11,11 @@ Function Init()
 
     ' DetailsScreen Node with description, Video Player
      m.detailsScreen = m.top.findNode("DetailsScreen")
-    m.option = m.top.findNode("option_btn")
+'    m.option = m.top.findNode("option_btn")
     
    ' Empty
     m.episodes = m.top.findNode("Episodes")
-    m.optionCont = m.top.findNode("testRectangle")
+'    m.optionCont = m.top.findNode("testRectangle")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
@@ -61,7 +61,7 @@ Function OnRowItemSelected()
 
     if m.gridScreen.visible = true and m.episodes.visible = false
         m.gridScreen.visible = "false"
-        'm.episodes.showName = m.gridScreen.focusedContent.title
+        m.episodes.showName = m.gridScreen.focusedContent.title
         m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
         m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
         m.episodes.content = m.gridScreen.focusedContent
@@ -90,9 +90,9 @@ Function OnKeyEvent(key, press) as Boolean
         if key = "options"
             ' option key handler
 
-            m.option.setFocus(true)
-            print m.option.hasFocus()
-            result  = true
+'            m.option.setFocus(true)
+'            print m.option.hasFocus()
+'            result  = true
 
         else if key = "back"
             if m.option.hasFocus() = true

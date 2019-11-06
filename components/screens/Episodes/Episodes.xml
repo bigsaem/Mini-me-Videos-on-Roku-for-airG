@@ -15,6 +15,7 @@
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
         
+        <field id="showName" type="string"/>        
         <field id="seasonUrl" type="string"/>
         <field id="seasonCount" type="string"/>
         <field id="epUrl" type="string"/>

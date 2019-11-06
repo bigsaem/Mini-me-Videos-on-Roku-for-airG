@@ -101,12 +101,12 @@ End Sub
 ' on Button press handler
 Sub onItemSelected()
     ' first button is Play
-    if m.top.itemSelected = 0
+    'if m.top.itemSelected = 0
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"
         m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
-    end if
+    'end if
 End Sub
 
 ' Content change handler
@@ -115,9 +115,7 @@ Sub OnContentChange()
     'm.description.content   = m.top.content
     'm.description.Description.width = "770"
     m.videoPlayer.content   = m.top.content
-
     m.top.streamUrl = m.top.content.url
-      
     onItemSelected()
     
     'm.top.streamUrl         = m.top.content.url

@@ -55,6 +55,7 @@
             focusBitmapUri="pkg:/images/focus_grid.9.png"
             translation = "[ 1000, 40 ]"
         />
+        
         <Option
 		  id="testRectangle"
 		  width="280"
@@ -63,6 +64,7 @@
 		  color="#ed7740"
 		  translation="[1280,0]" 
 		 />
+		 
         <!-- Details screen with Play button -->
         <DetailsScreen
             id="DetailsScreen"
