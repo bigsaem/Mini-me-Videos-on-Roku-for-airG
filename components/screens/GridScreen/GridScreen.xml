@@ -28,7 +28,9 @@
             id="Background"
             width = "1280"
             height = "720"
-            />
+            loadSync = "true"
+            uri = "pkg:/images/Background720.png"
+            /> 
          
        <Poster
 	        id = "itemMask"

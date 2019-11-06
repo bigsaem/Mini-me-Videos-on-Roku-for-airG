@@ -6,7 +6,7 @@ Function Init()
     ? "[GridScreen] Init"
 
 
-    m.rowList       =   m.top.findNode("RowList")
+    m.rowList =   m.top.findNode("RowList")
     m.itemmask = m.top.findNode("itemMask")
 
 

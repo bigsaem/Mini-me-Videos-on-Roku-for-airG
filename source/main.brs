@@ -7,10 +7,6 @@ sub RunUserInterface(APIURL)
     screen.SetMessagePort(port)
     screen.Show()
 
-    oneRow = GetApiArray()
-    
-
-
     oneRow = GetApiArray(APIURL)
 
     series = "Series"
@@ -67,8 +63,9 @@ function GetApiArray(APIURL)
 
     request = CreateObject("roUrlTransfer")
     request.setRequest("GET")
-    request.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
-    request.SetURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
+    '????why there are too url
+    'request.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
+    request.setURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
     ' request.SetUrl(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
