@@ -103,16 +103,21 @@ Function OnKeyEvent(key, press) as Boolean
                 m.gridScreen.visible = "true"
                 'm.detailsScreen.visible = "false"
                 m.episodes.visible = "false"
-                result = true               
-            
+                result = true            
+                
+            else if m.gridScreen.visible = false and m.detailsScreen.videoPlayerVisible = true
+                m.detailsScreen.videoPlayerVisible = false
+                result = true 
+                
+
             ' if video player opened
             else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
                 'm.detailsScreen.videoPlayerVisible = false
                  m.detailsScreen.videoPlayerVisible = false
                 result = true 
                   
-                result = true
             end if
+
 
         end if
     end if

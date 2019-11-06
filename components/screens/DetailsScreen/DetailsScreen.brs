@@ -64,6 +64,15 @@ Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and m.top.visible = true
         m.buttons.setFocus(true)
         m.videoPlayer.control = "stop"
+        TimeStamp = Str(m.videoPlayer.position)
+        Key = m.videoPlayer.content.id
+        ' Construct json here
+        valueJson = {"time":  m.videoPlayer.position}
+        ' Then turn json into string
+        valueJsonString = FormatJson(valueJson, 0)
+        sec = createObject("roRegistrySection", "MySection")
+        sec.Write(Key, valueJsonString)
+        sec.Flush()
     end if
 End Sub
 
@@ -90,6 +99,9 @@ Sub OnVideoPlayerStateChange()
         ' playback handling
     else if m.videoPlayer.state = "finished"
         m.videoPlayer.visible = false
+        Key = m.videoPlayer.content.id
+        sec = createObject("roRegistrySection", "MySection")
+        sec.Delete(Key)
     end if
 End Sub
 
@@ -100,6 +112,21 @@ Sub onItemSelected()
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"
+        sec = createObject("roRegistrySection", "MySection")
+        ' TODO change my section to something else? 
+        BookmarkTime = 0
+        ' Key = m.top.streamUrl
+        Key = m.videoPlayer.content.id
+        ' Key should be video/episode id
+        if sec.Exists(Key)
+          ' Parse json to get bookmark time
+          '  testObject = ParseJson(testString)
+          '  testObject.time
+          readJsonString =  sec.Read(Key)
+          readJsonObject = parseJson(readJsonString)
+          m.videoPlayer.seek = readJsonObject.time
+        end if
+        ' Should parse json string here to get json object, to get time
         m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
     end if
 End Sub
