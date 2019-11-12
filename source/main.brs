@@ -12,20 +12,30 @@ sub RunUserInterface(APIURL)
     'm.gridScreen = m.findNode("GridScreen")
 
     oneRow = GetApiArray(APIURL)
-
-    series = "Series"
-    continue = "Continue watching..."
-    list = [
-        {
-            TITLE: series
-            ContentList: oneRow
-        }
-        {
-            TITLE: continue
-            ContentList: oneRow
-        }
-    ]
+    list = []
     
+    if oneRow[0] = invalid
+        series = "Something went wrong"
+        list = [
+            {
+                TITLE: series
+                ContentList: oneRow
+            }
+            ]
+    else      
+        series = "Series"
+        continue = "Continue watching..."
+        list = [
+            {
+                TITLE: series
+                ContentList: oneRow
+            }
+            {
+                TITLE: continue
+                ContentList: oneRow
+            }
+        ]
+    end if
     
     scene.gridContent = parseJSONObject(list)
     
@@ -78,6 +88,7 @@ function GetApiArray(APIURL)
     result = []
     
     if jsonParsed = Invalid
+        
         print scene
         return result
     end if

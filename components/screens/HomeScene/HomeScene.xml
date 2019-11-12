@@ -8,7 +8,8 @@
     
     <interface>
         <!-- Content for RowList in GridScreen on Home Scene -->
-        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />            
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />       
+             
 		
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
@@ -95,7 +96,7 @@
               translation="[0, 0]"
 		      textPadding="10"
 		      font="font:SmallBoldSystemFont"
-		      backgroundColor="0x551A8B"
+		      backgroundColor="0x551A0B"
 		      backgroundOpacity="0"/>
 
     </children>

@@ -8,6 +8,8 @@ Function Init()
 
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
+    
+    m.bg = m.top.findNode("GridScreen").getChild(0)
 
     ' DetailsScreen Node with description, Video Player
 
