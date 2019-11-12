@@ -6,6 +6,10 @@ sub RunUserInterface(APIURL)
     port = CreateObject("roMessagePort")
     screen.SetMessagePort(port)
     screen.Show()
+    
+    screen2 = CreateObject("roSGScreen")
+    scene2 = screen.CreateScene("GridScreen")
+    'm.gridScreen = m.findNode("GridScreen")
 
     oneRow = GetApiArray(APIURL)
 
@@ -70,10 +74,15 @@ function GetApiArray(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
     jsonParsed = ParseJson(jsonString)
-    jsonParsed = jsonParsed
-
 
     result = []
+    
+    if jsonParsed = Invalid
+        print scene
+        return result
+    end if
+
+
 
     for each show in jsonParsed._embedded.collections
         item = {}

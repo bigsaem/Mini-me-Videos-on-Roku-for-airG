@@ -29,26 +29,20 @@
     	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
-    	
-    	
+    	indexOfChild = 0
+    	seasonsArray = CreateObject("roAssociativeArray")
     	    	    	
      	for each season in jsonTaskParsed._embedded.items
         	episodesAPI = season._links.episodes.href
-        	
-        	'call req here
-        	'getString here
-        	'parse here
-        	'loop parsedObject here        	
+        	req.setUrl(episodesAPI)
+    		jsonTaskString = req.GetToString()
+    		jsonTaskParsed = ParseJson(jsonTaskString)
+    		seasonsArray.AddReplace("season" + indexOfChild.toStr(), jsonTaskParsed)    		
+    		indexOfChild++     	
+    		
     	end for
-    	
-    	
-    	req.setUrl(episodesAPI)
-    	print episodesAPI
-    	jsonTaskString = req.GetToString()
-    	jsonTaskParsed = ParseJson(jsonTaskString)
-    	print type(jsonTaskParsed)
-    	m.top.content = jsonTaskParsed    	
-    	
+	
+    	m.top.content = seasonsArray
     	
   	end sub
   ]]> 

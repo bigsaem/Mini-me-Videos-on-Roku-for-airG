@@ -17,7 +17,7 @@ Function Init()
     
    ' Empty
     m.episodes = m.top.findNode("Episodes")
-'    m.optionCont = m.top.findNode("testRectangle")
+    m.optionCont = m.top.findNode("testRectangle")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")

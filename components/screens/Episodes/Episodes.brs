@@ -67,30 +67,40 @@ End Sub
 function gotContent()    
     jsonParsed = m.sceneTask.content
     result  = []
+    resultReversed = []
     x = 0
     y = 0
-    for each episode in jsonParsed._embedded.items
-        item = {}
-        item.HDGRIDPOSTERURL = episode.thumbnail.medium
-        item.SDGRIDPOSTERURL = episode.thumbnail.medium
-'        item.hdBackgroundImageUrl = episode.thumbnail.large
-        item.Title = episode.name   
-        item.SHORTDESCRIPTIONLINE1 = episode.title   
-        item.url = episode._links.files.href
-        if x < 4 then
-            item.X = x
-            item.Y = y
-        else
-            x=0
-            y = y+1
-            item.X = x
-            item.Y = y
-        end if
-        x = x + 1
-        result.push(item)
+    i = 0
+    for each season in jsonParsed
+        i = i+1    
+        for each episode in jsonParsed[season]._embedded.items
+            item = {}
+            item.HDGRIDPOSTERURL = episode.thumbnail.medium
+            item.SDGRIDPOSTERURL = episode.thumbnail.medium
+'           item.hdBackgroundImageUrl = episode.thumbnail.large
+            
+            item.Title = "Season " + i.toStr()
+
+            item.SHORTDESCRIPTIONLINE1 = episode.title   
+            item.url = episode._links.files.href
+            if x < 4 then
+                item.X = x
+                item.Y = y
+            else
+                x=0
+                y = y+1
+                item.X = x
+                item.Y = y
+            end if
+            x = x + 1
+            result.Unshift(item)
+            'result.push(item)
+        end for
     end for
-'    print type(result)
-'    row = result
+    
+     
+    
+    
     series = "Episodes"
     list = [
         {
