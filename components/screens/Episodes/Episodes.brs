@@ -20,7 +20,6 @@ End Function
 Sub OnItemFocused()
     itemFocused = m.top.itemFocused
     m.top.focusedContent = m.top.content.getChild(itemFocused)
-    print m.top.itemFocused
     'When an item gains the key focus, set to a 2-element array, 
     'where element 0 contains the index of the focused row, 
     'and element 1 contains the index of the focused item in that row.

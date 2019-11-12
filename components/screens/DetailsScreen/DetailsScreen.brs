@@ -61,7 +61,8 @@ End Sub
 
 ' set proper focus on buttons and stops video if return from Playback to details
 Sub onVideoVisibleChange()
-    if m.videoPlayer.visible = false and m.top.visible = true
+    if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
+        print "im here"
         m.buttons.setFocus(true)
         m.videoPlayer.control = "stop"
         TimeStamp = Str(m.videoPlayer.position)
@@ -109,6 +110,7 @@ End Sub
 Sub onItemSelected()
     ' first button is Play
     if m.top.itemSelected = 0
+        'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"

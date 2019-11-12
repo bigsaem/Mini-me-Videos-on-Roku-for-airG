@@ -15,14 +15,14 @@ Function Init()
     
    ' Empty
     m.episodes = m.top.findNode("Episodes")
-    m.optionCont = m.top.findNode("testRectangle")
+    m.optionCont = m.top.findNode("optionCont")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
-    m.top.observeField("optionSelected", "OnOptionSelected")
+    m.top.observeField("optionBtnSelected", "OnOptionSelected")
 
     m.top.observeField("episodesRowItemSelected", "OnRowItemSelected")
     
@@ -34,6 +34,7 @@ Function Init()
     
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
+    print type(m.detailsScreen.videoPlayer)
 End Function 
 
 ' if content set, focus on GridScreen
@@ -47,6 +48,7 @@ End Function
 Function OnOptionSelected()
     m.optionCont.visible = "true"
     m.animation.control = "start"
+    m.optionCont.setFocus(true)
 End Function 
 ' Row item selected handler
 Function OnRowItemSelected()
@@ -64,17 +66,16 @@ Function OnRowItemSelected()
         m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
         m.episodes.content = m.gridScreen.focusedContent
         m.episodes.setFocus(true)
-        m.episodes.visible = "true"        
+        m.episodes.visible = true 
+        result = true
     else if m.gridScreen.visible = false and m.episodes.visible = true
-        m.episodes.visible = "false"
-        m.DetailsScreen.epUrl = m.episodes.focusedContent.url
-        m.detailsScreen.visible = "true"
-    else if m.detailsScreen.visible = true
-        print "in vid player"
+        m.episodes.visible = false
+        m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
         m.detailsScreen.setFocus(true)
+        m.detailsScreen.visible = true
         'm.detailsScreen.videoPlayerVisible = true
-        
+        result = true
     end if
     
 End Function
@@ -91,7 +92,7 @@ Function OnKeyEvent(key, press) as Boolean
             result  = true
 
         else if key = "back"
-            if m.option.hasFocus() = true
+            if m.option.hasFocus() = true or m.optionCont.visible
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
                 result = true
@@ -111,7 +112,16 @@ Function OnKeyEvent(key, press) as Boolean
                 
             else if m.episodes.visible = false and m.detailsScreen.videoPlayerVisible = true
                 m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible=false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
+                print "this one runs"
                 result = true 
+            else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible=false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
+                result = true
             end if
             ' if video player opened
 '            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
