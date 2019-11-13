@@ -10,11 +10,17 @@ sub RunUserInterface(APIURL)
     
     if oneRow[0] = invalid
         screen = CreateObject("roSGScreen")
-        scene = screen.CreateScene("ErrorScreen")
+        scene = screen.CreateScene("ErrorScene")
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
-    else      
+        while true
+            msg = Wait(0, port)
+            ? "------------------"
+            ? "msg = ";
+        end while
+    else     
+
         screen = CreateObject("roSGScreen")
         scene = screen.CreateScene("HomeScene")
         port = CreateObject("roMessagePort")
@@ -79,7 +85,7 @@ function GetApiArray(APIURL)
     'request.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
     request.setURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
     ' request.SetUrl(APIURL)
-    request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCkA")
+    request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
     jsonParsed = ParseJson(jsonString)
 

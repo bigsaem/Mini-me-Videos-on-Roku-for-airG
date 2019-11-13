@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- 
+    main node which handles home screen children 
+    -->
+<component name="ErrorScene" extends="Scene">
+<script type="text/brightscript" uri="pkg:/components/screens/ErrorScene/ErrorScene.brs" />
+  <children>
+	  <Poster
+	     id="Background"
+	     width = "1280"
+	     height = "720"
+	     translation="[0,0]"
+	     uri = "pkg:/images/error_bgnd1280.jpg"
+	     /> 
+     <Label
+		  id="Label"
+		  height="720"
+		  width="1280"
+		  color="#000080"
+		  font="font:MediumBoldSystemFont"
+		  text = "Server Error occurred. Please Try Later"
+		  horizAlign = "center"
+		  vertAlign = "center"
+		  translation="[0,0]" />
+  </children>
+</component>
