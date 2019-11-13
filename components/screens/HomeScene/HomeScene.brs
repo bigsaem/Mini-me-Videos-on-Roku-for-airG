@@ -5,7 +5,10 @@
 Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
-
+    m.busyspinner = m.top.findNode("exampleBusySpinner")
+    print m.busySpinner
+'    m.busyspinner.poster.observeField("loadStatus", "showspinner")
+'    m.busyspinner.poster.uri = "pkg:/images/loader.png"
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
 
@@ -30,18 +33,28 @@ Function Init()
     
     
     ' loading indicator starts at initializatio of channel
-    m.loadingIndicator = m.top.findNode("loadingIndicator")
-    
+    'm.loadingIndicator = m.top.findNode("loadingIndicator")
+
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
+    
     print type(m.detailsScreen.videoPlayer)
 End Function 
+
+Function showspinner()
+      if(m.busyspinner.poster.loadStatus = "ready")
+        centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
+        centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
+        m.busyspinner.translation = [ centerx, centery ]
+        m.busyspinner.visible = true
+      end if
+End function
 
 ' if content set, focus on GridScreen
 Function OnChangeContent()
     m.gridScreen.setFocus(true)
     'm.episodes.setFocus(true)
-    m.loadingIndicator.control = "stop"
+    'm.loadingIndicator.control = "stop"
 End Function
 
 'Option button selected handler

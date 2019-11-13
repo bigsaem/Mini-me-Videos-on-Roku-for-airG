@@ -6,10 +6,7 @@
 <children>
 
         <ButtonGroup
-          id="button_grp"
-          width="280"
-          height="720"
-          color="#ed7740">
+          id="button_grp">
           <Button
             id="option_btn1"
             text="optionA"
