@@ -16,13 +16,23 @@
 	     /> 
      <Label
 		  id="Label"
-		  height="720"
+		  height="360"
 		  width="1280"
 		  color="#000080"
+		  text = "Server Error Occurred"
 		  font="font:MediumBoldSystemFont"
-		  text = "Server Error occurred. Please Try Later"
 		  horizAlign = "center"
-		  vertAlign = "center"
+		  vertAlign = "bottom"
 		  translation="[0,0]" />
+     <Label
+          id="Labell"
+          height="360"
+          width="1280"
+          color="#000080"
+          wrap = "true"
+          font="font:MediumBoldSystemFont"
+          horizAlign = "center"
+          vertAlign = "top"
+          translation="[0,360]" />
   </children>
 </component>

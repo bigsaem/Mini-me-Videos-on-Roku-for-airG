@@ -2,6 +2,9 @@ Function Init()
     ? "[ErrorScene] Init"
     m.background = m.top.findNode("Background")
     m.label = m.top.findNode("Label")
+    m.labell = m.top.findNode("Labell")
+    msg = "Sorry, unable to connect to Mini-Me Videos at this time."
+    m.labell.text = msg
 '    font = m.label.font
 '    font.size = 40
     m.label.font.size = 40
