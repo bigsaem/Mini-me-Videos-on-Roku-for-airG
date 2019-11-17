@@ -29,8 +29,6 @@
     	
     	videosArray = []
     	
-    	print jsonTaskParsed
-
     	
     	for each video in jsonTaskParsed
         	if video.size.bytes > 500
@@ -49,27 +47,21 @@
     		if item.quality = "1080p"
     			fUrl = item.url
     			id = item.id
-    			print item.quality
     			exit for
     		else if item.quality = "720p"
     		    fUrl = item.url
     			id = item.id
-    			print item.quality
     			exit for
     		else if item.quality = "540p"
     		    fUrl = item.url
     			id = item.id
-    			print item.quality
     			exit for
     		else if item.quality = "360p"
     		    fUrl = item.url
     			id = item.id
-    			print item.quality
     			exit for
     		end if
-    		
-    		print item.quality
-    	end for
+       	end for
     	
 
   		tempNode = CreateObject("roSGNode", "ContentNode")
@@ -78,13 +70,6 @@
   		tempNode.id = id
   		m.content = tempNode
   		m.top.passNode = tempNode
-  		print m.top.passNode
-  		'print tempNode
-  		'print "*************************************************"
-  		'print fUrl
-  		'print tempNode.url
-  		'print m.content.url
-  		'print "************************************************"
 		m.top.fEpUrl = fUrl
 		m.fEpUrl = m.top.fEpUrl
     	

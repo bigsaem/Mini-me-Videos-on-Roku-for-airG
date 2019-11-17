@@ -38,7 +38,6 @@ Sub onVisibleChange()
 'print "in on visible change"
 
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
-        print "in api call for episodes"
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.observeField("content","gotContent")

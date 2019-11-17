@@ -35,8 +35,6 @@ End Sub
 
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
-print "in GS on visible change"
-
     if m.top.visible = true then
         m.rowList.setFocus(true)
     end if

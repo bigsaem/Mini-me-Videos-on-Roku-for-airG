@@ -38,8 +38,6 @@
     		jsonTaskString = req.GetToString()
     		jsonTaskParsed = ParseJson(jsonTaskString)
     		seasonsArray.AddReplace("Season" + indexOfChild.toStr(), jsonTaskParsed)
-    		'print "Season below"
-    		'print season
     		indexOfChild++   	
     		
     	end for

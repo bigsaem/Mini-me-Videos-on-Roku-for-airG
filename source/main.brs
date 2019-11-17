@@ -3,10 +3,11 @@ sub RunUserInterface(APIURL)
 '    screen2 = CreateObject("roSGScreen")
 '    scene2 = screen.CreateScene("GridScreen")
     'm.gridScreen = m.findNode("GridScreen")
-
+     
+    APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
     oneRow = GetApiArray(APIURL)
     list = []
-    
+        
     if oneRow[0] = invalid
         screen = CreateObject("roSGScreen")
         scene = screen.CreateScene("ErrorScene")
@@ -18,8 +19,7 @@ sub RunUserInterface(APIURL)
             ? "------------------"
             ? "msg = ";
         end while
-    else     
-
+    else
         screen = CreateObject("roSGScreen")
         scene = screen.CreateScene("HomeScene")
         port = CreateObject("roMessagePort")
@@ -44,6 +44,7 @@ sub RunUserInterface(APIURL)
             ? "------------------"
             ? "msg = ";
         end while
+        canGetApi = false
     end if
     
 
@@ -80,10 +81,7 @@ function GetApiArray(APIURL)
 
     request = CreateObject("roUrlTransfer")
     request.setRequest("GET")
-    '????why there are too url
-    'request.setURL("http://vstage-api.mini-me.co/collections/78988/items?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342")
-    request.setURL("http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series")
-    ' request.SetUrl(APIURL)
+    request.SetUrl(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
     jsonParsed = ParseJson(jsonString)
@@ -91,8 +89,6 @@ function GetApiArray(APIURL)
     result = []
     
     if jsonParsed = Invalid
-        
-        print scene
         return result
     end if
 
