@@ -5,22 +5,23 @@
     handles bookmark buttons
     handles start of video playback
  -->
-<component name="Episodes" extends="Group" initialFocus="RowList" >
+<component name="Episodes" extends="Group" initialFocus="PosterGrid" >
     <interface>
         	        
-        
+
         <!-- Episodes Content Node -->
-        <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
+        <field id="content" type="node" alias="PosterGrid.content" onChange="onContentChange"/>
         
         <!-- Row item selection handler -->
-        <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
+        <field id="itemSelected" type="intarray" alwaysnotify="true" alias="PosterGrid.itemSelected"/>
         
         <field id="seasonUrl" type="string"/>
         <field id="seasonCount" type="string"/>
         <field id="epUrl" type="string"/>
+        <field id="showTitle" type="string"/>
         
         <!-- Row item focused handler -->
-        <field id="itemFocused" type="intarray" alias="RowList.rowItemFocused" onChange="OnItemFocused"/>
+        <field id="itemFocused" type="int" alias="PosterGrid.itemFocused" onChange="OnItemFocused"/>
 
         <!-- Interface to focused item (Content Node) -->
         <field id="focusedContent"  type="node"/>
@@ -37,17 +38,17 @@
             width = "1280"
             height = "720"
             loadSync = "true"
-            uri = "pkg:/images/Background.png"
+            uri = "pkg:/images/Background720.png"
             /> 
          
-       <Poster
+ <!--       <Poster
             id = "itemMask"
             width = "1280"
             height = "400"
             loadSync = "true"
             translation = "[ 0, 350 ]"
             uri="pkg:/images/bg-tile.png"
-            />
+            />--> 
             
         <RowList
             id="RowList"
@@ -65,8 +66,17 @@
 			rowLabelOffset="[[147, 20]]"
             />
             
+        <PosterGrid
+			  id="PosterGrid"
+			  translation="[100,100]"
+			  focusBitmapUri="pkg:/images/focus_grid.9.png"
+			  basePosterSize="[240,150]"
+			  itemSpacing="[32,32]"
+			  caption1NumLines="1"
+			  caption2NumLines="1"
+			  numColumns="4"
+			  numRows="3"/>
 
-        
         
         <Poster
 			translation="[0, 650]"
@@ -74,9 +84,9 @@
             width="2000"
             height="95" />
 
-          <Description
+         <Description
             id="Description"
 			translation="[106, 372]"
-            itemSpacings="[7,17]"/>
+            itemSpacings="[7,17]"/> 
     </children>
 </component>

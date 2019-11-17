@@ -13,7 +13,10 @@
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
         
-        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.rowItemSelected"/>
+        <!-- option selection handler -->
+        <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
+
+        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
         
         <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
         
@@ -42,14 +45,44 @@
             uri="pkg:/images/overhangLogo.png"
             width="156"
             height="49"  />
-
+        
+        <!--  option button -->
+        <Button
+            id="option_btn"
+            text="Option*"
+            textColor="#4881db"
+            focusBitmapUri="pkg:/images/focus_grid.9.png"
+            translation = "[ 1000, 40 ]"
+        />
+        <Option
+		  id="optionCont"
+		  width="280"
+		  height="720"
+		  visible="false"
+		  color="#ed7740"
+		  translation="[1280,0]" 
+		 />
         <!-- Details screen with Play button -->
         <DetailsScreen
             id="DetailsScreen"
             visible="false"/>
-            
-            
-        <LoadingIndicator
+
+        <!-- animation for option bar -->    
+        <Animation id="myAnim1" 
+			duration="0.5"
+			easeFunction="linear" >
+		    <Vector2DFieldInterpolator id = "Anim1"
+			    key="[0.0, 0.25, 0.5, 0.75, 1.0]"
+			    keyValue="[ [1280.0, 0.0], [1180.0, 0.0], [1080.0, 0.0], [1020.0, 0.0], [1000.0, 0.0] ]"
+		        fieldToInterp="optionCont.translation" />
+        </Animation>    
+        <BusySpinner 
+            id = "exampleBusySpinner" 
+            visible = "false" />
+        <!--  <LoadingIndicator
+            id="loadingIndicator"
+        />-->
+       <!--   <LoadingIndicator
 		      id="loadingIndicator"
 		      imageUri="pkg:/components/screens/LoadingIndicator/loader.png"
 		      clockwise="true"
@@ -65,7 +98,7 @@
 		      textPadding="10"
 		      font="font:SmallBoldSystemFont"
 		      backgroundColor="0x551A8B"
-		      backgroundOpacity="0"/>
+		      backgroundOpacity="0"/>-->
 
     </children>
 </component>

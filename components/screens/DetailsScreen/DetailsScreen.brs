@@ -61,7 +61,8 @@ End Sub
 
 ' set proper focus on buttons and stops video if return from Playback to details
 Sub onVideoVisibleChange()
-    if m.videoPlayer.visible = false and m.top.visible = true
+    if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
+        print "im here"
         m.buttons.setFocus(true)
         m.videoPlayer.control = "stop"
         TimeStamp = Str(m.videoPlayer.position)
@@ -77,15 +78,10 @@ Sub onVideoVisibleChange()
 End Sub
 
 function gotContent()
-    
-    print "got url"
-    print "got url"
-    print "got url"
     'just changed
     print  m.epTask.fEpUrl
     print m.epTask.passNode
     'print fileUrl
-    print "got url"
     print "got url"
     print "after"
     
@@ -114,6 +110,7 @@ End Sub
 Sub onItemSelected()
     ' first button is Play
     if m.top.itemSelected = 0
+        'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"
@@ -142,6 +139,7 @@ Sub OnContentChange()
     'm.description.content   = m.top.content
     'm.description.Description.width = "770"
     m.videoPlayer.content   = m.top.content
+
 
     m.top.streamUrl = m.top.content.url
       

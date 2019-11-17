@@ -4,6 +4,7 @@
 <!-- 
     node - description of the content item
     -->
+  
 <component name="Description" extends="LayoutGroup">
     <interface>
         <!-- Alias to Title label -->
@@ -14,7 +15,7 @@
 
         <!-- Alias to StarRating label -->
         <field id="StarRating"      type="node" alias=""/>
-
+            
         <!-- Alias to UserStarRating label -->
         <field id="UserStarRating"  type="node" alias=""/>
 
@@ -50,4 +51,4 @@
             text=""/>
     </children>
 
-</component> 
+</component>
