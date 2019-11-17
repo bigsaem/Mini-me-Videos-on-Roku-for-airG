@@ -1,28 +1,29 @@
-' ********** Copyright 2015 Roku Corp.  All Rights Reserved. ********** 
-
-sub RunUserInterface(APIURL)
-    screen = CreateObject("roSGScreen")
-    scene = screen.CreateScene("HomeScene")
-    port = CreateObject("roMessagePort")
-    screen.SetMessagePort(port)
-    screen.Show()
-    
-    screen2 = CreateObject("roSGScreen")
-    scene2 = screen.CreateScene("GridScreen")
+sub RunUserInterface(APIURL)   
+'    screen2 = CreateObject("roSGScreen")
+'    scene2 = screen.CreateScene("GridScreen")
     'm.gridScreen = m.findNode("GridScreen")
 
     oneRow = GetApiArray(APIURL)
     list = []
     
     if oneRow[0] = invalid
-        series = "Something went wrong"
-        list = [
-            {
-                TITLE: series
-                ContentList: oneRow
-            }
-            ]
-    else      
+        screen = CreateObject("roSGScreen")
+        scene = screen.CreateScene("ErrorScene")
+        port = CreateObject("roMessagePort")
+        screen.SetMessagePort(port)
+        screen.Show()
+        while true
+            msg = Wait(0, port)
+            ? "------------------"
+            ? "msg = ";
+        end while
+    else     
+
+        screen = CreateObject("roSGScreen")
+        scene = screen.CreateScene("HomeScene")
+        port = CreateObject("roMessagePort")
+        screen.SetMessagePort(port)
+        screen.Show()
         series = "Series"
         continue = "Continue watching..."
         list = [
@@ -35,15 +36,16 @@ sub RunUserInterface(APIURL)
                 ContentList: oneRow
             }
         ]
+        scene.gridContent = parseJSONObject(list)
+    
+        while true
+            msg = Wait(0, port)
+            ? "------------------"
+            ? "msg = ";
+        end while
     end if
     
-    scene.gridContent = parseJSONObject(list)
-    
-    while true
-        msg = Wait(0, port)
-        ? "------------------"
-        ? "msg = ";
-    end while
+
 
     if screen <> invalid then
         screen.Close()
@@ -98,7 +100,10 @@ function GetApiArray(APIURL)
     for each show in jsonParsed._embedded.collections
         item = {}
         item.HDPosterUrl = show.thumbnail.medium
+        'item.hdBackgroundImageUrl = show.thumbnail.large '
         item.Title = show.name
+        'item.ReleaseDate = " "'
+        'item.Description = " " '
         item.seasonUrl = show._links.seasons.href
         item.seasonNumber = show.seasons_count.ToStr()
         result.push(item)
@@ -106,4 +111,3 @@ function GetApiArray(APIURL)
 
     return result
 end function
-
