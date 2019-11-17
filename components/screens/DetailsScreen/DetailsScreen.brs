@@ -32,7 +32,6 @@ End Function
 ' set proper focus to buttons if Details opened and stops Video if Details closed
 Sub onVisibleChange()
     ? "[DetailsScreen] onVisibleChange"
-
     
     if m.top.epUrl <> "" 
         m.epTask.contenturi = m.top.epUrl
