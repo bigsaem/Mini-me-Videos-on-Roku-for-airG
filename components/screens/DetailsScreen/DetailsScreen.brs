@@ -22,11 +22,11 @@ Function Init()
     m.epTask = CreateObject("roSGNode", "getVideos")
     m.epTask.observeField("fEpUrl", "gotContent")
     ' create buttons
-'    result = []
-'    for each button in ["Play", "Second button"]
-'        result.push({title : button})
-'    end for
-    'm.buttons.content = ContentList2SimpleNode(result)
+    result = []
+    for each button in ["Play", "Second button"]
+        result.push({title : button})
+    end for
+    m.buttons.content = ContentList2SimpleNode(result)
 End Function
 
 ' set proper focus to buttons if Details opened and stops Video if Details closed
@@ -47,22 +47,23 @@ Sub onVisibleChange()
     else
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
-        'm.poster.uri=""
+        m.poster.uri=""
         m.background.uri=""
     end if
 End Sub
 
 ' set proper focus to Buttons in case if return from Video PLayer
-'Sub OnFocusedChildChange()
-'    if m.top.isInFocusChain() and not m.buttons.hasFocus() and not m.videoPlayer.hasFocus() then
-'        m.buttons.setFocus(true)
-'    end if
-'End Sub
+Sub OnFocusedChildChange()
+    if m.top.isInFocusChain() and not m.buttons.hasFocus() and not m.videoPlayer.hasFocus() then
+        m.buttons.setFocus(true)
+    end if
+End Sub
 
 ' set proper focus on buttons and stops video if return from Playback to details
 Sub onVideoVisibleChange()
-    if m.videoPlayer.visible = false and m.top.visible = true
-        'm.buttons.setFocus(true)
+    if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
+        print "im here"
+        m.buttons.setFocus(true)
         m.videoPlayer.control = "stop"
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
@@ -108,7 +109,8 @@ End Sub
 ' on Button press handler
 Sub onItemSelected()
     ' first button is Play
-    'if m.top.itemSelected = 0
+    if m.top.itemSelected = 0
+        'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"
@@ -128,7 +130,7 @@ Sub onItemSelected()
         end if
         ' Should parse json string here to get json object, to get time
         m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
-    'end if
+    End if
 End Sub
 
 ' Content change handler
@@ -138,6 +140,7 @@ Sub OnContentChange()
     'm.description.Description.width = "770"
     m.videoPlayer.content   = m.top.content
     m.top.streamUrl = m.top.content.url
+      
     onItemSelected()
     
     'm.top.streamUrl         = m.top.content.url
