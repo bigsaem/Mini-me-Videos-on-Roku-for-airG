@@ -33,7 +33,7 @@
 
     	
     	for each video in jsonTaskParsed
-        	if video.size.bytes > 1000
+        	if video.size.bytes > 500
         		videos = {}
         		videos.quality = video.quality
         		videos.url = video._links.source.href
@@ -43,12 +43,32 @@
     	end for
     	
     	fUrl = ""
+    	id = ""
     	
     	for each item in videosArray
     		if item.quality = "1080p"
     			fUrl = item.url
     			id = item.id
+    			print item.quality
+    			exit for
+    		else if item.quality = "720p"
+    		    fUrl = item.url
+    			id = item.id
+    			print item.quality
+    			exit for
+    		else if item.quality = "540p"
+    		    fUrl = item.url
+    			id = item.id
+    			print item.quality
+    			exit for
+    		else if item.quality = "360p"
+    		    fUrl = item.url
+    			id = item.id
+    			print item.quality
+    			exit for
     		end if
+    		
+    		print item.quality
     	end for
     	
 

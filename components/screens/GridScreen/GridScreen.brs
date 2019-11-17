@@ -28,7 +28,7 @@ Sub OnItemFocused()
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
 '            m.description.content   = focusedContent
-'            m.background.uri        = "pkg:/images/focus_grid.9.png"
+            'm.background.uri        = "pkg:/images/Background720.png"
         end if
     end if
 End Sub

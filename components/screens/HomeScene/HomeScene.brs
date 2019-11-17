@@ -81,6 +81,7 @@ Function OnRowItemSelected()
         m.episodes.showName = m.gridScreen.focusedContent.title
         m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
         m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
+        m.episodes.canCallApi = true
         m.episodes.content = m.gridScreen.focusedContent
         m.episodes.setFocus(true)
         m.episodes.visible = true 
@@ -141,19 +142,15 @@ Function OnKeyEvent(key, press) as Boolean
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
                 result = true
+            'end if
+            'if video player opened
+            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
+                m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible = false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
+                result = true   
             end if
-            ' if video player opened
-'            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
-'                'm.detailsScreen.videoPlayerVisible = false
-'                 m.detailsScreen.videoPlayerVisible = false
-'                result = true 
-'            else if m.detailsScreen.visible = true
-'                m.detailsScreen.visible = false
-'                 m.detailsScreen.videoPlayerVisible = false
-'                m.episodes.visible = true
-''                m.episodes.setFocus(true)   
-'                result = true   
-'            end if
 
 
         end if

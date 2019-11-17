@@ -12,6 +12,7 @@
 
         <field id="epUrl" type="string"/>
 
+		
         <field id="fEpUrl" type="string"/>
         
         
@@ -60,8 +61,8 @@
             id="testRectangle"
             color="0x000000FF"
             width="1280"
-            height="251"
-            translation="[0, 462]"  />
+            height="1280"
+            translation="[0, 0"  />
 
         <!-- Item description -->
         <!--  <Description 

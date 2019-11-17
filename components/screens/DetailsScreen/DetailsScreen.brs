@@ -6,15 +6,15 @@ Function Init()
     ? "[DetailsScreen] init"
 
     m.top.observeField("visible", "onVisibleChange")
-    m.top.observeField("focusedChild", "OnFocusedChildChange")
+   ' m.top.observeField("focusedChild", "OnFocusedChildChange")
 
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
      
-    m.buttons           =   m.top.findNode("Buttons")
+    'm.buttons           =   m.top.findNode("Buttons")
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
-    m.poster            =   m.top.findNode("Poster")
-    m.description       =   m.top.findNode("Description")
+    'm.poster            =   m.top.findNode("Poster")
+    'm.description       =   m.top.findNode("Description")
     m.background        =   m.top.findNode("Background")
     
     fileUrl = ""
@@ -23,32 +23,39 @@ Function Init()
     m.epTask.observeField("fEpUrl", "gotContent")
     ' create buttons
     result = []
-    for each button in ["Play", "Second button"]
-        result.push({title : button})
-    end for
-    m.buttons.content = ContentList2SimpleNode(result)
+    'for each button in ["Play", "Second button"]
+        'result.push({title : button})
+    'end for
+    'm.buttons.content = ContentList2SimpleNode(result)
 End Function
 
 ' set proper focus to buttons if Details opened and stops Video if Details closed
 Sub onVisibleChange()
     ? "[DetailsScreen] onVisibleChange"
     
-    if m.top.epUrl <> "" 
+    print "************************"
+    print "video state"
+    print m.videoPlayer.state
+    
+    if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
         m.epTask.contenturi = m.top.epUrl
-
         m.epTask.control = "RUN"
-    end if
-    
-    
-    if m.top.visible = true then
-        m.buttons.jumpToItem = 0
-        m.buttons.setFocus(true)
-    else
+        
+    else 'if m.videoPlayer.state = "playing"
+        print "stopping state"
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
-        m.poster.uri=""
-        m.background.uri=""
+    
     end if
+    
+    
+
+'    else
+'        m.videoPlayer.visible = false
+'        m.videoPlayer.control = "stop"
+'        m.poster.uri=""
+'        m.background.uri=""
+'    end if
 End Sub
 
 ' set proper focus to Buttons in case if return from Video PLayer
@@ -62,8 +69,8 @@ End Sub
 Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
         print "im here"
-        m.buttons.setFocus(true)
-        m.videoPlayer.control = "stop"
+        'm.buttons.setFocus(true)
+        'm.videoPlayer.control = "stop"
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
         ' Construct json here
@@ -86,8 +93,6 @@ function gotContent()
     
     m.top.content = m.epTask.passNode
     OnContentChange()
-      
-    
 end function
 
 ' event handler of Video player msg
@@ -108,7 +113,8 @@ End Sub
 ' on Button press handler
 Sub onItemSelected()
     ' first button is Play
-    if m.top.itemSelected = 0
+            
+    'if m.top.itemSelected = 0
         'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
@@ -129,21 +135,17 @@ Sub onItemSelected()
         end if
         ' Should parse json string here to get json object, to get time
         m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
-    End if
+    'End if
 End Sub
 
 ' Content change handler
 Sub OnContentChange()
 '?"on content change"
-    'm.description.content   = m.top.content
-    'm.description.Description.width = "770"
-    m.videoPlayer.content   = m.top.content
-    m.top.streamUrl = m.top.content.url
-      
+
+    
+    m.videoPlayer.content   = m.top.content    
     onItemSelected()
     
-    'm.top.streamUrl         = m.top.content.url
-    'm.top.streamUrl         = m.top.content.url
 End Sub
 
 '///////////////////////////////////////////'

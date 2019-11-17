@@ -15,6 +15,7 @@
         <!-- Row item selection handler -->
         <field id="itemSelected" type="intarray" alwaysnotify="true" alias="PosterGrid.itemSelected"/>
         
+        <field id="canCallApi" type="bool"/>
         <field id="showName" type="string"/>        
         <field id="seasonUrl" type="string"/>
         <field id="seasonCount" type="string"/>

@@ -37,17 +37,19 @@ End Sub
 Sub onVisibleChange()
 'print "in on visible change"
 
-if m.top.seasonUrl <> ""
-    m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
-    m.sceneTask.seasonUrl = m.top.seasonUrl
-    m.sceneTask.observeField("content","gotContent")
-    m.sceneTask.control = "RUN"
-end if
+    if m.top.seasonUrl <> "" and m.top.canCallApi = true
+        print "in api call for episodes"
+        m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
+        m.sceneTask.seasonUrl = m.top.seasonUrl
+        m.sceneTask.observeField("content","gotContent")
+        m.sceneTask.control = "RUN"
+        m.top.canCallApi = false
+        
+    end if
 
     if m.top.visible = true then
         m.posterGrid.setFocus(true)
-        'm.rowList.setFocus(true)
-        
+        'm.rowList.setFocus(true)   
     end if
 End Sub
 
@@ -64,19 +66,23 @@ End Sub
 
 
 function gotContent()    
-    jsonParsed = m.sceneTask.content
+    jsonParsed = m.sceneTask.content    
+    'print jasonParsed[Season1]._embedded.items
+
     result  = []
     resultReversed = []
     x = 0
     y = 0
     i = 0
-    for each season in jsonParsed
+    for each season in jsonParsed.keys()
         i = i+1    
-        for each episode in jsonParsed[season]._embedded.items
+        for each episode in jsonParsed[Season]._embedded.items
+            
             item = {}
             item.HDGRIDPOSTERURL = episode.thumbnail.medium
             item.SDGRIDPOSTERURL = episode.thumbnail.medium
 '           item.hdBackgroundImageUrl = episode.thumbnail.large
+
             
             item.Title = "Season " + i.toStr()
 
@@ -92,8 +98,7 @@ function gotContent()
                 item.Y = y
             end if
             x = x + 1
-            result.Unshift(item)
-            'result.push(item)
+            result.push(item)
         end for
     end for
     
