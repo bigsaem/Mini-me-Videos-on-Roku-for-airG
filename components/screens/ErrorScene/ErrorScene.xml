@@ -7,23 +7,23 @@
 <component name="ErrorScene" extends="Scene">
 <script type="text/brightscript" uri="pkg:/components/screens/ErrorScene/ErrorScene.brs" />
   <children>
-      <Poster
-         id="Background"
-         width = "1280"
-         height = "720"
-         translation="[0,0]"
-         uri = "pkg:/images/error_bgnd1280.jpg"
-         /> 
+	  <Poster
+	     id="Background"
+	     width = "1280"
+	     height = "720"
+	     translation="[0,0]"
+	     uri = "pkg:/images/error_bgnd1280.jpg"
+	     /> 
      <Label
-          id="Label"
-          height="360"
-          width="1280"
-          color="#000080"
-          text = "Server Error Occurred"
-          font="font:MediumBoldSystemFont"
-          horizAlign = "center"
-          vertAlign = "bottom"
-          translation="[0,0]" />
+		  id="Label"
+		  height="360"
+		  width="1280"
+		  color="#000080"
+		  text = "Server Error Occurred"
+		  font="font:MediumBoldSystemFont"
+		  horizAlign = "center"
+		  vertAlign = "bottom"
+		  translation="[0,0]" />
      <Label
           id="Labell"
           height="360"

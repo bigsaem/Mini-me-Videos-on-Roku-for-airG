@@ -1,4 +1,5 @@
-sub RunUserInterface(APIURL)   
+sub RunUserInterface(APIURL)
+
 '    screen2 = CreateObject("roSGScreen")
 '    scene2 = screen.CreateScene("GridScreen")
     'm.gridScreen = m.findNode("GridScreen")
