@@ -5,13 +5,16 @@
 Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
-    m.busyspinner = m.top.findNode("exampleBusySpinner")
-    'print m.busySpinner
-'    m.busyspinner.poster.observeField("loadStatus", "showspinner")
+    
+    m.background = m.top.findNode("Background")
+'    m.busyspinner = m.top.findNode("exampleBusySpinner")
 '    m.busyspinner.poster.uri = "pkg:/images/loader.png"
+
+
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
-    
+    m.episodes = m.top.findNode("Episodes")
+'    m.episodes.observeField("renderTracking", "showspinner")
     m.errorScene = m.top.findNode("ErrorScene")
     
     
@@ -22,9 +25,8 @@ Function Init()
     m.detailsScreen = m.top.findNode("DetailsScreen")
     m.option = m.top.findNode("option_btn")
 
-    
-   ' Empty
-    m.episodes = m.top.findNode("Episodes")
+
+
     m.optionCont = m.top.findNode("optionCont")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
@@ -48,12 +50,19 @@ Function Init()
     'print type(m.detailsScreen.videoPlayer)
 End Function 
 
+
+Function printfunc()
+    print m.episodes.renderTracking
+End function
+
 Function showspinner()
-      if(m.busyspinner.poster.loadStatus = "ready")
+      if(m.episodes.renderTracking = "partial")
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
         centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
         m.busyspinner.translation = [ centerx, centery ]
         m.busyspinner.visible = true
+      else if(m.episodes.renderTracking = "full")
+        m.busyspinner.visible = false
       end if
 End function
 

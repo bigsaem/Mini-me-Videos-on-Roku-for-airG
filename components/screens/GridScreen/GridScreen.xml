@@ -24,13 +24,6 @@
     <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
     
     <children>
-         <Poster
-            id="Background"
-            width = "1280"
-            height = "720"
-            loadSync = "true"
-            uri = "pkg:/images/Background720.png"
-            /> 
          
        <Poster
 	        id = "itemMask"
@@ -55,7 +48,7 @@
             showRowLabel="true"
             showRowCounter="true"
             rowLabelOffset="[[147, 20]]"
-            />
+          />
             
     <Poster
       id = "itemPoster"

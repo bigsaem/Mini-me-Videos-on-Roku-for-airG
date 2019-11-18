@@ -28,6 +28,12 @@
     <children>
 
         <!-- Grid screen with RowList on Home Scene -->
+        <Poster
+            id="Background"
+            width = "1280"
+            height = "720"
+            loadSync = "true"
+            uri = "pkg:/images/Background720.png"/>
         <GridScreen
             id="GridScreen"
             visible="true"
@@ -35,6 +41,7 @@
             
         <Episodes
             id="Episodes"
+            enableRenderTracking="true"
             visible="false"
             translation="[0,0]" />
             
