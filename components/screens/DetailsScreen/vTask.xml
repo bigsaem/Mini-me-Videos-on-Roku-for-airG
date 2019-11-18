@@ -4,6 +4,7 @@
   <interface>
     <field id = "contenturi" type = "string" />
     <field id = "episodeName" type = "string" />
+    <field id = "thumbnail" type = "string" />
     <field id = "fEpUrl" type = "string" />
     <field id = "passNode" type = "node" />
   </interface>
@@ -13,6 +14,7 @@
   
   	sub init()
   		m.top.functionName = "getAPIResponse"
+  		print m.top.thumbnail
   	end sub
   	
   	sub getAPIResponse()  	
@@ -87,6 +89,7 @@
   		m.content = tempNode
   		m.top.passNode = tempNode
 		m.top.fEpUrl = fUrl
+		print m.top.thumbnail
 		m.fEpUrl = m.top.fEpUrl
     	
     	

@@ -121,6 +121,7 @@ Function OnRowItemSelected()
         m.episodes.visible = false
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
+        m.detailsScreen.thumbnail = m.episodes.focusedContent.HDGRIDPOSTERURL
         m.detailsScreen.setFocus(true)
         m.detailsScreen.visible = true
         m.detailsScreen.allEpisodes = m.episodes.allEpisodes

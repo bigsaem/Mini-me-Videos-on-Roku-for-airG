@@ -133,7 +133,7 @@ function GetContinueWatchingArray()
         tempItem.streamFormat = jsonObject.streamFormat
         tempItem.url = jsonObject.url
         tempItem.id = item
-        
+        tempItem.HDPosterUrl = jsonObject.thumbnail
         result.push(tempItem)
     end for
     
