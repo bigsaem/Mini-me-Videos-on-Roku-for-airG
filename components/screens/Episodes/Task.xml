@@ -19,8 +19,6 @@
   	end sub
   	
   	sub getAPIResponse()  	
-  	
-  	print m.top.seasonCount
   		port = CreateObject("roMessagePort")
     	req = CreateObject("roUrlTransfer")
     	req.setRequest("GET")
@@ -29,26 +27,44 @@
     	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
+    	errorArray = CreateObject("roAssociativeArray")
     	
-    	
-    	    	    	
-     	for each season in jsonTaskParsed._embedded.items
-        	episodesAPI = season._links.episodes.href
+    	if jsonTaskString = "" or jsonTaskParsed = invalid
+    		'If there is an error with the API call
+    		errorLabel:    		
+    		screen = CreateObject("roSGScreen")
+        	scene = screen.CreateScene("ErrorScene")
+        	port = CreateObject("roMessagePort")
+        	screen.SetMessagePort(port)
+        	screen.Show()
+        	while true
+            	msg = Wait(0, port)
+            	? "------------------"
+            	? "msg = ";
+        	end while
         	
-        	'call req here
-        	'getString here
-        	'parse here
-        	'loop parsedObject here        	
-    	end for
-    	
-    	
-    	req.setUrl(episodesAPI)
-    	print episodesAPI
-    	jsonTaskString = req.GetToString()
-    	jsonTaskParsed = ParseJson(jsonTaskString)
-    	print type(jsonTaskParsed)
-    	m.top.content = jsonTaskParsed    	
-    	
+    		
+    	else
+	    	indexOfChild = 1
+	    	seasonsArray = CreateObject("roAssociativeArray")
+	    	
+	     	for each season in jsonTaskParsed._embedded.items
+	     	
+	        	episodesAPI = season._links.episodes.href
+	        	req.setUrl(episodesAPI)
+	    		jsonTaskString = req.GetToString()
+	    		jsonTaskParsed = ParseJson(jsonTaskString)
+	    		
+	    		if jsonTaskString = "" or jsonTaskParsed = invalid
+	    			Goto errorLabel
+	    		end if
+	    		seasonsArray.AddReplace("Season" + indexOfChild.toStr(), jsonTaskParsed)
+	    		indexOfChild++   	
+	    		
+	    	end for		
+	    		
+	    	m.top.content = seasonsArray
+    	end if
     	
   	end sub
   ]]> 

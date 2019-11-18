@@ -6,15 +6,22 @@ Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
     m.busyspinner = m.top.findNode("exampleBusySpinner")
-    print m.busySpinner
+    'print m.busySpinner
 '    m.busyspinner.poster.observeField("loadStatus", "showspinner")
 '    m.busyspinner.poster.uri = "pkg:/images/loader.png"
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
+    
+    m.errorScene = m.top.findNode("ErrorScene")
+    
+    
+    m.bg = m.top.findNode("GridScreen").getChild(0)
 
     ' DetailsScreen Node with description, Video Player
+
     m.detailsScreen = m.top.findNode("DetailsScreen")
     m.option = m.top.findNode("option_btn")
+
     
    ' Empty
     m.episodes = m.top.findNode("Episodes")
@@ -38,7 +45,7 @@ Function Init()
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
     
-    print type(m.detailsScreen.videoPlayer)
+    'print type(m.detailsScreen.videoPlayer)
 End Function 
 
 Function showspinner()
@@ -74,12 +81,14 @@ Function OnRowItemSelected()
 
     if m.gridScreen.visible = true and m.episodes.visible = false
         m.gridScreen.visible = "false"
-        'm.episodes.showName = m.gridScreen.focusedContent.title
+        m.episodes.showName = m.gridScreen.focusedContent.title
         m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
         m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
+        m.episodes.canCallApi = true
         m.episodes.content = m.gridScreen.focusedContent
         m.episodes.setFocus(true)
         m.episodes.visible = true 
+        
         result = true
     else if m.gridScreen.visible = false and m.episodes.visible = true
         m.episodes.visible = false
@@ -96,13 +105,16 @@ End Function
 ' Main Remote keypress event loop
 Function OnKeyEvent(key, press) as Boolean
     ? ">>> HomeScene >> OnkeyEvent"
+    
     result = false
     if press then
         if key = "options"
             ' option key handler
+
             m.option.setFocus(true)
-            print m.option.hasFocus()
+            'print m.option.hasFocus()
             result  = true
+
 
         else if key = "back"
             if m.option.hasFocus() = true or m.optionCont.visible
@@ -128,26 +140,22 @@ Function OnKeyEvent(key, press) as Boolean
                 m.detailsScreen.visible=false
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
-                print "this one runs"
+                'print "this one runs"
                 result = true 
             else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible=false
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
                 result = true
+            'end if
+            'if video player opened
+            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
+                m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible = false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
+                result = true   
             end if
-            ' if video player opened
-'            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
-'                'm.detailsScreen.videoPlayerVisible = false
-'                 m.detailsScreen.videoPlayerVisible = false
-'                result = true 
-'            else if m.detailsScreen.visible = true
-'                m.detailsScreen.visible = false
-'                 m.detailsScreen.videoPlayerVisible = false
-'                m.episodes.visible = true
-''                m.episodes.setFocus(true)   
-'                result = true   
-'            end if
 
 
         end if

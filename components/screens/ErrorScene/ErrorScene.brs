@@ -9,11 +9,20 @@ Function Init()
 '    font.size = 40
     m.label.font.size = 40
 End Function
+
+
 Function OnKeyEvent(key, press) as Boolean
     ? ">>> ErrorScene >> OnkeyEvent"
     result = false
     if press then
-        if key = "back"
+        if key = "options"
+            ' option key handler
+
+            'm.option.setFocus(true)
+            'print m.option.hasFocus()
+            result  = true
+            
+        else if key = "back"
             print "Back button clicked"
         end if
     end if

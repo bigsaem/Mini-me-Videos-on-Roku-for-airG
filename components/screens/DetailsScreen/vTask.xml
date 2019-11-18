@@ -29,11 +29,23 @@
     	
     	videosArray = []
     	
-    	print jsonTaskParsed
-
+    	if jsonTaskString = "" or jsonTaskParsed = invalid
+    		'If there is an error with the API call    		
+    		screen = CreateObject("roSGScreen")
+        	scene = screen.CreateScene("ErrorScene")
+        	port = CreateObject("roMessagePort")
+        	screen.SetMessagePort(port)
+        	screen.Show()
+        	while true
+            	msg = Wait(0, port)
+            	? "------------------"
+            	? "msg = ";
+        	end while
+    		return
+    	end if
     	
     	for each video in jsonTaskParsed
-        	if video.size.bytes > 1000
+        	if video.size.bytes > 500
         		videos = {}
         		videos.quality = video.quality
         		videos.url = video._links.source.href
@@ -43,13 +55,29 @@
     	end for
     	
     	fUrl = ""
+    	id = ""
+    	
+    	
     	
     	for each item in videosArray
     		if item.quality = "1080p"
     			fUrl = item.url
     			id = item.id
+    			exit for
+    		else if item.quality = "720p"
+    		    fUrl = item.url
+    			id = item.id
+    			exit for
+    		else if item.quality = "540p"
+    		    fUrl = item.url
+    			id = item.id
+    			exit for
+    		else if item.quality = "360p"
+    		    fUrl = item.url
+    			id = item.id
+    			exit for
     		end if
-    	end for
+       	end for
     	
 
   		tempNode = CreateObject("roSGNode", "ContentNode")
@@ -58,13 +86,6 @@
   		tempNode.id = id
   		m.content = tempNode
   		m.top.passNode = tempNode
-  		print m.top.passNode
-  		'print tempNode
-  		'print "*************************************************"
-  		'print fUrl
-  		'print tempNode.url
-  		'print m.content.url
-  		'print "************************************************"
 		m.top.fEpUrl = fUrl
 		m.fEpUrl = m.top.fEpUrl
     	

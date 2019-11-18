@@ -8,10 +8,11 @@
 <component name="DetailsScreen" extends="Group" initialFocus="Buttons">
     <interface>
         <!-- Button press handler -->
-        <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />
+        <!--  <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />-->
 
         <field id="epUrl" type="string"/>
 
+		
         <field id="fEpUrl" type="string"/>
         
         
@@ -35,6 +36,7 @@
             width="1280"
             height="720"
             />
+            
         <Rectangle
             translation="[0,0]"
             width="1280"
@@ -44,7 +46,7 @@
             />
 
         <!-- Control buttons -->
-        <LabelList
+      <!--   <LabelList
             id="Buttons"
             translation="[800,120]"
             color="0xFFFFFFFF"
@@ -52,37 +54,37 @@
             numRows="7"
             vertFocusAnimationStyle="floatingFocus"
             itemSize="[250, 35]"
-            />
+            />  -->
 
         <!-- Black hud at bottom of the Details Screen -->
         <Rectangle
             id="testRectangle"
             color="0x000000FF"
             width="1280"
-            height="251"
-            translation="[0, 462]"  />
+            height="1280"
+            translation="[0, 0"  />
 
         <!-- Item description -->
-        <Description 
+        <!--  <Description 
             id="Description"
             translation="[430, 475]"
             itemSpacings="[7, 16]"
-            />
+            /> -->
 
         <!-- Item poster -->
-        <Poster
+        <!--  <Poster
             id="Poster"
             translation="[60, 495]"
             width="317"
             height="178"
-            />
+            />-->
 
         <!-- Overhang -->
-        <Poster
+        <!--  <Poster
  	        translation="[79, 36]"
             uri="pkg:/images/overhangLogo.png"
 	        width="156"
-	        height="49"  />
+	        height="49"  /> -->
 
         <!-- Playback node -->
         <Video

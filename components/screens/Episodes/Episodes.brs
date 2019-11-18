@@ -8,6 +8,8 @@ Function Init()
     m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
+    m.errorScene = m.top.findNode("ErrorScene")
+    
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
@@ -37,17 +39,18 @@ End Sub
 Sub onVisibleChange()
 'print "in on visible change"
 
-if m.top.seasonUrl <> ""
-    m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
-    m.sceneTask.seasonUrl = m.top.seasonUrl
-    m.sceneTask.observeField("content","gotContent")
-    m.sceneTask.control = "RUN"
-end if
+    if m.top.seasonUrl <> "" and m.top.canCallApi = true
+        m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
+        m.sceneTask.seasonUrl = m.top.seasonUrl
+        m.sceneTask.observeField("content","gotContent")
+        m.sceneTask.control = "RUN"
+        m.top.canCallApi = false
+        
+    end if
 
     if m.top.visible = true then
         m.posterGrid.setFocus(true)
-        'm.rowList.setFocus(true)
-        
+        'm.rowList.setFocus(true)   
     end if
 End Sub
 
@@ -64,32 +67,44 @@ End Sub
 
 
 function gotContent()    
-    jsonParsed = m.sceneTask.content
+    jsonParsed = m.sceneTask.content    
+    'print jasonParsed[Season1]._embedded.items
+
     result  = []
     x = 0
     y = 0
-    for each episode in jsonParsed._embedded.items
-        item = {}
-        item.HDGRIDPOSTERURL = episode.thumbnail.medium
-        item.SDGRIDPOSTERURL = episode.thumbnail.medium
-'        item.hdBackgroundImageUrl = episode.thumbnail.large
-        item.Title = episode.name   
-        item.SHORTDESCRIPTIONLINE1 = episode.title   
-        item.url = episode._links.files.href
-        if x < 4 then
-            item.X = x
-            item.Y = y
-        else
-            x=0
-            y = y+1
-            item.X = x
-            item.Y = y
-        end if
-        x = x + 1
-        result.push(item)
-    end for
-'    print type(result)
-'    row = result
+    i = 0
+   
+
+    
+    for each season in jsonParsed.keys()
+        i = i+1    
+        for each episode in jsonParsed[Season]._embedded.items
+            
+            item = {}
+            item.HDGRIDPOSTERURL = episode.thumbnail.medium
+            item.SDGRIDPOSTERURL = episode.thumbnail.medium
+'           item.hdBackgroundImageUrl = episode.thumbnail.large
+
+            
+            item.Title = "Season " + i.toStr()
+
+            item.SHORTDESCRIPTIONLINE1 = episode.title   
+            item.url = episode._links.files.href
+            if x < 4 then
+                item.X = x
+                item.Y = y
+            else
+                x=0
+                y = y+1
+                item.X = x
+                item.Y = y
+            end if
+            x = x + 1
+            result.push(item)
+        end for
+    end for  
+
     series = "Episodes"
     list = [
         {
@@ -98,6 +113,7 @@ function gotContent()
         }
     ]
     m.top.content = parseJSONObject(list)
+    
 end function
 ' set proper focus to RowList in case if return from Details Screen
 

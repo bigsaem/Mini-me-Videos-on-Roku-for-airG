@@ -15,6 +15,8 @@
         <!-- Row item selection handler -->
         <field id="itemSelected" type="intarray" alwaysnotify="true" alias="PosterGrid.itemSelected"/>
         
+        <field id="canCallApi" type="bool"/>
+        <field id="showName" type="string"/>        
         <field id="seasonUrl" type="string"/>
         <field id="seasonCount" type="string"/>
         <field id="epUrl" type="string"/>
@@ -31,8 +33,7 @@
     <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
     
     <children>
-               
-            
+                     
          <Poster
             id="Background"
             width = "1280"
