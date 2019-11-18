@@ -11,7 +11,6 @@ Function Init()
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
     m.episodes = m.top.findNode("Episodes")
-'    m.episodes.observeField("renderTracking", "showspinner")
     m.errorScene = m.top.findNode("ErrorScene")
     m.rowList = m.top.findNode("rowList")
     print "hi"
@@ -30,8 +29,7 @@ Function Init()
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     
 
-    ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
-    m.top.observeField("optionBtnSelected", "OnOptionSelected")
+    m.top.observeField("optionSelected", "OnOptionSelected")
 
     m.top.observeField("episodesRowItemSelected", "OnRowItemSelected")
     
@@ -74,6 +72,8 @@ Function OnRowItemSelected()
         m.slideFull = m.top.findNode("slideUpFull")
         m.slideFull.control = "start"
         m.gridScreen.visible = "false"
+        
+        
         m.episodes.showName = m.gridScreen.focusedContent.title
         m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
         m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
@@ -87,6 +87,7 @@ Function OnRowItemSelected()
         m.episodes.visible = false
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
+        m.detailsScreen.thumbnail = m.episodes.focusedContent.HDGRIDPOSTERURL
         m.detailsScreen.setFocus(true)
         m.detailsScreen.visible = true
         'm.detailsScreen.videoPlayerVisible = true
@@ -103,9 +104,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-
             m.option.setFocus(true)
-            'print m.option.hasFocus()
             result  = true
 
 

@@ -4,14 +4,9 @@
  ' sets all observers 
 Function Init()
     ? "[GridScreen] Init"
-
-
     m.rowList =   m.top.findNode("RowList")
-
-
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
-    
     
 End Function
 
