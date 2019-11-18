@@ -6,6 +6,7 @@ sub RunUserInterface(APIURL)
      
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
     oneRow = GetApiArray(APIURL)
+    twoRow = GetContinueWatchingArray()
     list = []
         
     if oneRow = invalid
@@ -34,7 +35,7 @@ sub RunUserInterface(APIURL)
             }
             {
                 TITLE: continue
-                ContentList: oneRow
+                ContentList: twoRow
             }
         ]
         scene.gridContent = parseJSONObject(list)
@@ -114,4 +115,28 @@ function GetApiArray(APIURL)
     end for
 
     return result
+end function
+
+function GetContinueWatchingArray()
+    result = []
+    
+    sec = createObject("roRegistrySection", "MySection")
+    list = sec.GetKeyList()
+    for each item in list
+        print item
+        jsonString = sec.Read(item)
+        print jsonString
+        jsonObject = parseJson(jsonString)
+        print jsonObject
+        tempItem = {}
+        'tempNode = CreateObject("roSGNode", "ContentNode")
+        tempItem.streamFormat = jsonObject.streamFormat
+        tempItem.url = jsonObject.url
+        tempItem.id = item
+        tempItem.HDPosterUrl = jsonObject.thumbnail
+        result.push(tempItem)
+    end for
+    
+    return result
+  
 end function

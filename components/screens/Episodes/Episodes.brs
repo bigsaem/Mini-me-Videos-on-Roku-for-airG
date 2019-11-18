@@ -8,9 +8,13 @@ Function Init()
     m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
+
+    print m.allEpisodes
+
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
+
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
@@ -28,7 +32,9 @@ End Sub
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
-    
+
+?"onvis change ep"
+    print m.top.allEpisodes
 
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
@@ -79,6 +85,7 @@ function gotContent()
             item.Title = "Season " + i.toStr()
             item.SHORTDESCRIPTIONLINE1 = episode.title   
             item.url = episode._links.files.href
+            item.episodeNumber = episode.episode_number
             if x < 4 then
                 item.X = x
                 item.Y = y
@@ -100,6 +107,10 @@ function gotContent()
             ContentList: result
         }
     ]
+    
+    print list
+    m.top.allEpisodes = list
+    print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
     m.busyspinner.visible = false
 end function
