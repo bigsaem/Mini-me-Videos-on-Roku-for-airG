@@ -19,6 +19,6 @@ Function onButtonSelected()
     list = sec.GetKeyList()
     for each item in list
         print item
-        'sec.Delete(item)
+        sec.Delete(item)
     end for
 End Function
