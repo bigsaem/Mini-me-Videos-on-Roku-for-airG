@@ -7,7 +7,6 @@ Function Init()
 
 
     m.rowList =   m.top.findNode("RowList")
-    m.itemmask = m.top.findNode("itemMask")
 
 
     m.top.observeField("visible", "onVisibleChange")

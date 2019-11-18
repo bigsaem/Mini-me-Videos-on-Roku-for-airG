@@ -7,16 +7,15 @@ Function Init()
     ? "[HomeScene] Init"
     
     m.background = m.top.findNode("Background")
-'    m.busyspinner = m.top.findNode("exampleBusySpinner")
-'    m.busyspinner.poster.uri = "pkg:/images/loader.png"
-
-
+    m.itemmask = m.top.findNode("itemMask")
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
     m.episodes = m.top.findNode("Episodes")
 '    m.episodes.observeField("renderTracking", "showspinner")
     m.errorScene = m.top.findNode("ErrorScene")
-    
+    m.rowList = m.top.findNode("rowList")
+    print "hi"
+    print m.rowList.visible
     
     m.bg = m.top.findNode("GridScreen").getChild(0)
 
@@ -24,8 +23,6 @@ Function Init()
 
     m.detailsScreen = m.top.findNode("DetailsScreen")
     m.option = m.top.findNode("option_btn")
-
-
 
     m.optionCont = m.top.findNode("optionCont")
 
@@ -47,27 +44,15 @@ Function Init()
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
     
+    m.gridAnim = m.top.findNode("slideUpItemMask")
+    m.rowAnim = m.top.findNode("slideUpRowlist")
     'print type(m.detailsScreen.videoPlayer)
 End Function 
 
-
-Function printfunc()
-    print m.episodes.renderTracking
-End function
-
-Function showspinner()
-      if(m.episodes.renderTracking = "partial")
-        centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
-        centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
-        m.busyspinner.translation = [ centerx, centery ]
-        m.busyspinner.visible = true
-      else if(m.episodes.renderTracking = "full")
-        m.busyspinner.visible = false
-      end if
-End function
-
 ' if content set, focus on GridScreen
 Function OnChangeContent()
+    m.gridAnim.control = "start"
+    m.rowAnim.control = "start"
     m.gridScreen.setFocus(true)
     'm.episodes.setFocus(true)
     'm.loadingIndicator.control = "stop"
@@ -82,13 +67,12 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
-    ' On select any item on home scene, show Details node and hide Grid
-'    m.gridScreen.visible = "false"
-'    m.detailsScreen.content = m.gridScreen.focusedContent
-'    m.detailsScreen.setFocus(true)
-'    m.detailsScreen.visible = "true"
 
     if m.gridScreen.visible = true and m.episodes.visible = false
+        'anim stuff
+        m.itemmask.height = "720"
+        m.slideFull = m.top.findNode("slideUpFull")
+        m.slideFull.control = "start"
         m.gridScreen.visible = "false"
         m.episodes.showName = m.gridScreen.focusedContent.title
         m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
@@ -133,10 +117,15 @@ Function OnKeyEvent(key, press) as Boolean
             ' if Episodes opened
             end if
             if m.gridScreen.visible = false and m.episodes.visible = true
+                'anim stuff
+                
+                m.slideFull = m.top.findNode("slideDown")
+                m.slideFull.control = "start"
+   
                 m.gridScreen.setFocus(true)
-                m.gridScreen.visible =true
-                'm.detailsScreen.visible = "false"
+                m.gridScreen.visible = true
                 m.episodes.visible = false
+                'm.detailsScreen.visible = "false"
                 result = true            
 '            else if m.episodes.visible = false and m.detailsScreen.visible = true
 '                m.episodes.setFocus(true)
