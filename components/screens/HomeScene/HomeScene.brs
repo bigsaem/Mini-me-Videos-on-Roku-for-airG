@@ -19,8 +19,6 @@ Function Init()
 
     m.errorScene = m.top.findNode("ErrorScene")
     m.rowList = m.top.findNode("rowList")
-    print "hi"
-    print m.rowList.visible
     
     m.bg = m.top.findNode("GridScreen").getChild(0)
 
@@ -159,7 +157,7 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer2.content.id
         print m.videoPlayer2.content
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
+        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
         sec = createObject("roRegistrySection", "MySection")

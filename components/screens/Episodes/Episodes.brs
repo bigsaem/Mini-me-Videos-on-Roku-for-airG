@@ -8,15 +8,13 @@ Function Init()
     m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
-<<<<<<< HEAD
-    m.errorScene    =   m.top.findNode("ErrorScene")
-    
+
     print m.allEpisodes
-=======
+
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
->>>>>>> 7de0a978f0964b72504d611ec985e60c5ed143ff
+
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
@@ -34,13 +32,10 @@ End Sub
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
-<<<<<<< HEAD
+
 ?"onvis change ep"
     print m.top.allEpisodes
-=======
-    
 
->>>>>>> 7de0a978f0964b72504d611ec985e60c5ed143ff
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
