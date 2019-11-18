@@ -11,8 +11,7 @@
         <!--  <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />-->
 
         <field id="epUrl" type="string"/>
-
-		
+        <field id="thumbnail" type = "string"/>
         <field id="fEpUrl" type="string"/>
         
         

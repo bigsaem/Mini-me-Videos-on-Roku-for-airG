@@ -9,7 +9,8 @@ Function Init()
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
     m.errorScene = m.top.findNode("ErrorScene")
-    
+    m.busyspinner = m.top.findNode("BusySpinner")
+    m.busyspinner.poster.uri = "pkg:/images/loader2.png"
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
@@ -22,44 +23,35 @@ End Function
 Sub OnItemFocused()
     itemFocused = m.top.itemFocused
     m.top.focusedContent = m.top.content.getChild(itemFocused)
-    'When an item gains the key focus, set to a 2-element array, 
-    'where element 0 contains the index of the focused row, 
-    'and element 1 contains the index of the focused item in that row.
-'    If itemFocused.Count() = 2 then
-'        focusedContent = m.top.content.getChild(itemFocused[0]).getChild(itemFocused[1])
-'        if focusedContent <> invalid then
-'            m.top.focusedContent    = focusedContent
-'            m.top.epUrl = focusedContent.url
-'            m.description.content   = focusedContent
-'        end if
-'    end if
 End Sub
 
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
+    
 
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
+        'loading indicator stuff
+        centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
+        centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
+        m.busyspinner.translation = [ centerx, centery ]
+        m.busyspinner.visible = true
+        'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"
         m.top.canCallApi = false
-        
     end if
 
     if m.top.visible = true then
         m.posterGrid.setFocus(true)
-        'm.rowList.setFocus(true)   
     end if
+
 End Sub
 
 
 Sub OnFocusedChildChange()
-'    if m.top.isInFocusChain() and not m.rowList.hasFocus() then
-'        m.rowList.setFocus(true)
-'    end if
-    
     if m.top.isInFocusChain() and not m.posterGrid.hasFocus() then
         m.posterGrid.setFocus(true)
     end if
@@ -82,13 +74,9 @@ function gotContent()
         for each episode in jsonParsed[Season]._embedded.items
             
             item = {}
-            item.HDGRIDPOSTERURL = episode.thumbnail.medium
-            item.SDGRIDPOSTERURL = episode.thumbnail.medium
-'           item.hdBackgroundImageUrl = episode.thumbnail.large
-
-            
+            item.HDGRIDPOSTERURL = episode.thumbnail.small
+            item.SDGRIDPOSTERURL = episode.thumbnail.small
             item.Title = "Season " + i.toStr()
-
             item.SHORTDESCRIPTIONLINE1 = episode.title   
             item.url = episode._links.files.href
             if x < 4 then
@@ -113,13 +101,11 @@ function gotContent()
         }
     ]
     m.top.content = parseJSONObject(list)
-    
+    m.busyspinner.visible = false
 end function
 ' set proper focus to RowList in case if return from Details Screen
 
 function parseJSONObject(list as Object)
-'    RowItems = CreateObject("RoSGNode", "ContentNode")
-
     for each rowAA in list
         ' for index = 0 to 1
         row = CreateObject("RoSGNode", "ContentNode")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<component name="Option" extends="Rectangle" initialFocus="option_btn1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+<component name="Option" extends="Rectangle"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
 
 <script type="text/brightscript" uri="pkg:/components/screens/Option/Option.brs" />
 
@@ -9,22 +9,11 @@
           id="button_grp">
           <Button
             id="option_btn1"
-            text="optionA"
-            textColor="#4881db"
-            
+            text="Clear view history"
+            textColor="#ffffff"
+            focusedIconUri=""
+            iconUri=""
             focusBitmapUri="pkg:/images/focus_grid.9.png" />
-          <Button
-            id="option_btn2"
-            text="optionB"
-            textColor="#4881db"
-            
-            focusBitmapUri="pkg:/images/focus_grid.9.png"/>
-          <Button
-            id="option_btn3"
-            text="optionC"
-            textColor="#4881db"
-            
-            focusBitmapUri="pkg:/images/focus_grid.9.png"/>
         </ButtonGroup>
         
 
