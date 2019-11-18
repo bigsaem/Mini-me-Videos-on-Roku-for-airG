@@ -36,40 +36,6 @@
     <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
     
     <children>
-                     
-         <Poster
-            id="Background"
-            width = "1280"
-            height = "720"
-            loadSync = "true"
-            uri = "pkg:/images/Background720.png"
-            /> 
-         
- <!--       <Poster
-            id = "itemMask"
-            width = "1280"
-            height = "400"
-            loadSync = "true"
-            translation = "[ 0, 350 ]"
-            uri="pkg:/images/bg-tile.png"
-            />--> 
-            
-        <RowList
-            id="RowList"
-            focusBitmapUri="pkg:/images/focus_grid.9.png"
-			translation="[0, 420]"
-			itemSize="[1280, 218]"
-			numRows="2"
-			itemSpacing="[13, 0]"
-			focusXOffset="[147]"
-			rowFocusAnimationStyle="floatingFocus"
-			rowItemSize="[[262, 147]]"
-			rowItemSpacing="[[16.5, 3]]"
-			showRowLabel="true"
-			showRowCounter="false"
-			rowLabelOffset="[[147, 20]]"
-            />
-            
         <PosterGrid
 			  id="PosterGrid"
 			  translation="[100,100]"
@@ -82,16 +48,13 @@
 			  numRows="3"/>
 			  
 
-        
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
             width="2000"
             height="95" />
-
-         <Description
-            id="Description"
-			translation="[106, 372]"
-            itemSpacings="[7,17]"/> 
+        <BusySpinner 
+            id = "BusySpinner" 
+            visible = "false" />
     </children>
 </component>

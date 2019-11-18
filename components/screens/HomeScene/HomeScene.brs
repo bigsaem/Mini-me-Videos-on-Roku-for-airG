@@ -5,17 +5,22 @@
 Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
-    m.busyspinner = m.top.findNode("exampleBusySpinner")
-    'print m.busySpinner
-'    m.busyspinner.poster.observeField("loadStatus", "showspinner")
-'    m.busyspinner.poster.uri = "pkg:/images/loader.png"
+    
+    m.background = m.top.findNode("Background")
+    m.itemmask = m.top.findNode("itemMask")
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
+
     
     m.videoPlayer2 = m.top.findNode("videoPlayer2")
     
+
+    m.episodes = m.top.findNode("Episodes")
+
     m.errorScene = m.top.findNode("ErrorScene")
-    
+    m.rowList = m.top.findNode("rowList")
+    print "hi"
+    print m.rowList.visible
     
     m.bg = m.top.findNode("GridScreen").getChild(0)
 
@@ -24,17 +29,13 @@ Function Init()
     m.detailsScreen = m.top.findNode("DetailsScreen")
     m.option = m.top.findNode("option_btn")
 
-    
-   ' Empty
-    m.episodes = m.top.findNode("Episodes")
     m.optionCont = m.top.findNode("optionCont")
 
     ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     
 
-    ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
-    m.top.observeField("optionBtnSelected", "OnOptionSelected")
+    m.top.observeField("optionSelected", "OnOptionSelected")
 
     m.top.observeField("episodesRowItemSelected", "OnRowItemSelected")
     
@@ -47,20 +48,15 @@ Function Init()
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
     
+    m.gridAnim = m.top.findNode("slideUpItemMask")
+    m.rowAnim = m.top.findNode("slideUpRowlist")
     'print type(m.detailsScreen.videoPlayer)
 End Function 
 
-Function showspinner()
-      if(m.busyspinner.poster.loadStatus = "ready")
-        centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
-        centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
-        m.busyspinner.translation = [ centerx, centery ]
-        m.busyspinner.visible = true
-      end if
-End function
-
 ' if content set, focus on GridScreen
 Function OnChangeContent()
+    m.gridAnim.control = "start"
+    m.rowAnim.control = "start"
     m.gridScreen.setFocus(true)
     'm.episodes.setFocus(true)
     'm.loadingIndicator.control = "stop"
@@ -75,11 +71,6 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
-    ' On select any item on home scene, show Details node and hide Grid
-'    m.gridScreen.visible = "false"
-'    m.detailsScreen.content = m.gridScreen.focusedContent
-'    m.detailsScreen.setFocus(true)
-'    m.detailsScreen.visible = "true"
 
     if m.gridScreen.visible = true and m.episodes.visible = false
         if m.gridScreen.itemFocused[0] = 1
@@ -106,6 +97,11 @@ Function OnRowItemSelected()
             m.videoPlayer2.observeField("state", "OnVideoPlayerStateChange")
         else
             print m.gridScreen.focusedContent
+            'anim stuff
+            m.itemmask.height = "720"
+            m.slideFull = m.top.findNode("slideUpFull")
+            m.slideFull.control = "start"
+            m.gridScreen.visible = "false"
             m.gridScreen.visible = "false"
             m.episodes.showName = m.gridScreen.focusedContent.title
             m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
@@ -117,6 +113,7 @@ Function OnRowItemSelected()
             
             result = true 
         end if
+
     else if m.gridScreen.visible = false and m.episodes.visible = true
         m.episodes.visible = false
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
@@ -196,9 +193,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-
             m.option.setFocus(true)
-            'print m.option.hasFocus()
             result  = true
 
 
@@ -210,6 +205,7 @@ Function OnKeyEvent(key, press) as Boolean
                 result = true
             ' if Episodes opened
             end if
+
             if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
                 m.videoPlayerVisible = false
@@ -218,10 +214,15 @@ Function OnKeyEvent(key, press) as Boolean
                 m.GridScreen.setFocus(true)
                 result = true
             else if m.gridScreen.visible = false and m.episodes.visible = true
+
+                'anim stuff
+                
+                m.slideFull = m.top.findNode("slideDown")
+                m.slideFull.control = "start"
                 m.gridScreen.setFocus(true)
-                m.gridScreen.visible =true
-                'm.detailsScreen.visible = "false"
+                m.gridScreen.visible = true
                 m.episodes.visible = false
+                'm.detailsScreen.visible = "false"
                 result = true            
 '            else if m.episodes.visible = false and m.detailsScreen.visible = true
 '                m.episodes.setFocus(true)

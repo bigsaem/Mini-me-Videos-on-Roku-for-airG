@@ -3,6 +3,7 @@
 <component name="getVideos" extends="Task">
   <interface>
     <field id = "contenturi" type = "string" />
+    <field id="thumbnail" type = "string"/>
     <field id = "episodeName" type = "string" />
     <field id = "thumbnail" type = "string" />
     <field id = "fEpUrl" type = "string" />

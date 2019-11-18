@@ -10,6 +10,8 @@
         <!-- Grid Content Node -->
         <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
         
+        <field id="rowList" type = "node" alias="RowList"/>
+        
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
         
@@ -24,38 +26,25 @@
     <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
     
     <children>
-         <Poster
-            id="Background"
-            width = "1280"
-            height = "720"
-            loadSync = "true"
-            uri = "pkg:/images/Background720.png"
-            /> 
          
-       <Poster
-	        id = "itemMask"
-	        width = "1280"
-	        height = "400"
-	        translation = "[ 0, 350 ]"
-	        uri="pkg:/images/bg-tile.png"
-	        />
+
 	        
 
-         <RowList
-            id="RowList"
-            focusBitmapUri="pkg:/images/focus_grid.9.png"
-            translation="[-60, 372]"
-            itemSize="[1327, 218]"
-            numRows="2"
-            itemSpacing="[13, 0]"
-            focusXOffset="[147]"
-            rowFocusAnimationStyle="fixedFocusWrap"
-            rowItemSize="[[262, 147]]"
-            rowItemSpacing="[[16.5, 3]]"
-            showRowLabel="true"
-            showRowCounter="true"
-            rowLabelOffset="[[147, 20]]"
-            />
+    <RowList
+       id="RowList"
+       focusBitmapUri="pkg:/images/focus_grid.9.png"
+       translation="[-60, 372]"
+       itemSize="[1327, 218]"
+       numRows="2"
+       itemSpacing="[13, 0]"
+       focusXOffset="[147]"
+       rowFocusAnimationStyle="fixedFocusWrap"
+       rowItemSize="[[262, 147]]"
+       rowItemSpacing="[[16.5, 3]]"
+       showRowLabel="true"
+       showRowCounter="true"
+       rowLabelOffset="[[147, 20]]"
+     />
             
     <Poster
       id = "itemPoster"
