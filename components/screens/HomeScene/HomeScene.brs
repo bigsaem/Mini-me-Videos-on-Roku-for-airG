@@ -96,6 +96,13 @@ Function OnRowItemSelected()
         m.detailsScreen.content = m.episodes.focusedContent
         m.detailsScreen.setFocus(true)
         m.detailsScreen.visible = true
+        m.detailsScreen.allEpisodes = m.episodes.allEpisodes
+        
+        print "epi **********************"
+        print m.episodes.allEpisodes
+        print "details***************************"
+        print m.detailsScreen.allEpisodes
+        
         'm.detailsScreen.videoPlayerVisible = true
         result = true
     end if

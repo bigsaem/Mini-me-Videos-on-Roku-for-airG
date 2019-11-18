@@ -11,9 +11,12 @@
 
         <!-- Episodes Content Node -->
         <field id="content" type="node" alias="PosterGrid.content" onChange="onContentChange"/>
+                
         
         <!-- Row item selection handler -->
         <field id="itemSelected" type="intarray" alwaysnotify="true" alias="PosterGrid.itemSelected"/>
+        
+        <field id="allEpisodes" type="roArray" />
         
         <field id="canCallApi" type="bool"/>
         <field id="showName" type="string"/>        
@@ -77,6 +80,7 @@
 			  caption2NumLines="1"
 			  numColumns="4"
 			  numRows="3"/>
+			  
 
         
         <Poster

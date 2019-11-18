@@ -12,7 +12,7 @@
 
         <field id="epUrl" type="string"/>
 
-		
+		<field id="allEpisodes" type="roArray" />
         <field id="fEpUrl" type="string"/>
         
         

@@ -11,31 +11,24 @@ Function Init()
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
      
-    'm.buttons           =   m.top.findNode("Buttons")
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
-    'm.poster            =   m.top.findNode("Poster")
-    'm.description       =   m.top.findNode("Description")
     m.background        =   m.top.findNode("Background")
     
     fileUrl = ""
     
     m.epTask = CreateObject("roSGNode", "getVideos")
     m.epTask.observeField("fEpUrl", "gotContent")
-    ' create buttons
-    result = []
-    'for each button in ["Play", "Second button"]
-        'result.push({title : button})
-    'end for
-    'm.buttons.content = ContentList2SimpleNode(result)
+    
 End Function
 
 ' set proper focus to buttons if Details opened and stops Video if Details closed
 Sub onVisibleChange()
+
     ? "[DetailsScreen] onVisibleChange"
     
-    print "************************"
-    print "video state"
-    print m.videoPlayer.state
+'    print "************************"
+'    print "video state"
+'    print m.videoPlayer.state
     
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
         m.epTask.contenturi = m.top.epUrl
@@ -68,9 +61,6 @@ End Sub
 ' set proper focus on buttons and stops video if return from Playback to details
 Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
-        print "im here"
-        'm.buttons.setFocus(true)
-        'm.videoPlayer.control = "stop"
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
         ' Construct json here
@@ -83,20 +73,16 @@ Sub onVideoVisibleChange()
     end if
 End Sub
 
-function gotContent()
-    'just changed
-    print  m.epTask.fEpUrl
-    print m.epTask.passNode
-    'print fileUrl
-    print "got url"
-    print "after"
-    
+function gotContent()    
     m.top.content = m.epTask.passNode
     OnContentChange()
 end function
 
 ' event handler of Video player msg
 Sub OnVideoPlayerStateChange()
+                print "finished playing"
+                print m.videoPlayer.state
+
     if m.videoPlayer.state = "error"
         ' error handling
         m.videoPlayer.visible = false
@@ -107,6 +93,7 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer.content.id
         sec = createObject("roRegistrySection", "MySection")
         sec.Delete(Key)
+        onItemSelected()
     end if
 End Sub
 
@@ -118,6 +105,7 @@ Sub onItemSelected()
         'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
+        print "started playing"
         m.videoPlayer.control = "play"
         sec = createObject("roRegistrySection", "MySection")
         ' TODO change my section to something else? 
@@ -132,9 +120,10 @@ Sub onItemSelected()
           readJsonString =  sec.Read(Key)
           readJsonObject = parseJson(readJsonString)
           m.videoPlayer.seek = readJsonObject.time
-        end if
+        end if        
         ' Should parse json string here to get json object, to get time
         m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
+        
     'End if
 End Sub
 
