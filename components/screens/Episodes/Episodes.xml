@@ -33,8 +33,7 @@
     <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
     
     <children>
-               
-            
+                     
          <Poster
             id="Background"
             width = "1280"

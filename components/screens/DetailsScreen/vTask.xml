@@ -29,6 +29,20 @@
     	
     	videosArray = []
     	
+    	if jsonTaskString = "" or jsonTaskParsed = invalid
+    		'If there is an error with the API call    		
+    		screen = CreateObject("roSGScreen")
+        	scene = screen.CreateScene("ErrorScene")
+        	port = CreateObject("roMessagePort")
+        	screen.SetMessagePort(port)
+        	screen.Show()
+        	while true
+            	msg = Wait(0, port)
+            	? "------------------"
+            	? "msg = ";
+        	end while
+    		return
+    	end if
     	
     	for each video in jsonTaskParsed
         	if video.size.bytes > 500
@@ -42,6 +56,8 @@
     	
     	fUrl = ""
     	id = ""
+    	
+    	
     	
     	for each item in videosArray
     		if item.quality = "1080p"

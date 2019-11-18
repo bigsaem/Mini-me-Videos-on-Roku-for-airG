@@ -8,7 +8,7 @@ sub RunUserInterface(APIURL)
     oneRow = GetApiArray(APIURL)
     list = []
         
-    if oneRow[0] = invalid
+    if oneRow = invalid
         screen = CreateObject("roSGScreen")
         scene = screen.CreateScene("ErrorScene")
         port = CreateObject("roMessagePort")
@@ -84,14 +84,21 @@ function GetApiArray(APIURL)
     request.SetUrl(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
-    jsonParsed = ParseJson(jsonString)
+    
+    
 
     result = []
     
-    if jsonParsed = Invalid
-        return result
+    if jsonString = ""
+        return invalid
     end if
 
+    jsonParsed = ParseJson(jsonString)
+
+    if jsonParsed = invalid
+        return invalid
+    end if
+        
 
 
     for each show in jsonParsed._embedded.collections

@@ -6,11 +6,14 @@ Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
     m.busyspinner = m.top.findNode("exampleBusySpinner")
-    print m.busySpinner
+    'print m.busySpinner
 '    m.busyspinner.poster.observeField("loadStatus", "showspinner")
 '    m.busyspinner.poster.uri = "pkg:/images/loader.png"
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
+    
+    m.errorScene = m.top.findNode("ErrorScene")
+    
     
     m.bg = m.top.findNode("GridScreen").getChild(0)
 
@@ -42,7 +45,7 @@ Function Init()
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
     
-    print type(m.detailsScreen.videoPlayer)
+    'print type(m.detailsScreen.videoPlayer)
 End Function 
 
 Function showspinner()
@@ -85,6 +88,7 @@ Function OnRowItemSelected()
         m.episodes.content = m.gridScreen.focusedContent
         m.episodes.setFocus(true)
         m.episodes.visible = true 
+        
         result = true
     else if m.gridScreen.visible = false and m.episodes.visible = true
         m.episodes.visible = false
@@ -101,13 +105,14 @@ End Function
 ' Main Remote keypress event loop
 Function OnKeyEvent(key, press) as Boolean
     ? ">>> HomeScene >> OnkeyEvent"
+    
     result = false
     if press then
         if key = "options"
             ' option key handler
 
             m.option.setFocus(true)
-            print m.option.hasFocus()
+            'print m.option.hasFocus()
             result  = true
 
 
@@ -135,7 +140,7 @@ Function OnKeyEvent(key, press) as Boolean
                 m.detailsScreen.visible=false
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
-                print "this one runs"
+                'print "this one runs"
                 result = true 
             else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible=false

@@ -8,6 +8,8 @@ Function Init()
     m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
+    m.errorScene = m.top.findNode("ErrorScene")
+    
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
@@ -69,10 +71,12 @@ function gotContent()
     'print jasonParsed[Season1]._embedded.items
 
     result  = []
-    resultReversed = []
     x = 0
     y = 0
     i = 0
+   
+
+    
     for each season in jsonParsed.keys()
         i = i+1    
         for each episode in jsonParsed[Season]._embedded.items
@@ -99,11 +103,8 @@ function gotContent()
             x = x + 1
             result.push(item)
         end for
-    end for
-    
-     
-    
-    
+    end for  
+
     series = "Episodes"
     list = [
         {
@@ -112,6 +113,7 @@ function gotContent()
         }
     ]
     m.top.content = parseJSONObject(list)
+    
 end function
 ' set proper focus to RowList in case if return from Details Screen
 

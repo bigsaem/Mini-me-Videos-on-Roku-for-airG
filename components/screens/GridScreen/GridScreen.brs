@@ -28,13 +28,15 @@ Sub OnItemFocused()
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
 '            m.description.content   = focusedContent
-            'm.background.uri        = "pkg:/images/Background720.png"
+'            m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
 End Sub
 
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
+print "in GS on visible change"
+
     if m.top.visible = true then
         m.rowList.setFocus(true)
     end if

@@ -27,22 +27,44 @@
     	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
-    	indexOfChild = 1
-    	seasonsArray = CreateObject("roAssociativeArray")
-    	seasonsRegArray = []
-    	    	    	
-     	for each season in jsonTaskParsed._embedded.items
-     	
-        	episodesAPI = season._links.episodes.href
-        	req.setUrl(episodesAPI)
-    		jsonTaskString = req.GetToString()
-    		jsonTaskParsed = ParseJson(jsonTaskString)
-    		seasonsArray.AddReplace("Season" + indexOfChild.toStr(), jsonTaskParsed)
-    		indexOfChild++   	
+    	errorArray = CreateObject("roAssociativeArray")
+    	
+    	if jsonTaskString = "" or jsonTaskParsed = invalid
+    		'If there is an error with the API call
+    		errorLabel:    		
+    		screen = CreateObject("roSGScreen")
+        	scene = screen.CreateScene("ErrorScene")
+        	port = CreateObject("roMessagePort")
+        	screen.SetMessagePort(port)
+        	screen.Show()
+        	while true
+            	msg = Wait(0, port)
+            	? "------------------"
+            	? "msg = ";
+        	end while
+        	
     		
-    	end for
-		
-    	m.top.content = seasonsArray
+    	else
+	    	indexOfChild = 1
+	    	seasonsArray = CreateObject("roAssociativeArray")
+	    	
+	     	for each season in jsonTaskParsed._embedded.items
+	     	
+	        	episodesAPI = season._links.episodes.href
+	        	req.setUrl(episodesAPI)
+	    		jsonTaskString = req.GetToString()
+	    		jsonTaskParsed = ParseJson(jsonTaskString)
+	    		
+	    		if jsonTaskString = "" or jsonTaskParsed = invalid
+	    			Goto errorLabel
+	    		end if
+	    		seasonsArray.AddReplace("Season" + indexOfChild.toStr(), jsonTaskParsed)
+	    		indexOfChild++   	
+	    		
+	    	end for		
+	    		
+	    	m.top.content = seasonsArray
+    	end if
     	
   	end sub
   ]]> 

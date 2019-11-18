@@ -15,7 +15,7 @@
         
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
-
+        
         <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
         
         <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
@@ -35,6 +35,11 @@
             
         <Episodes
             id="Episodes"
+            visible="false"
+            translation="[0,0]" />
+            
+        <ErrorScene
+            id="ErrorScene"
             visible="false"
             translation="[0,0]" />
             
