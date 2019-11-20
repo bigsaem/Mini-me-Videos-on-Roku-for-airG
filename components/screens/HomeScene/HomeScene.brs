@@ -71,7 +71,7 @@ Function OnRowItemSelected()
     ?"On row item selected"
 
     if m.gridScreen.visible = true and m.episodes.visible = false
-        if m.gridScreen.itemFocused[0] = 1
+        if m.gridScreen.itemFocused[0] = 0
             m.gridScreen.visible = "false"
             selectedItem = m.gridScreen.focusedContent
             print selectedItem
