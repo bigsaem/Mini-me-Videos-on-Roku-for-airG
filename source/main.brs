@@ -5,11 +5,11 @@ sub RunUserInterface(APIURL)
     'm.gridScreen = m.findNode("GridScreen")
      
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
-    oneRow = GetApiArray(APIURL)
-    twoRow = GetContinueWatchingArray()
+    oneRow = GetContinueWatchingArray()
+    twoRow = GetApiArray(APIURL)
     list = []
         
-    if oneRow = invalid
+    if twoRow = invalid
         screen = CreateObject("roSGScreen")
         scene = screen.CreateScene("ErrorScene")
         port = CreateObject("roMessagePort")
@@ -30,11 +30,11 @@ sub RunUserInterface(APIURL)
         continue = "Continue watching..."
         list = [
             {
-                TITLE: series
+                TITLE: continue
                 ContentList: oneRow
             }
             {
-                TITLE: continue
+                TITLE: series
                 ContentList: twoRow
             }
         ]
