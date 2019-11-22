@@ -14,6 +14,7 @@ sub RunUserInterface(APIURL)
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
+        setActiveScene
         while true
             msg = Wait(0, port)
             ? "------------------"
