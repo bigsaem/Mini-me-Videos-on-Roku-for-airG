@@ -3,6 +3,7 @@
 <component name="getVideos" extends="Task">
   <interface>
     <field id = "contenturi" type = "string" />
+    <field id="thumbnail" type = "string"/>
     <field id = "episodeName" type = "string" />
     <field id = "fEpUrl" type = "string" />
     <field id = "passNode" type = "node" />
@@ -11,86 +12,87 @@
     
   <![CDATA[
   
-  	sub init()
-  		m.top.functionName = "getAPIResponse"
-  	end sub
-  	
-  	sub getAPIResponse()  	
-  		
-  		port = CreateObject("roMessagePort")
-    	req = CreateObject("roUrlTransfer")
-    	req.setRequest("GET")
-    	req.setURL(m.top.contenturi)    	
-    	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
-    	jsonTaskString = req.GetToString()
-    	jsonTaskParsed = ParseJson(jsonTaskString)
-    	
-    	videoLink = ""
-    	
-    	videosArray = []
-    	
-    	if jsonTaskString = "" or jsonTaskParsed = invalid
-    		'If there is an error with the API call    		
-    		screen = CreateObject("roSGScreen")
-        	scene = screen.CreateScene("ErrorScene")
-        	port = CreateObject("roMessagePort")
-        	screen.SetMessagePort(port)
-        	screen.Show()
-        	while true
-            	msg = Wait(0, port)
-            	? "------------------"
-            	? "msg = ";
-        	end while
-    		return
-    	end if
-    	
-    	for each video in jsonTaskParsed
-        	if video.size.bytes > 500
-        		videos = {}
-        		videos.quality = video.quality
-        		videos.url = video._links.source.href
-        		videos.id = video.id
-        		videosArray.push(videos)
-        	end if
-    	end for
-    	
-    	fUrl = ""
-    	id = ""
-    	
-    	
-    	
-    	for each item in videosArray
-    		if item.quality = "1080p"
-    			fUrl = item.url
-    			id = item.id
-    			exit for
-    		else if item.quality = "720p"
-    		    fUrl = item.url
-    			id = item.id
-    			exit for
-    		else if item.quality = "540p"
-    		    fUrl = item.url
-    			id = item.id
-    			exit for
-    		else if item.quality = "360p"
-    		    fUrl = item.url
-    			id = item.id
-    			exit for
-    		end if
-       	end for
-    	
-
-  		tempNode = CreateObject("roSGNode", "ContentNode")
-  		tempNode.streamFormat = "mp4"
-  		tempNode.url = fUrl
-  		tempNode.id = id
-  		m.content = tempNode
-  		m.top.passNode = tempNode
-		m.top.fEpUrl = fUrl
-		m.fEpUrl = m.top.fEpUrl
-    	
-    	
-  	end sub
+    sub init()
+        m.top.functionName = "getAPIResponse"
+        print m.top.thumbnail
+    end sub
+    
+    sub getAPIResponse()    
+        
+        port = CreateObject("roMessagePort")
+        req = CreateObject("roUrlTransfer")
+        req.setRequest("GET")
+        req.setURL(m.top.contenturi)        
+        req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+        jsonTaskString = req.GetToString()
+        jsonTaskParsed = ParseJson(jsonTaskString)
+        
+        videoLink = ""
+        
+        videosArray = []
+        
+        if jsonTaskString = "" or jsonTaskParsed = invalid
+            'If there is an error with the API call         
+            screen = CreateObject("roSGScreen")
+            scene = screen.CreateScene("ErrorScene")
+            port = CreateObject("roMessagePort")
+            screen.SetMessagePort(port)
+            screen.Show()
+            while true
+                msg = Wait(0, port)
+                ? "------------------"
+                ? "msg = ";
+            end while
+            return
+        end if
+        
+        for each video in jsonTaskParsed
+            if video.size.bytes > 500
+                videos = {}
+                videos.quality = video.quality
+                videos.url = video._links.source.href
+                videos.id = video.id
+                videosArray.push(videos)
+            end if
+        end for
+        
+        fUrl = ""
+        id = ""
+        
+        
+        
+        for each item in videosArray
+            if item.quality = "1080p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "720p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "540p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "360p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            end if
+        end for
+        
+        tempNode = CreateObject("roSGNode", "ContentNode")
+        tempNode.streamFormat = "mp4"
+        tempNode.url = fUrl
+        tempNode.id = id
+        m.content = tempNode
+        m.top.passNode = tempNode
+        m.top.fEpUrl = fUrl
+        print m.top.thumbnail
+        m.fEpUrl = m.top.fEpUrl
+        
+        
+    end sub
   ]]> 
   </script>
 </component>
