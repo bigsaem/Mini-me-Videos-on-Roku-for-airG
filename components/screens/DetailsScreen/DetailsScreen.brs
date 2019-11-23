@@ -35,7 +35,6 @@ Sub onVisibleChange()
         m.epTask.control = "RUN"
         
     else 'if m.videoPlayer.state = "playing"
-        print "stopping state"
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
     
@@ -63,9 +62,6 @@ Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
-        print "hihihihihihihi"
-        print m.videoPlayer.content
-        print m.top.thumbnail
         ' Construct json here
         valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key}
         ' Then turn json into string
@@ -83,9 +79,6 @@ end function
 
 ' event handler of Video player msg
 Sub OnVideoPlayerStateChange()
-                print "finished playing"
-                print m.videoPlayer.state
-
     if m.videoPlayer.state = "error"
         ' error handling
         m.videoPlayer.visible = false
@@ -108,7 +101,6 @@ Sub onItemSelected()
         'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
-        print "started playing"
         m.videoPlayer.control = "play"
         sec = createObject("roRegistrySection", "MySection")
         ' TODO change my section to something else? 
