@@ -21,6 +21,7 @@
         
         <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
         <field id="APIArray" type="roArray"/>
+        <field id="rowCount" type="integer" value="0"/>
         
     </interface>
     

@@ -6,8 +6,8 @@
     <field id = "seasonUrl" type = "string" />
     <field id = "seasonCount" type = "integer" />
     <field id = "result2" type = "roArray" />
-    
-    
+    <field id="showName" type="string"/>
+	<field id="isCached" type="bool"/>
     <field id = "content" type = "assocarray" />
   </interface>
   <script type="text/brightscript">
@@ -18,7 +18,29 @@
   		m.top.functionName = "getAPIResponse"
   	end sub
   	
-  	sub getAPIResponse()  	
+  	sub getAPIResponse()
+  		print "*******showname****"
+  		print m.top.showName
+  		
+
+  			
+  		if m.top.content <> invalid
+  		for each season in m.top.content.keys()
+        for each episode in m.top.content[Season]._embedded.items
+  				if m.top.showName = episode.metadata.series_name
+  					m.top.content = m.top.content
+  					m.top.isCached = true
+  					return
+  				end if
+  				'print episode.series_name
+  			end for
+  		end for
+  		
+  			'print m.top.content.Season1._embedded.items.title
+  		end if
+  		
+  		'if m.top.content <> invalid and
+  		   	
   		port = CreateObject("roMessagePort")
     	req = CreateObject("roUrlTransfer")
     	req.setRequest("GET")
@@ -44,7 +66,7 @@
         	end while
         	
     		
-    	else
+    	else    	
 	    	indexOfChild = 1
 	    	seasonsArray = CreateObject("roAssociativeArray")
 	    	
@@ -55,6 +77,7 @@
 	    		jsonTaskString = req.GetToString()
 	    		jsonTaskParsed = ParseJson(jsonTaskString)
 	    		
+	    		print "API"
 	    		if jsonTaskString = "" or jsonTaskParsed = invalid
 	    			Goto errorLabel
 	    		end if
@@ -66,6 +89,7 @@
 	    	m.top.content = seasonsArray
     	end if
     	
+    	endLabel:
   	end sub
   ]]> 
   </script>

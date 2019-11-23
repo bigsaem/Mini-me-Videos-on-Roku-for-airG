@@ -26,6 +26,11 @@
    	else
    		twoRow = myScene.APIArray
    	end if
+   	
+   	size = 0    
+    for each item in oneRow
+        size = size + 1
+    end for
     	
     list = []
         
@@ -39,16 +44,28 @@
     else
         series = "Series"
         continue = "Continue watching..."
-        list = [
-            {
-                TITLE: continue
-                ContentList: oneRow
-            }
-            {
+        if size <> 0
+            list = [
+                {
+                    TITLE: continue
+                    ContentList: oneRow
+                }
+                {
+                    TITLE: series
+                    ContentList: twoRow
+                }
+            ]
+            myScene.rowCount = 2
+        else
+            list = [
+                {
                 TITLE: series
                 ContentList: twoRow
-            }
-        ]
+                }
+            ]
+            myScene.rowCount = 1
+            
+        end if
         
         myScene.gridContent = parseJSONObject(list)
         

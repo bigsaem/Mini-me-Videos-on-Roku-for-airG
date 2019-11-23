@@ -76,8 +76,9 @@ End Function
 Function OnRowItemSelected()
     ?"On row item selected"
 
-    if m.gridScreen.visible = true and m.episodes.visible = false
-        if m.gridScreen.itemFocused[0] = 0
+    print  m.top.rowCount
+    if m.gridScreen.visible = true and m.episodes.visible = false 
+        if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
             m.gridScreen.visible = "false"
             selectedItem = m.gridScreen.focusedContent
             'init of video player and start playback
@@ -98,20 +99,19 @@ Function OnRowItemSelected()
             end if        
             m.videoPlayer2.observeField("state", "OnVideoPlayerStateChange")
         else
-            'anim stuff
+            'Going to episode screen
             m.itemmask.height = "720"
             m.slideFull = m.top.findNode("slideUpFull")
             m.slideFull.control = "start"
             m.gridScreen.visible = "false"
-            m.gridScreen.visible = "false"
-            m.episodes.showName = m.gridScreen.focusedContent.title
+            m.episodes.showName =  m.gridScreen.focusedContent.title
             m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
             m.episodes.seasonCount = m.gridScreen.focusedContent.seasonNumber
             m.episodes.canCallApi = true
             m.episodes.content = m.gridScreen.focusedContent
             m.episodes.setFocus(true)
             m.episodes.visible = true 
-            
+                        
             result = true 
         end if
 
@@ -162,6 +162,7 @@ Sub OnVideoPlayerStateChange()
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
+    
     if m.videoPlayer2.state = "error"
         'hide vide player in case of error
         m.videoPlayer2.visible = false

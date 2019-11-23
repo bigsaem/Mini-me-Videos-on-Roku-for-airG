@@ -30,8 +30,7 @@ End Sub
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
-
-
+        
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
@@ -41,6 +40,9 @@ Sub onVisibleChange()
         'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
+        
+        m.sceneTask.showName = m.top.showName
+        
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"
         m.top.canCallApi = false
@@ -60,7 +62,7 @@ Sub OnFocusedChildChange()
 End Sub
 
 
-function gotContent()    
+function gotContent()        
     jsonParsed = m.sceneTask.content    
     'print jasonParsed[Season1]._embedded.items
 

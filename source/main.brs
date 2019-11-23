@@ -7,6 +7,14 @@ sub RunUserInterface(APIURL)
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
     oneRow = GetContinueWatchingArray()
     twoRow = GetApiArray(APIURL)
+    size = 0
+    
+    for each item in oneRow
+        size = size + 1
+    end for
+        
+    print size
+    
     list = []
         
     if twoRow = invalid
@@ -29,16 +37,30 @@ sub RunUserInterface(APIURL)
         screen.Show()
         series = "Series"
         continue = "Continue watching..."
-        list = [
-            {
-                TITLE: continue
-                ContentList: oneRow
-            }
-            {
+        
+        if size <> 0
+            list = [
+                {
+                    TITLE: continue
+                    ContentList: oneRow
+                }
+                {
+                    TITLE: series
+                    ContentList: twoRow
+                }
+            ]
+            scene.rowCount = 2
+        else
+            list = [
+                {
                 TITLE: series
                 ContentList: twoRow
-            }
-        ]
+                }
+            ]
+            scene.rowCount = 1
+            
+        end if
+        
         scene.APIArray = twoRow         
         scene.gridContent = parseJSONObject(list)
 
