@@ -8,7 +8,8 @@
     
     <interface>
         <!-- Content for RowList in GridScreen on Home Scene -->
-        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />            
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />      
+              
 		<field id="rowList" type = "node" alias="GridScreen.rowList"/>
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
@@ -19,6 +20,8 @@
         <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
         
         <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
+        <field id="APIArray" type="roArray"/>
+        <field id="rowCount" type="integer" value="0"/>
         
     </interface>
     

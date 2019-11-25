@@ -11,6 +11,8 @@
 
         <!-- Episodes Content Node -->
         <field id="content" type="node" alias="PosterGrid.content" onChange="onContentChange"/>
+        <field id="episodesList" type="node"/>
+        
                 
         
         <!-- Row item selection handler -->

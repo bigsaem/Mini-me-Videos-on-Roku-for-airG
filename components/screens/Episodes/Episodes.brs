@@ -9,8 +9,6 @@ Function Init()
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
 
-    print m.allEpisodes
-
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
@@ -32,10 +30,7 @@ End Sub
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
-
-?"onvis change ep"
-    print m.top.allEpisodes
-
+        
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
@@ -45,6 +40,9 @@ Sub onVisibleChange()
         'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
+        
+        m.sceneTask.showName = m.top.showName
+        
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"
         m.top.canCallApi = false
@@ -64,7 +62,7 @@ Sub OnFocusedChildChange()
 End Sub
 
 
-function gotContent()    
+function gotContent()        
     jsonParsed = m.sceneTask.content    
     'print jasonParsed[Season1]._embedded.items
 
@@ -108,12 +106,13 @@ function gotContent()
         }
     ]
     
-    print list
+    'print list
     m.top.allEpisodes = list
-    print m.top.allEpisodes
+    'print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
     m.busyspinner.visible = false
 end function
+
 ' set proper focus to RowList in case if return from Details Screen
 
 function parseJSONObject(list as Object)
