@@ -71,6 +71,8 @@ Function OnRowItemSelected()
     ?"On row item selected"
 
     if m.gridScreen.visible = true and m.episodes.visible = false
+        print m.gridScreen.focusedContent
+        
         if m.gridScreen.itemFocused[0] = 0
             m.gridScreen.visible = "false"
             selectedItem = m.gridScreen.focusedContent
@@ -94,12 +96,10 @@ Function OnRowItemSelected()
             end if        
             m.videoPlayer2.observeField("state", "OnVideoPlayerStateChange")
         else
-            print m.gridScreen.focusedContent
             'anim stuff
             m.itemmask.height = "720"
             m.slideFull = m.top.findNode("slideUpFull")
             m.slideFull.control = "start"
-            m.gridScreen.visible = "false"
             m.gridScreen.visible = "false"
             m.episodes.showName = m.gridScreen.focusedContent.title
             m.episodes.seasonUrl = m.gridScreen.focusedContent.seasonUrl
@@ -113,13 +113,18 @@ Function OnRowItemSelected()
         end if
 
     else if m.gridScreen.visible = false and m.episodes.visible = true
-        m.episodes.visible = false
+        
+        'm.episodes.visible = false
+        print "hellooooooooooooooooooooo"
+        print m.episodes.focusedContent.id
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
-        m.detailsScreen.thumbnail = m.episodes.focusedContent.HDGRIDPOSTERURL
-        m.detailsScreen.setFocus(true)
+        print m.episodes.focusedContent.Title
+        m.detailsScreen.passedTitle = m.episodes.focusedContent.SHORTDESCRIPTIONLINE1
+        m.detailsScreen.thumbnail = m.episodes.focusedContent.SDGRIDPOSTERURL
         m.detailsScreen.visible = true
-        m.detailsScreen.allEpisodes = m.episodes.allEpisodes
+        m.detailsScreen.setFocus(true)
+        'm.detailsScreen.allEpisodes = m.episodes.allEpisodes
         
         print "epi **********************"
         print m.episodes.allEpisodes
@@ -177,7 +182,7 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer2.content.id
         sec = createObject("roRegistrySection", "MySection")
         sec.Delete(Key)
-        onItemSelected()
+        'onItemSelected()
         m.GridScreen.visible = true
         m.GridScreen.setFocus(true)
     end if
@@ -191,25 +196,40 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-            m.option.setFocus(true)
-            result  = true
-
+            if m.detailsScreen.visible = false
+                m.option.setFocus(true)
+                result  = true
+            end if
 
         else if key = "back"
         print "back pressed"
-            if m.option.hasFocus() = true or m.optionCont.visible
+            if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.gridScreen.visible = true
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
                 result = true
             ' if Episodes opened
-            end if
-
-            if m.gridScreen.visible = false and m.videoPlayer2.visible = true
+            else if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.episodes.visible = true
+                m.optionCont.visible = "false"
+                m.episodes.setFocus(true)
+                result = true
+            else if m.episodes.visible = false and m.detailsScreen.videoPlayerVisible = true
+                m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible=false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
+                'print "this one runs"
+                result = true 
+            else if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
                 m.videoPlayerVisible = false
                 m.videoPlayer2.control = "stop"
                 m.GridScreen.visible = true
                 m.GridScreen.setFocus(true)
+                result = true
+            else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
+                m.detailsScreen.visible=false
+                m.episodes.visible = true
+                m.episodes.setFocus(true)
                 result = true
             else if m.gridScreen.visible = false and m.episodes.visible = true
 
@@ -228,18 +248,8 @@ Function OnKeyEvent(key, press) as Boolean
 '                m.detailsScreen.visible = false
 '                result = true
                 
-            else if m.episodes.visible = false and m.detailsScreen.videoPlayerVisible = true
-                m.detailsScreen.videoPlayerVisible = false
-                m.detailsScreen.visible=false
-                m.episodes.visible = true
-                m.episodes.setFocus(true)
-                'print "this one runs"
-                result = true 
-            else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
-                m.detailsScreen.visible=false
-                m.episodes.visible = true
-                m.episodes.setFocus(true)
-                result = true
+
+
             'end if
             'if video player opened
             else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true

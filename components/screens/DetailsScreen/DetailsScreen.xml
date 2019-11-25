@@ -5,7 +5,7 @@
     node that renders details screen 
     handles start of video playback
  -->
-<component name="DetailsScreen" extends="Group" initialFocus="Buttons">
+<component name="DetailsScreen" extends="Rectangle">
     <interface>
         <!-- Button press handler -->
         <!--  <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />-->
@@ -14,8 +14,7 @@
         <field id ="thumbnail" type = "string" />
 		<field id="allEpisodes" type="roArray" />
         <field id="fEpUrl" type="string"/>
-        
-        
+        <field id="passedTitle" type="string"/>
         <!-- Playback flag -->
         <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
 
@@ -30,70 +29,48 @@
     
     <children>
 
-        <!-- Background poster -->
-        <Poster
-            id="Background"
-            width="1280"
-            height="720"
-            />
-            
-        <Rectangle
-            translation="[0,0]"
-            width="1280"
-            height="720"
-            color="0x000000"
-            opacity="0.8"
-            />
-
-        <!-- Control buttons -->
-      <!--   <LabelList
-            id="Buttons"
-            translation="[800,120]"
-            color="0xFFFFFFFF"
-            focusedColor="0x333333FF"
-            numRows="7"
-            vertFocusAnimationStyle="floatingFocus"
-            itemSize="[250, 35]"
-            />  -->
-
-        <!-- Black hud at bottom of the Details Screen -->
-        <Rectangle
-            id="testRectangle"
-            color="0x000000FF"
-            width="1280"
-            height="1280"
-            translation="[0, 0"  />
-
-        <!-- Item description -->
-        <!--  <Description 
-            id="Description"
-            translation="[430, 475]"
-            itemSpacings="[7, 16]"
-            /> -->
-
-        <!-- Item poster -->
-        <!--  <Poster
-            id="Poster"
-            translation="[60, 495]"
-            width="317"
-            height="178"
-            />-->
-
-        <!-- Overhang -->
-        <!--  <Poster
- 	        translation="[79, 36]"
-            uri="pkg:/images/overhangLogo.png"
-	        width="156"
-	        height="49"  /> -->
-
-        <!-- Playback node -->
+        <poster
+            id="thumbnail_box"
+            width="400"
+            height="300"
+        />
+        <Label
+		  id="ep_title"
+		  height="30"
+		  width="400"
+		  inheritParentTransform = "false"
+		  color="#000000"
+		  font="font:MediumBoldSystemFont"
+		  horizAlign = "center"
+		  vertAlign = "center" />
+        <ButtonGroup
+          id="button_grpp"
+          inheritParentTransform = "false"
+          >
+          <Button
+            id="resume"
+            text="Resume"
+            textColor="#000000"
+            focusedIconUri=""
+            iconUri=""
+            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+          <Button
+            id="play_from_beginning"
+            text="Play from the beginning"
+            textColor="#000000"
+            focusedIconUri=""
+            iconUri=""
+            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+        </ButtonGroup>
         <Video
             id="VideoPlayer"
+            inheritParentTransform = "false"
             visible="false"
             translation="[0, 0]"
             width="1280"
             height="720"
             />
+
 
     </children> 
 </component>

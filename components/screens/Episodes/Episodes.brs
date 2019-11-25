@@ -72,16 +72,13 @@ function gotContent()
     x = 0
     y = 0
     i = 0
-   
-
-    
     for each season in jsonParsed.keys()
         i = i+1    
         for each episode in jsonParsed[Season]._embedded.items
             
             item = {}
             item.HDGRIDPOSTERURL = episode.thumbnail.small
-            item.SDGRIDPOSTERURL = episode.thumbnail.small
+            item.SDGRIDPOSTERURL = episode.thumbnail.medium
             item.Title = "Season " + i.toStr()
             item.SHORTDESCRIPTIONLINE1 = episode.title   
             item.url = episode._links.files.href
