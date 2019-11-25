@@ -122,6 +122,10 @@ Sub OnContentChange()
 
     
     m.videoPlayer.content   = m.top.content    
+            customizeProgressBar(m.videoPlayer.retrievingBar)
+            'm.videoPlayer.retrievingTextColor = "0x0000FFFF"
+            customizeProgressBar(m.videoPlayer.bufferingBar)
+            'm.videoPlayer.bufferingTextColor = "0x0000FFFF"
     onItemSelected()
     
 End Sub
@@ -139,3 +143,16 @@ Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" 
     end if
     return result
 End Function
+
+        sub customizeProgressBar(progressBar as Dynamic)
+            bar = progressBar
+           'print "bar = " + roToString(bar)
+            if bar <> invalid
+                'bar.trackImageUri = "pkg:/images/barcolor.png"
+                'bar.trackBlendColor = "0x0000FFFF"
+                'bar.emptyBarImageUri = "pkg:/images/barcolor.png"
+                'bar.emptyBarBlendColor = "0x0000FFFF"
+                bar.filledBarImageUri = "pkg:/images/barcolor.png"
+                bar.filledBarBlendColor = "0xFFFFFFFF"
+            end if
+        end sub

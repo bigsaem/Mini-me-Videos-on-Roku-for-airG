@@ -247,8 +247,8 @@ Function OnKeyEvent(key, press) as Boolean
             
                 m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible = false
-                m.episodes.visible = true
-                m.episodes.setFocus(true)
+                m.episodes.visible = false
+                m.episodes.setFocus(false)
                 result = true   
             end if
 
