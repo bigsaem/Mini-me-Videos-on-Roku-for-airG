@@ -12,6 +12,13 @@ Function Init()
     m.gVideos = m.top.findNode("getVideos")
      
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
+    customizeProgressBar(m.videoPlayer.retrievingBar)
+    tpbar = m.videoPlayer.trickPlayBar
+    customizeProgressBar(tpbar)
+    tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
+    customizeProgressBar(m.videoPlayer.bufferingBar)
+    customizeProgressBar(m.videoPlayer.progressBar)
+        
     m.background        =   m.top.findNode("Background")
     
     fileUrl = ""
@@ -40,14 +47,6 @@ Sub onVisibleChange()
     
     end if
     
-    
-
-'    else
-'        m.videoPlayer.visible = false
-'        m.videoPlayer.control = "stop"
-'        m.poster.uri=""
-'        m.background.uri=""
-'    end if
 End Sub
 
 ' set proper focus to Buttons in case if return from Video PLayer
@@ -119,15 +118,8 @@ End Sub
 ' Content change handler
 Sub OnContentChange()
 '?"on content change"
-
-    
     m.videoPlayer.content   = m.top.content    
-            customizeProgressBar(m.videoPlayer.retrievingBar)
-            'm.videoPlayer.retrievingTextColor = "0x0000FFFF"
-            customizeProgressBar(m.videoPlayer.bufferingBar)
-            'm.videoPlayer.bufferingTextColor = "0x0000FFFF"
     onItemSelected()
-    
 End Sub
 
 '///////////////////////////////////////////'
@@ -144,15 +136,10 @@ Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" 
     return result
 End Function
 
-        sub customizeProgressBar(progressBar as Dynamic)
-            bar = progressBar
-           'print "bar = " + roToString(bar)
-            if bar <> invalid
-                'bar.trackImageUri = "pkg:/images/barcolor.png"
-                'bar.trackBlendColor = "0x0000FFFF"
-                'bar.emptyBarImageUri = "pkg:/images/barcolor.png"
-                'bar.emptyBarBlendColor = "0x0000FFFF"
-                bar.filledBarImageUri = "pkg:/images/barcolor.png"
-                bar.filledBarBlendColor = "0xFFFFFFFF"
-            end if
-        end sub
+sub customizeProgressBar(progressBar as Dynamic)
+    bar = progressBar
+    if bar <> invalid
+        bar.filledBarImageUri = "pkg:/images/barcolor.png"
+        bar.filledBarBlendColor = "0xFFFFFFFF"
+    end if
+end sub
