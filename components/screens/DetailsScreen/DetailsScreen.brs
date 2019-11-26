@@ -22,10 +22,7 @@ Function Init()
      
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
-<<<<<<< HEAD
-    'm.popupbox = m.top.findNode("popupBox")
-    m.videoPlayer = m.top.findNode("VideoPlayer")
-=======
+
      
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
     customizeProgressBar(m.videoPlayer.retrievingBar)
@@ -34,9 +31,8 @@ Function Init()
     tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
     customizeProgressBar(m.videoPlayer.bufferingBar)
     customizeProgressBar(m.videoPlayer.progressBar)
-        
     m.background        =   m.top.findNode("Background")
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
+
     
     fileUrl = ""
     m.videoPlayer.tranlsation = "[0,0]"
@@ -60,18 +56,7 @@ Sub onVisibleChange()
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
     end if
-<<<<<<< HEAD
-
-=======
-    
-End Sub
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
-
-'    print "************************"
-'    print "video state"
-'    print m.videoPlayer.state
-
-
+   
 End Sub
 function gotContent()
     print m.epTask.passNode
@@ -195,23 +180,7 @@ End Sub
 'End Sub
 
 ' Content change handler
-<<<<<<< HEAD
-'Sub OnContentChange()
-''?"on content change"
-'
-'    
-'    m.videoPlayer.content   = m.top.content    
-'    onItemSelected()
-'    
-'End Sub
 
-=======
-Sub OnContentChange()
-'?"on content change"
-    m.videoPlayer.content   = m.top.content    
-    onItemSelected()
-End Sub
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
 
 '///////////////////////////////////////////'
 ' Helper function convert AA to Node
