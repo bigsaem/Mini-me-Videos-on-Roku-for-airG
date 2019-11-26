@@ -22,8 +22,21 @@ Function Init()
      
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
+<<<<<<< HEAD
     'm.popupbox = m.top.findNode("popupBox")
     m.videoPlayer = m.top.findNode("VideoPlayer")
+=======
+     
+    m.videoPlayer       =   m.top.findNode("VideoPlayer")
+    customizeProgressBar(m.videoPlayer.retrievingBar)
+    tpbar = m.videoPlayer.trickPlayBar
+    customizeProgressBar(tpbar)
+    tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
+    customizeProgressBar(m.videoPlayer.bufferingBar)
+    customizeProgressBar(m.videoPlayer.progressBar)
+        
+    m.background        =   m.top.findNode("Background")
+>>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
     
     fileUrl = ""
     m.videoPlayer.tranlsation = "[0,0]"
@@ -47,7 +60,12 @@ Sub onVisibleChange()
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
     end if
+<<<<<<< HEAD
 
+=======
+    
+End Sub
+>>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
 
 '    print "************************"
 '    print "video state"
@@ -177,6 +195,7 @@ End Sub
 'End Sub
 
 ' Content change handler
+<<<<<<< HEAD
 'Sub OnContentChange()
 ''?"on content change"
 '
@@ -186,6 +205,13 @@ End Sub
 '    
 'End Sub
 
+=======
+Sub OnContentChange()
+'?"on content change"
+    m.videoPlayer.content   = m.top.content    
+    onItemSelected()
+End Sub
+>>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
 
 '///////////////////////////////////////////'
 ' Helper function convert AA to Node
@@ -201,15 +227,10 @@ Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" 
     return result
 End Function
 
-        sub customizeProgressBar(progressBar as Dynamic)
-            bar = progressBar
-           'print "bar = " + roToString(bar)
-            if bar <> invalid
-                'bar.trackImageUri = "pkg:/images/barcolor.png"
-                'bar.trackBlendColor = "0x0000FFFF"
-                'bar.emptyBarImageUri = "pkg:/images/barcolor.png"
-                'bar.emptyBarBlendColor = "0x0000FFFF"
-                bar.filledBarImageUri = "pkg:/images/barcolor.png"
-                bar.filledBarBlendColor = "0xFFFFFFFF"
-            end if
-        end sub
+sub customizeProgressBar(progressBar as Dynamic)
+    bar = progressBar
+    if bar <> invalid
+        bar.filledBarImageUri = "pkg:/images/barcolor.png"
+        bar.filledBarBlendColor = "0xFFFFFFFF"
+    end if
+end sub
