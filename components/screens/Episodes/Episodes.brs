@@ -5,7 +5,6 @@
 Function Init()
     ? "[Episodes] Init"
         
-    m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
 
@@ -63,7 +62,7 @@ End Sub
 
 
 function gotContent()        
-    jsonParsed = m.sceneTask.content    
+    jsonParsed = m.sceneTask.content
     'print jasonParsed[Season1]._embedded.items
 
     result  = []
@@ -75,12 +74,15 @@ function gotContent()
         for each episode in jsonParsed[Season]._embedded.items
             
             item = {}
+            item.id = episode.id
             item.HDGRIDPOSTERURL = episode.thumbnail.small
             item.SDGRIDPOSTERURL = episode.thumbnail.medium
             item.Title = "Season " + i.toStr()
             item.SHORTDESCRIPTIONLINE1 = episode.title   
             item.url = episode._links.files.href
             item.episodeNumber = episode.episode_number
+            item.ContentType = "wow"
+            
             if x < 4 then
                 item.X = x
                 item.Y = y
@@ -107,6 +109,7 @@ function gotContent()
     m.top.allEpisodes = list
     'print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
+
     m.busyspinner.visible = false
 end function
 

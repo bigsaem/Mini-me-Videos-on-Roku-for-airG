@@ -4,6 +4,7 @@
  ' configures buttons for Details screen
 Function Init()
     ? "[DetailsScreen] init"
+    m.popupbox = m.top.findNode("popupBox")
     m.buttongrpp = m.top.findNode("button_grpp")
     m.buttongrpp.translation = "[440,500]"
     m.btn_begin = m.top.findNode("play_from_beginning")
@@ -22,10 +23,7 @@ Function Init()
      
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
-<<<<<<< HEAD
-    'm.popupbox = m.top.findNode("popupBox")
-    m.videoPlayer = m.top.findNode("VideoPlayer")
-=======
+
      
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
     customizeProgressBar(m.videoPlayer.retrievingBar)
@@ -36,7 +34,7 @@ Function Init()
     customizeProgressBar(m.videoPlayer.progressBar)
         
     m.background        =   m.top.findNode("Background")
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
+
     
     fileUrl = ""
     m.videoPlayer.tranlsation = "[0,0]"
@@ -55,29 +53,19 @@ Sub onVisibleChange()
         m.epTask.contenturi = m.top.epUrl
         print m.epTask.contenturi
         m.epTask.control = "RUN"
-        
     else 'if m.videoPlayer.state = "playing"
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
     end if
-<<<<<<< HEAD
-
-=======
-    
 End Sub
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
 
-'    print "************************"
-'    print "video state"
-'    print m.videoPlayer.state
-
-
-End Sub
 function gotContent()
     print m.epTask.passNode
     sec = createObject("roRegistrySection", "MySection")
     Key = m.epTask.passNode.id
     if sec.Exists(Key)
+        m.popupbox.visible = true
+
         print m.top.thumbnail
         m.poster.uri = m.top.thumbnail
         print m.top.passedTitle
@@ -194,24 +182,6 @@ End Sub
 '    'End if
 'End Sub
 
-' Content change handler
-<<<<<<< HEAD
-'Sub OnContentChange()
-''?"on content change"
-'
-'    
-'    m.videoPlayer.content   = m.top.content    
-'    onItemSelected()
-'    
-'End Sub
-
-=======
-Sub OnContentChange()
-'?"on content change"
-    m.videoPlayer.content   = m.top.content    
-    onItemSelected()
-End Sub
->>>>>>> e53d9a101f89cc81e5063c94ad83bd32ddd6986a
 
 '///////////////////////////////////////////'
 ' Helper function convert AA to Node

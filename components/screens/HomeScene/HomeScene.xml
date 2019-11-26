@@ -94,13 +94,16 @@
             height="720"/>
 		 
         <!-- Details screen with Play button -->
-        <DetailsScreen
+        <!--<DetailsScreen
             id="DetailsScreen"
             translation = "[440,160]"
             color="#FFFFFF"
             width = "400"
             height = "450"
-            visible="false"/>
+            visible="false"/>-->
+        <DetailsScreen
+            id="DetailsScreen"
+            visible = "false"/>
 
         <!-- animation for option bar -->    
         <Animation id="myAnim1" 

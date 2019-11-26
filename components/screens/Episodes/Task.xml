@@ -26,7 +26,7 @@
   			
   		if m.top.content <> invalid
   		for each season in m.top.content.keys()
-        for each episode in m.top.content[Season]._embedded.items
+            for each episode in m.top.content[Season]._embedded.items
   				if m.top.showName = episode.metadata.series_name
   					m.top.content = m.top.content
   					m.top.isCached = true
