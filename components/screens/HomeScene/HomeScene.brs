@@ -12,7 +12,7 @@ Function Init()
     m.gridScreen = m.top.findNode("GridScreen")
 
     
-    m.videoPlayer2 = m.top.findNode("videoPlayer2")
+    
     
 
     m.episodes = m.top.findNode("Episodes")
@@ -25,6 +25,9 @@ Function Init()
     ' DetailsScreen Node with description, Video Player
 
     m.detailsScreen = m.top.findNode("DetailsScreen")
+    
+    m.videoPlayer2 = m.detailsScreen.findNode("VideoPlayer")
+    
     m.option = m.top.findNode("option_btn")
 
     m.optionCont = m.top.findNode("optionCont")
@@ -84,7 +87,7 @@ Function OnRowItemSelected()
             'init of video player and start playback
             'm.detailsScreen.visible = true
             'm.detailsScreen.videoPlayerVisible = true
-            m.videoPlayerVisible = true
+            m.detailsScreen.visible = true
             m.videoPlayer2.visible = true
             m.videoPlayer2.setFocus(true)
             m.videoPlayer2.content = selectedItem
@@ -226,8 +229,8 @@ Function OnKeyEvent(key, press) as Boolean
                 result = true 
             else if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
-                m.videoPlayerVisible = false
                 m.videoPlayer2.control = "stop"
+                m.detailsScreen.visible = false
                 m.GridScreen.visible = true
                 m.GridScreen.setFocus(true)
                 result = true
