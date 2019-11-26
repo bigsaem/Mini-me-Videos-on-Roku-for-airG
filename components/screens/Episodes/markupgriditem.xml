@@ -1,0 +1,81 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<component name = "MarkupGridItem" extends = "Group" >
+ 
+  <interface> 
+    <field id = "itemContent" type = "node" onChange = "showcontent"/>
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.itemposter = m.top.findNode("itemPoster") 
+      m.itemmask = m.top.findNode("itemMask")
+      m.focuslabel = m.top.findNode("focusLabel")
+      m.title = m.top.findNode("epi_title")
+      m.pro_back = m.top.findNode("pro_background")
+      m.progress = m.top.findNode("progress")
+    end sub
+
+    sub showcontent()
+      itemcontent = m.top.itemContent
+      sec = createObject("roRegistrySection", "MySection")
+      print itemcontent.id
+      'problem: the key stored in registry is video id and this is episode id
+      'if sec.Exists(itemcontent.id)
+      '  print "Hell yeah"
+      'end if
+      'list = sec.GetKeyList()
+      'for each key in list
+      '  print key
+      'end for
+      m.itemposter.uri = itemcontent.HDGRIDPOSTERURL
+      m.title.text = itemcontent.SHORTDESCRIPTIONLINE1
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "itemPoster" 
+      translation = "[ 0, 0 ]" 
+      width = "240" 
+      height = "150" 
+      
+      >
+
+       <Rectangle 
+        id = "pro_background" 
+        color = "#FFFFFF" 
+        opacity = "0.75" 
+        width = "240" 
+        height = "20" 
+        visible = "false"
+        translation = "[0.0, 130.0]"
+        scaleRotateCenter = "[ 0.0, 130.0 ]"/>
+       <Rectangle 
+        id = "progress" 
+        color = "#50cddd"  
+        width = "120" 
+        height = "20" 
+        visible = "false"
+        translation = "[0.0, 130.0]"
+        scaleRotateCenter = "[ 0.0, 130.0 ]"/>
+
+    </Poster>
+    <Label
+        id="epi_title"
+        color="#FFFFFF"
+        width="240"
+        translation="[0.0, 150]"
+    />
+  </children>
+
+</component>
