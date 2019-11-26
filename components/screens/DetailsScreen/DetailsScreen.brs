@@ -44,7 +44,6 @@ Sub onVisibleChange()
         m.epTask.control = "RUN"
         
     else 'if m.videoPlayer.state = "playing"
-        print "stopping state"
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
     end if
@@ -81,8 +80,6 @@ Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
-        print m.videoPlayer.content.id
-        print m.top.thumbnail
         ' Construct json here
         valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key}
         ' Then turn json into string
@@ -140,7 +137,6 @@ end function
 Sub OnVideoPlayerStateChange()
     print "finished playing"
     print m.videoPlayer.state
-
     if m.videoPlayer.state = "error"
         ' error handling
         m.videoPlayer.visible = false
@@ -156,6 +152,7 @@ Sub OnVideoPlayerStateChange()
 End Sub
 
 ' on Button press handler
+
 'Sub onItemSelected()
 '    ' first button is Play
 '            
@@ -189,6 +186,7 @@ End Sub
 '    
 'End Sub
 
+
 '///////////////////////////////////////////'
 ' Helper function convert AA to Node
 Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" as String) as Object
@@ -202,3 +200,16 @@ Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" 
     end if
     return result
 End Function
+
+        sub customizeProgressBar(progressBar as Dynamic)
+            bar = progressBar
+           'print "bar = " + roToString(bar)
+            if bar <> invalid
+                'bar.trackImageUri = "pkg:/images/barcolor.png"
+                'bar.trackBlendColor = "0x0000FFFF"
+                'bar.emptyBarImageUri = "pkg:/images/barcolor.png"
+                'bar.emptyBarBlendColor = "0x0000FFFF"
+                bar.filledBarImageUri = "pkg:/images/barcolor.png"
+                bar.filledBarBlendColor = "0xFFFFFFFF"
+            end if
+        end sub

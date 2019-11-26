@@ -60,6 +60,12 @@ Function OnChangeContent()
     'm.loadingIndicator.control = "stop"
 End Function
 
+function updateRow()
+    m.CWTask = CreateObject("roSGNode", "ContinueWatching")
+    m.CWTask.control = "RUN"
+
+end function
+
 'Option button selected handler
 Function OnOptionSelected()
     m.optionCont.visible = "true"
@@ -69,14 +75,12 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
+    print  m.top.rowCount
+    if m.gridScreen.visible = true and m.episodes.visible = false 
+        if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
 
-    if m.gridScreen.visible = true and m.episodes.visible = false
-        print m.gridScreen.focusedContent
-        
-        if m.gridScreen.itemFocused[0] = 0
             m.gridScreen.visible = "false"
             selectedItem = m.gridScreen.focusedContent
-            print selectedItem
             'init of video player and start playback
             'm.detailsScreen.visible = true
             'm.detailsScreen.videoPlayerVisible = true
@@ -84,7 +88,6 @@ Function OnRowItemSelected()
             m.videoPlayer2.visible = true
             m.videoPlayer2.setFocus(true)
             m.videoPlayer2.content = selectedItem
-            print "started playing from home"
             m.videoPlayer2.control = "play"
             sec = createObject("roRegistrySection", "MySection")
             Key = m.videoPlayer2.content.id
@@ -97,6 +100,9 @@ Function OnRowItemSelected()
             m.videoPlayer2.observeField("state", "OnVideoPlayerStateChange")
         else
             'anim stuff
+
+            'Going to episode screen
+
             m.itemmask.height = "720"
             m.slideFull = m.top.findNode("slideUpFull")
             m.slideFull.control = "start"
@@ -108,7 +114,7 @@ Function OnRowItemSelected()
             m.episodes.content = m.gridScreen.focusedContent
             m.episodes.setFocus(true)
             m.episodes.visible = true 
-            
+                        
             result = true 
         end if
 
@@ -126,10 +132,6 @@ Function OnRowItemSelected()
         m.detailsScreen.setFocus(true)
         'm.detailsScreen.allEpisodes = m.episodes.allEpisodes
         
-        print "epi **********************"
-        print m.episodes.allEpisodes
-        print "details***************************"
-        print m.detailsScreen.allEpisodes
         
         'm.detailsScreen.videoPlayerVisible = true
         result = true
@@ -160,7 +162,6 @@ Sub OnVideoPlayerStateChange()
     if m.videoPlayer2.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer2.position)
         Key = m.videoPlayer2.content.id
-        print m.videoPlayer2.content
         ' Construct json here
         valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
         ' Then turn json into string
@@ -169,6 +170,7 @@ Sub OnVideoPlayerStateChange()
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
+    
     if m.videoPlayer2.state = "error"
         'hide vide player in case of error
         m.videoPlayer2.visible = false
@@ -206,13 +208,16 @@ Function OnKeyEvent(key, press) as Boolean
             if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.gridScreen.visible = true
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
+                updateRow()
                 result = true
+                
             ' if Episodes opened
+
             else if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.episodes.visible = true
                 m.optionCont.visible = "false"
                 m.episodes.setFocus(true)
                 result = true
-            else if m.episodes.visible = false and m.detailsScreen.videoPlayerVisible = true
+            else if m.detailsScreen.videoPlayerVisible = true
                 m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible=false
                 m.episodes.visible = true
@@ -232,11 +237,10 @@ Function OnKeyEvent(key, press) as Boolean
                 m.episodes.setFocus(true)
                 result = true
             else if m.gridScreen.visible = false and m.episodes.visible = true
-
-                'anim stuff
-                
-                m.slideFull = m.top.findNode("slideDown")
-                m.slideFull.control = "start"
+                updateRow()
+                'anim stuff  
+'                m.slideFull = m.top.findNode("slideDown")
+'                m.slideFull.control = "start"
                 m.gridScreen.setFocus(true)
                 m.gridScreen.visible = true
                 m.episodes.visible = false
@@ -253,10 +257,11 @@ Function OnKeyEvent(key, press) as Boolean
             'end if
             'if video player opened
             else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
+            
                 m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible = false
-                m.episodes.visible = true
-                m.episodes.setFocus(true)
+                m.episodes.visible = false
+                m.episodes.setFocus(false)
                 result = true   
             end if
 

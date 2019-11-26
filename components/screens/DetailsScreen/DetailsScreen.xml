@@ -67,6 +67,9 @@
             inheritParentTransform = "false"
             visible="false"
             translation="[0, 0]"
+            filledBarImageUri = "pkg:/images/bg-tile.png"
+            emptyBarBlendColor = "pkg:/images/bg-tile.png"
+            trackImageUri = "pkg:/images/bg-tile.png"
             />
 
 
