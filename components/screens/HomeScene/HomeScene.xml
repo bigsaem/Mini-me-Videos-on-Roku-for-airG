@@ -13,7 +13,7 @@
 		<field id="rowList" type = "node" alias="GridScreen.rowList"/>
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
-        
+       
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
         
@@ -96,6 +96,10 @@
         <!-- Details screen with Play button -->
         <DetailsScreen
             id="DetailsScreen"
+            translation = "[440,160]"
+            color="#FFFFFF"
+            width = "400"
+            height = "450"
             visible="false"/>
 
         <!-- animation for option bar -->    
