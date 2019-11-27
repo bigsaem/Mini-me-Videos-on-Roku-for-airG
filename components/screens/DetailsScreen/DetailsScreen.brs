@@ -158,28 +158,28 @@ End Sub
 
 ' on Button press handler
 
-'Sub onItemSelected()
-'    ' first button is Play
-'            
-'    'if m.top.itemSelected = 0
-'        'm.top.visible = false
-'        m.videoPlayer.visible = true
-'        m.videoPlayer.setFocus(true)
-'        print "started playing"
-'        m.videoPlayer.control = "play"
-'        sec = createObject("roRegistrySection", "MySection")
-'        ' TODO change my section to something else? 
-'        Key = m.videoPlayer.content.id
-'        if sec.Exists(Key)
-'          ' Parse json to get bookmark time
-'          readJsonString =  sec.Read(Key)
-'          readJsonObject = parseJson(readJsonString)
-'          m.videoPlayer.seek = readJsonObject.time
-'        end if        
-'        m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
-'        
-'    'End if
-'End Sub
+Sub onItemSelected()
+    ' first button is Play
+            
+    'if m.top.itemSelected = 0
+        'm.top.visible = false
+        m.videoPlayer.visible = true
+        m.videoPlayer.setFocus(true)
+        print "started playing"
+        m.videoPlayer.control = "play"
+        sec = createObject("roRegistrySection", "MySection")
+        ' TODO change my section to something else? 
+        Key = m.videoPlayer.content.id
+        if sec.Exists(Key)
+          ' Parse json to get bookmark time
+          readJsonString =  sec.Read(Key)
+          readJsonObject = parseJson(readJsonString)
+          m.videoPlayer.seek = readJsonObject.time
+        end if        
+        m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
+        
+    'End if
+End Sub
 
 ' Content change handler
 
