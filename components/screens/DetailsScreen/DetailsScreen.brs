@@ -152,7 +152,7 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer.content.id
         sec = createObject("roRegistrySection", "MySection")
         sec.Delete(Key)
-        onItemSelected()
+        'onItemSelected()
     end if
 End Sub
 
