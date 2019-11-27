@@ -26,7 +26,13 @@ Function Init()
 
     m.detailsScreen = m.top.findNode("DetailsScreen")
     
-    m.videoPlayer2 = m.detailsScreen.findNode("VideoPlayer")
+    m.videoPlayer2 = m.top.findNode("videoPlayer2")
+    customizeProgressBar(m.videoPlayer2.retrievingBar)
+    tpbar = m.videoPlayer2.trickPlayBar
+    customizeProgressBar(tpbar)
+    tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
+    customizeProgressBar(m.videoPlayer2.bufferingBar)
+    customizeProgressBar(m.videoPlayer2.progressBar)
     
     m.option = m.top.findNode("option_btn")
 
@@ -87,7 +93,6 @@ Function OnRowItemSelected()
             'init of video player and start playback
             'm.detailsScreen.visible = true
             'm.detailsScreen.videoPlayerVisible = true
-            m.detailsScreen.visible = true
             m.videoPlayer2.visible = true
             m.videoPlayer2.setFocus(true)
             m.videoPlayer2.content = selectedItem
@@ -260,3 +265,11 @@ Function OnKeyEvent(key, press) as Boolean
     end if
     return result
 End Function
+
+sub customizeProgressBar(progressBar as Dynamic)
+    bar = progressBar
+    if bar <> invalid
+        bar.filledBarImageUri = "pkg:/images/barcolor.png"
+        bar.filledBarBlendColor = "0xFFFFFFFF"
+    end if
+end sub

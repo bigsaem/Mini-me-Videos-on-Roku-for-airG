@@ -58,7 +58,6 @@
         fUrl = ""
         id = ""
                
-        
         for each item in videosArray
         	testCWItem = {}
             if item.quality = "1080p"
@@ -68,7 +67,6 @@
             else if item.quality = "720p"
                 fUrl = item.url
                 id = item.id
-                testCW.push(testCWItem)
                 exit for
             else if item.quality = "540p"
                 fUrl = item.url
