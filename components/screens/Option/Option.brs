@@ -3,7 +3,6 @@ function init()
    m.button1= m.top.FindNode("option_btn1")
    m.button1.textFont.size = "20"
    m.button1.focusedTextFont.size = "20"
-   m.button1.focusedTextFont.textColor="#ffffff"
    m.top.observeField("visible", "focus")
    m.button1.observeField("buttonSelected", "onButtonSelected")
 end function

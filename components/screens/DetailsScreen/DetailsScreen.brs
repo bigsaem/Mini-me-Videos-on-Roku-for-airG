@@ -23,8 +23,6 @@ Function Init()
      
     'm.content           =   CreateObject("roSGNode", "ContentNode") 
     m.gVideos = m.top.findNode("getVideos")
-
-     
     m.videoPlayer       =   m.top.findNode("VideoPlayer")
     customizeProgressBar(m.videoPlayer.retrievingBar)
     tpbar = m.videoPlayer.trickPlayBar
@@ -32,8 +30,7 @@ Function Init()
     tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
     customizeProgressBar(m.videoPlayer.bufferingBar)
     customizeProgressBar(m.videoPlayer.progressBar)
-        
-    m.background        =   m.top.findNode("Background")
+    m.background  = m.top.findNode("Background")
 
     
     fileUrl = ""
@@ -47,11 +44,13 @@ End Function
 Sub onVisibleChange()
 
     ? "[DetailsScreen] onVisibleChange"
+
     m.buttongrpp.setFocus(true)
     
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
         m.epTask.contenturi = m.top.epUrl
         print m.epTask.contenturi
+        m.epTask.episodeName = m.top.content.ShortDescriptionLine1
         m.epTask.control = "RUN"
     else 'if m.videoPlayer.state = "playing"
         m.videoPlayer.visible = false
@@ -162,28 +161,28 @@ End Sub
 
 ' on Button press handler
 
-'Sub onItemSelected()
-'    ' first button is Play
-'            
-'    'if m.top.itemSelected = 0
-'        'm.top.visible = false
-'        m.videoPlayer.visible = true
-'        m.videoPlayer.setFocus(true)
-'        print "started playing"
-'        m.videoPlayer.control = "play"
-'        sec = createObject("roRegistrySection", "MySection")
-'        ' TODO change my section to something else? 
-'        Key = m.videoPlayer.content.id
-'        if sec.Exists(Key)
-'          ' Parse json to get bookmark time
-'          readJsonString =  sec.Read(Key)
-'          readJsonObject = parseJson(readJsonString)
-'          m.videoPlayer.seek = readJsonObject.time
-'        end if        
-'        m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
-'        
-'    'End if
-'End Sub
+Sub onItemSelected()
+    ' first button is Play
+            
+    'if m.top.itemSelected = 0
+        'm.top.visible = false
+        m.videoPlayer.visible = true
+        m.videoPlayer.setFocus(true)
+        print "started playing"
+        m.videoPlayer.control = "play"
+        sec = createObject("roRegistrySection", "MySection")
+        ' TODO change my section to something else? 
+        Key = m.videoPlayer.content.id
+        if sec.Exists(Key)
+          ' Parse json to get bookmark time
+          readJsonString =  sec.Read(Key)
+          readJsonObject = parseJson(readJsonString)
+          m.videoPlayer.seek = readJsonObject.time
+        end if        
+        m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
+        
+    'End if
+End Sub
 
 
 '///////////////////////////////////////////'

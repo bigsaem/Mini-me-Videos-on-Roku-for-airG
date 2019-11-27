@@ -10,7 +10,8 @@
           <Button
             id="option_btn1"
             text="Clear view history"
-            textColor="#ffffff"
+            textColor="0xFFFFFF"
+            focusedTextColor = "0xFFFFFF"
             focusedIconUri=""
             iconUri=""
             focusBitmapUri="pkg:/images/focus_grid.9.png" />
