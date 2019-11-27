@@ -86,11 +86,14 @@ Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer.position)
         Key = m.videoPlayer.content.id
+        sec = createObject("roRegistrySection", "MySection")
+        readJsonString =  sec.Read(Key)
+        readJsonObject = parseJson(readJsonString)
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key}
+        valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description }
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
-        sec = createObject("roRegistrySection", "MySection")
+        print valueJsonString
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if

@@ -32,6 +32,7 @@
 
     <RowList
        id="RowList"
+       itemComponentName="customItem"
        focusBitmapUri="pkg:/images/focus_grid.9.png"
        translation="[-60, 372]"
        itemSize="[1327, 218]"
