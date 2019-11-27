@@ -32,6 +32,7 @@ End Function
 Sub onVisibleChange()
 
     ? "[DetailsScreen] onVisibleChange"
+    print m.top.content
     
 '    print "************************"
 '    print "video state"
@@ -39,6 +40,7 @@ Sub onVisibleChange()
     
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
         m.epTask.contenturi = m.top.epUrl
+        m.epTask.episodeName = m.top.content.ShortDescriptionLine1
         m.epTask.control = "RUN"
         
     else 'if m.videoPlayer.state = "playing"
