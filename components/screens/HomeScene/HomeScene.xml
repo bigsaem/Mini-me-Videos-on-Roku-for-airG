@@ -71,7 +71,7 @@
         <Button
             id="option_btn"
             text="Option*"
-            textColor="#4881db"
+            textColor="0x000000"
             focusedIconUri=""
             iconUri=""
             focusBitmapUri="pkg:/images/focus_grid.9.png"

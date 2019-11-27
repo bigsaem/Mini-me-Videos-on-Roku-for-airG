@@ -45,12 +45,13 @@
             return
         end if
         
-        for each video in jsonTaskParsed
+        for each video in jsonTaskParsed        
             if video.size.bytes > 500
                 videos = {}
                 videos.quality = video.quality
                 videos.url = video._links.source.href
                 videos.id = video.id
+                videos.title = m.episodeName
                 videosArray.push(videos)
             end if
         end for
@@ -58,9 +59,8 @@
         fUrl = ""
         id = ""
                
-        
         for each item in videosArray
-        	testCWItem = {}
+
             if item.quality = "1080p"
                 fUrl = item.url
                 id = item.id
@@ -68,7 +68,6 @@
             else if item.quality = "720p"
                 fUrl = item.url
                 id = item.id
-                testCW.push(testCWItem)
                 exit for
             else if item.quality = "540p"
                 fUrl = item.url
@@ -78,7 +77,7 @@
                 fUrl = item.url
                 id = item.id
                 exit for
-            end if
+            end if            
         end for
         
         
@@ -86,6 +85,7 @@
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
         tempNode.id = id
+        tempNode.title = m.top.episodeName
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl
