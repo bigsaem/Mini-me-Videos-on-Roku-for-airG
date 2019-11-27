@@ -15,7 +15,6 @@
     sub init()
       m.itemposter = m.top.findNode("itemPoster") 
       m.itemmask = m.top.findNode("itemMask")
-      m.focuslabel = m.top.findNode("focusLabel")
       m.title = m.top.findNode("epi_title")
       m.pro_back = m.top.findNode("pro_background")
       m.progress = m.top.findNode("progress")
@@ -24,15 +23,16 @@
     sub showcontent()
       itemcontent = m.top.itemContent
       sec = createObject("roRegistrySection", "MySection")
-      print itemcontent.id
-      'problem: the key stored in registry is video id and this is episode id
-      'if sec.Exists(itemcontent.id)
-      '  print "Hell yeah"
-      'end if
-      'list = sec.GetKeyList()
-      'for each key in list
-      '  print key
-      'end for
+      if sec.Exists(itemcontent.id)
+        readJsonString =  sec.read(itemcontent.id)
+        readJsonObject = parseJson(readJsonString)
+        duration = Val(readJsonObject.duration)
+        timestamp  = readJsonObject.time
+        m.progress.width = 240*(timestamp/duration)
+        m.pro_back.visible = true
+        m.progress.visible = true
+      end if
+
       m.itemposter.uri = itemcontent.HDGRIDPOSTERURL
       m.title.text = itemcontent.SHORTDESCRIPTIONLINE1
     end sub
@@ -56,18 +56,18 @@
         color = "#FFFFFF" 
         opacity = "0.75" 
         width = "240" 
-        height = "20" 
+        height = "10" 
         visible = "false"
-        translation = "[0.0, 130.0]"
-        scaleRotateCenter = "[ 0.0, 130.0 ]"/>
+        translation = "[0.0, 140.0]"
+        scaleRotateCenter = "[ 0.0, 140.0 ]"/>
        <Rectangle 
         id = "progress" 
         color = "#50cddd"  
         width = "120" 
-        height = "20" 
+        height = "10" 
         visible = "false"
-        translation = "[0.0, 130.0]"
-        scaleRotateCenter = "[ 0.0, 130.0 ]"/>
+        translation = "[0.0, 140.0]"
+        scaleRotateCenter = "[ 0.0, 140.0 ]"/>
 
     </Poster>
     <Label

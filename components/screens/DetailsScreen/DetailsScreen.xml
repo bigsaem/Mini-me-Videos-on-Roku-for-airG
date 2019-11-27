@@ -17,7 +17,7 @@
         <field id="passedTitle" type="string"/>
         <!-- Playback flag -->
         <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
-
+        <field id="id" type="string"/>
         <!-- Content fields -->
         <!-- <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" /> -->
         <field id="content" type="node" />

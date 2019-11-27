@@ -7,7 +7,9 @@
     <field id = "episodeName" type = "string" />
     <field id = "fEpUrl" type = "string" />
     <field id = "passNode" type = "node" />
+    <field id = "id" type = "string" />
     <field id = "durationString" type = "string" />
+
   </interface>
   <script type="text/brightscript">
     
@@ -106,10 +108,15 @@
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
+<<<<<<< HEAD
+
+        tempNode.id = m.top.id
+=======
         tempNode.id = id
 <<<<<<< HEAD
         tempNode.title = m.top.episodeName
 =======
+>>>>>>> 3b8cf36ea2d69cf83b1d8f11700488a085773e3f
         tempNode.description = StrI(duration)
         print title
         tempNode.Title = title

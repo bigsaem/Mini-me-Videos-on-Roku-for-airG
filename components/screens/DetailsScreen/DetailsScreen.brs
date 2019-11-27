@@ -46,8 +46,9 @@ Sub onVisibleChange()
     ? "[DetailsScreen] onVisibleChange"
 
     m.buttongrpp.setFocus(true)
-    
+    m.popupbox.visible = false
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
+        m.epTask.id = m.top.id
         m.epTask.contenturi = m.top.epUrl
         print m.epTask.contenturi
         m.epTask.episodeName = m.top.content.ShortDescriptionLine1

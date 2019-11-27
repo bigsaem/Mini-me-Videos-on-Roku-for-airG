@@ -81,6 +81,7 @@
 	    		if jsonTaskString = "" or jsonTaskParsed = invalid
 	    			Goto errorLabel
 	    		end if
+	    		
 	    		seasonsArray.AddReplace("Season" + indexOfChild.toStr(), jsonTaskParsed)
 	    		indexOfChild++   	
 	    		
