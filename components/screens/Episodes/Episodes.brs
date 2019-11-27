@@ -5,7 +5,6 @@
 Function Init()
     ? "[Episodes] Init"
         
-    m.rowList       =   m.top.findNode("RowList")
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
 
@@ -26,7 +25,10 @@ Sub OnItemFocused()
     itemFocused = m.top.itemFocused
     m.top.focusedContent = m.top.content.getChild(itemFocused)
 End Sub
-
+function updateRow()
+    m.CWTask = CreateObject("roSGNode", "GetEpisodes")
+    m.CWTask.control = "RUN"
+end function
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
@@ -40,15 +42,14 @@ Sub onVisibleChange()
         'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
-        
         m.sceneTask.showName = m.top.showName
-        
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"
         m.top.canCallApi = false
     end if
 
     if m.top.visible = true then
+        
         m.posterGrid.setFocus(true)
     end if
 
@@ -63,7 +64,7 @@ End Sub
 
 
 function gotContent()        
-    jsonParsed = m.sceneTask.content    
+    jsonParsed = m.sceneTask.content
     'print jasonParsed[Season1]._embedded.items
 
     result  = []
@@ -75,12 +76,20 @@ function gotContent()
         for each episode in jsonParsed[Season]._embedded.items
             
             item = {}
+            item.id = episode.id
             item.HDGRIDPOSTERURL = episode.thumbnail.small
             item.SDGRIDPOSTERURL = episode.thumbnail.medium
             item.Title = "Season " + i.toStr()
-            item.SHORTDESCRIPTIONLINE1 = episode.title   
+            hyphenIndex = Instr(1, episode.title, "-")
+            if hyphenIndex > 3
+                hyphenIndex = hyphenIndex - 3
+            end if
+            title = mid(episode.title, hyphenIndex)
+            item.SHORTDESCRIPTIONLINE1 = title
             item.url = episode._links.files.href
             item.episodeNumber = episode.episode_number
+            item.ContentType = "wow"
+            
             if x < 4 then
                 item.X = x
                 item.Y = y
@@ -107,6 +116,7 @@ function gotContent()
     m.top.allEpisodes = list
     'print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
+
     m.busyspinner.visible = false
 end function
 

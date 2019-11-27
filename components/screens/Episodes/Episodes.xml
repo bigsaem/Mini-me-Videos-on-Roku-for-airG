@@ -10,7 +10,7 @@
         	        
 
         <!-- Episodes Content Node -->
-        <field id="content" type="node" alias="PosterGrid.content" onChange="onContentChange"/>
+        <field id="content" type="node" alias="PosterGrid.content" />
         <field id="episodesList" type="node"/>
         
                 
@@ -36,9 +36,19 @@
     
     <!-- main handler -->
     <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
-    
+    <!--  itemComponentName = "MarkupGridItem" -->
     <children>
-        <PosterGrid
+        <MarkupGrid 
+		      id = "PosterGrid" 
+		      translation = "[ 100, 100 ]" 
+		      itemComponentName = "MarkupGridItem"
+		      focusBitmapUri="pkg:/images/focus_grid.9.png"
+		      numColumns = "4" 
+		      numRows = "5" 
+              itemSize = "[ 240, 180 ]" 
+              itemSpacing="[32,32]"
+		      />
+        <!--  <PosterGrid
 			  id="PosterGrid"
 			  translation="[100,100]"
 			  focusBitmapUri="pkg:/images/focus_grid.9.png"
@@ -47,7 +57,7 @@
 			  caption1NumLines="1"
 			  caption2NumLines="1"
 			  numColumns="4"
-			  numRows="3"/>
+			  numRows="3"/>-->
 			  
         <Poster
 			translation="[0, 650]"

@@ -17,7 +17,7 @@
         <field id="passedTitle" type="string"/>
         <!-- Playback flag -->
         <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
-
+        <field id="id" type="string"/>
         <!-- Content fields -->
         <!-- <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" /> -->
         <field id="content" type="node" />
@@ -28,40 +28,47 @@
     <script type="text/brightscript" uri="pkg:/components/screens/DetailsScreen/DetailsScreen.brs" />
     
     <children>
-
-        <poster
-            id="thumbnail_box"
-            width="400"
-            height="300"
-        />
-        <Label
-		  id="ep_title"
-		  height="30"
-		  width="400"
-		  inheritParentTransform = "false"
-		  color="#000000"
-		  font="font:MediumBoldSystemFont"
-		  horizAlign = "center"
-		  vertAlign = "center" />
-        <ButtonGroup
-          id="button_grpp"
-          inheritParentTransform = "false"
-          >
-          <Button
-            id="resume"
-            text="Resume"
-            textColor="#000000"
-            focusedIconUri=""
-            iconUri=""
-            focusBitmapUri="pkg:/images/focus_grid.9.png" />
-          <Button
-            id="play_from_beginning"
-            text="Play from the beginning"
-            textColor="#000000"
-            focusedIconUri=""
-            iconUri=""
-            focusBitmapUri="pkg:/images/focus_grid.9.png" />
-        </ButtonGroup>
+        <Rectangle
+            id="popupBox"
+            translation = "[440,160]"
+            color="#FFFFFF"
+            width = "400"
+            height = "450"
+            visible="false">
+	        <poster
+	            id="thumbnail_box"
+	            width="400"
+	            height="300"
+	        />
+	        <Label
+			  id="ep_title"
+			  height="30"
+			  width="400"
+			  inheritParentTransform = "false"
+			  color="#000000"
+			  font="font:MediumBoldSystemFont"
+			  horizAlign = "center"
+			  vertAlign = "center" />
+	        <ButtonGroup
+	          id="button_grpp"
+	          inheritParentTransform = "false"
+	          >
+	          <Button
+	            id="resume"
+	            text="Resume"
+	            textColor="#000000"
+	            focusedIconUri=""
+	            iconUri=""
+	            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	          <Button
+	            id="play_from_beginning"
+	            text="Play from the beginning"
+	            textColor="#000000"
+	            focusedIconUri=""
+	            iconUri=""
+	            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	        </ButtonGroup>
+        </Rectangle>
         <Video
             id="VideoPlayer"
             inheritParentTransform = "false"

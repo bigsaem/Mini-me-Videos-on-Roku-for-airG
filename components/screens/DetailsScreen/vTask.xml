@@ -7,6 +7,9 @@
     <field id = "episodeName" type = "string" />
     <field id = "fEpUrl" type = "string" />
     <field id = "passNode" type = "node" />
+    <field id = "id" type = "string" />
+    <field id = "durationString" type = "string" />
+
   </interface>
   <script type="text/brightscript">
     
@@ -21,7 +24,7 @@
         port = CreateObject("roMessagePort")
         req = CreateObject("roUrlTransfer")
         req.setRequest("GET")
-        req.setURL(m.top.contenturi)        
+        req.setURL(m.top.contenturi)     
         req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
         jsonTaskString = req.GetToString()
         jsonTaskParsed = ParseJson(jsonTaskString)
@@ -50,6 +53,7 @@
                 videos = {}
                 videos.quality = video.quality
                 videos.url = video._links.source.href
+                videos.video_url = video._links.video.href
                 videos.id = video.id
                 videos.title = m.episodeName
                 videosArray.push(videos)
@@ -58,9 +62,24 @@
         
         fUrl = ""
         id = ""
+        duration = 1
+        name = ""
                
         for each item in videosArray
-
+        	testCWItem = {}
+        	port2 = CreateObject("roMessagePort")
+	        req2 = CreateObject("roUrlTransfer")
+	        req2.setRequest("GET")
+	        req2.setURL(videos.video_url)        
+	        req2.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+	        jsonTaskString = req2.GetToString()
+	        jsonTaskParsed = ParseJson(jsonTaskString)
+	        hyphenIndex = Instr(1, jsonTaskParsed.name, "-")
+			if hyphenIndex > 3
+	        	hyphenIndex = hyphenIndex - 3
+	        end if
+	        title = mid(jsonTaskParsed.name, hyphenIndex)
+	        duration = jsonTaskParsed.duration.seconds
             if item.quality = "1080p"
                 fUrl = item.url
                 id = item.id
@@ -76,16 +95,20 @@
             else if item.quality = "360p"
                 fUrl = item.url
                 id = item.id
+                
                 exit for
             end if            
         end for
         
-        
+        print duration
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
-        tempNode.id = id
+        tempNode.id = m.top.id
         tempNode.title = m.top.episodeName
+        tempNode.description = StrI(duration)
+        print title
+        tempNode.Title = title
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl

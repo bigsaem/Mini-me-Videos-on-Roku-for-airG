@@ -18,7 +18,7 @@
     
     print type(myScene.APIArray)
     
-    APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
+    APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=seriesXXX"
     oneRow = GetContinueWatchingArray()
     
     if myScene.APIArray = invalid
@@ -156,6 +156,8 @@ function GetContinueWatchingArray()
         tempItem.url = jsonObject.url
         tempItem.id = item
         tempItem.HDPosterUrl = jsonObject.thumbnail
+        tempItem.description = jsonObject.description
+       	tempItem.Title = jsonObject.name
         result.push(tempItem)
     end for
             
