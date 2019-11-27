@@ -101,16 +101,13 @@
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
-<<<<<<< HEAD
+
         tempNode.id = m.top.id
-=======
-        tempNode.id = id
         tempNode.description = StrI(duration)
         m.top.durationString = StrI(duration)
         print tempNode
         print tempNode.description
         print m.top.durationString
->>>>>>> bc7d4d146c11790eaa6842cdef848efb10d69a77
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl
