@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="customItem" extends="Group">
+
+  <interface>
+    <field id="width"       type="float" onChange="updateLayout"/>
+    <field id="height"      type="float" onChange="updateLayout"/>
+    <field id="itemContent" type="node" onChange="itemContentChanged" />
+  </interface>
+
+  <script type="text/brightscript">
+    <![CDATA[
+      sub Init()
+        m.Poster = m.top.findNode("poster")
+		m.ProgressRectangle = m.top.findNode("ProgressRectangle")
+		m.MaskRectangle = m.top.findNode("maskRectangle")
+		success = m.poster.appendChild(m.ProgressRectangle)    
+	end sub
+
+      sub itemContentChanged()
+        m.Poster.loadDisplayMode = "scaleToZoom"
+        if m.top.height < 400 and m.top.width < 400
+          m.Poster.loadWidth = 300
+          m.Poster.loadHeight = 150
+        end if
+        updateLayout()
+        m.Poster.uri = m.top.itemContent.HDPOSTERURL
+        m.ProgressRectangle = m.poster.getchild(0)
+		print m.top.itemContent
+		print m.top.itemContent.id
+      thisBookmark = GetBookmarkData(m.top.itemContent.id)
+      duration = GetDurationData(m.top.itemContent.id)
+      print thisBookmark
+   '   ? "thisBookmark = ";
+   '   ? thisbookmark
+ '     stop
+      if thisBookmark > 0 AND duration > 0
+        progress = thisBookmark / duration
+        m.progressrectangle.width = 262 * progress
+     '   m.progressrectangle.translation = [0, m.top.itemcontent.ProgressY]
+        m.progressrectangle.visible = true
+        m.maskRectangle.visible = true
+      else
+        m.progressrectangle.visible = false
+        m.maskRectangle.visible = false
+        print "no progress"
+      end if
+
+
+
+
+        
+      end sub
+
+      sub updateLayout()
+        if m.top.height > 0 And m.top.width > 0 then
+          m.Poster.width  = m.top.width
+          m.Poster.height = m.top.height
+        end if
+      end sub
+      
+function GetBookmarkData(id)
+  '  ?"GetBookmarkData(" id ")"
+    sec = CreateObject("roRegistrySection", "MySection")
+    ' check whether bookmark for this item exists
+    if sec.Exists(id)
+    	readJsonString = sec.Read(id)
+    	readJsonObject = parseJson(readJsonString)
+        return readJsonObject.time
+    end if
+    return 0
+end function
+
+function GetDurationData(id)
+  '  ?"GetDurationData(" id ")"
+    sec = CreateObject("roRegistrySection", "MySection")
+    ' check whether bookmark for this item exists
+    if sec.Exists(id)
+    	readJsonString = sec.Read(id)
+    	readJsonObject = parseJson(readJsonString)
+    	print readJsonString
+        return Val(readJsonObject.duration)
+    end if
+    return 0
+end function
+
+            ]]>
+  </script>
+
+  <children>
+      <Poster id="poster" />
+      <Rectangle
+            id="ProgressRectangle"
+            color="0x4FCDDC"
+            width="0"
+            height="10"
+            translation="[0,137]"
+            visible = "false" />
+      	<Rectangle
+            id="maskRectangle"
+            opacity = "0.5" 
+            color="0x4FCDDC"
+            width="262"
+            height="10"
+            translation="[0,137]"
+            visible = "false" />
+      
+      
+      
+      
+      
+          
+  </children>
+
+</component>

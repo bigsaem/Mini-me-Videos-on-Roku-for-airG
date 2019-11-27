@@ -95,6 +95,7 @@ Function OnRowItemSelected()
             m.videoPlayer2.control = "play"
             sec = createObject("roRegistrySection", "MySection")
             Key = m.videoPlayer2.content.id
+            print Key
             if sec.Exists(Key)
               ' Parse json to get bookmark time
               readJsonString =  sec.Read(Key)
@@ -151,7 +152,7 @@ End Function
 '        Key = m.videoPlayer2.content.id
 '        print m.videoPlayer2.content
 '        ' Construct json here
-'        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
+'        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.duration}
 '        ' Then turn json into string
 '        valueJsonString = FormatJson(valueJson, 0)
 '        sec = createObject("roRegistrySection", "MySection")
@@ -166,11 +167,14 @@ Sub OnVideoPlayerStateChange()
     if m.videoPlayer2.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer2.position)
         Key = m.videoPlayer2.content.id
+        sec = createObject("roRegistrySection", "MySection")
+        readJsonString =  sec.Read(Key)
+        readJsonObject = parseJson(readJsonString)
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
+        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration}
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
-        sec = createObject("roRegistrySection", "MySection")
+        print valueJsonString
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
@@ -223,6 +227,7 @@ Function OnKeyEvent(key, press) as Boolean
                 result = true 
             else if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
+                print m.videoPlayer2.content
                 m.videoPlayer2.control = "stop"
                 'm.detailsScreen.visible = false
                 m.GridScreen.visible = true
