@@ -150,6 +150,7 @@ function GetContinueWatchingArray()
     sec = createObject("roRegistrySection", "MySection")
     list = sec.GetKeyList()
     for each item in list
+        print item
         jsonString = sec.Read(item)
         jsonObject = parseJson(jsonString)
         tempItem = {}
@@ -159,6 +160,7 @@ function GetContinueWatchingArray()
         tempItem.id = item
         tempItem.HDPosterUrl = jsonObject.thumbnail
         tempItem.description = jsonObject.description
+        tempItem.Title = jsonObject.name
         result.push(tempItem)
     end for
     

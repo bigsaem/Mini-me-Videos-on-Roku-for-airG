@@ -62,6 +62,7 @@
         fUrl = ""
         id = ""
         duration = 1
+        name = ""
                
         
         for each item in videosArray
@@ -73,26 +74,29 @@
 	        req2.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
 	        jsonTaskString = req2.GetToString()
 	        jsonTaskParsed = ParseJson(jsonTaskString)
+	        hyphenIndex = Instr(1, jsonTaskParsed.name, "-")
+			if hyphenIndex > 3
+	        	hyphenIndex = hyphenIndex - 3
+	        end if
+	        title = mid(jsonTaskParsed.name, hyphenIndex)
+	        duration = jsonTaskParsed.duration.seconds
             if item.quality = "1080p"
                 fUrl = item.url
                 id = item.id
-                duration = jsonTaskParsed.duration.seconds
                 exit for
             else if item.quality = "720p"
                 fUrl = item.url
                 id = item.id
-                duration = jsonTaskParsed.duration.seconds
                 testCW.push(testCWItem)
                 exit for
             else if item.quality = "540p"
                 fUrl = item.url
                 id = item.id
-                duration = jsonTaskParsed.duration.seconds
                 exit for
             else if item.quality = "360p"
                 fUrl = item.url
                 id = item.id
-                duration = jsonTaskParsed.duration.seconds
+                
                 exit for
             end if
         end for
@@ -104,10 +108,8 @@
 
         tempNode.id = m.top.id
         tempNode.description = StrI(duration)
-        m.top.durationString = StrI(duration)
-        print tempNode
-        print tempNode.description
-        print m.top.durationString
+        print title
+        tempNode.Title = title
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl

@@ -14,10 +14,12 @@
 	    sub init()
 			m.Poster = m.top.findNode("poster")
 			m.ProgressRectangle = m.top.findNode("ProgressRectangle")
-			m.MaskRectangle = m.top.findNode("maskRectangle")
+			m.MaskRectangle = m.top.findNode("maskRectangle")			
 	    end sub
 	
 	    sub showcontent()
+	      m.title = m.top.findNode("epi_title")
+	      m.title.text = m.top.itemContent.Title
 	      itemcontent = m.top.itemContent
 	      sec = createObject("roRegistrySection", "MySection")
 	      if sec.Exists(itemcontent.id)
@@ -26,8 +28,10 @@
 	        duration = Val(readJsonObject.duration)
 	        timestamp  = readJsonObject.time
 	        m.ProgressRectangle.width = 262*(timestamp/duration)
+	        m.ProgressRectangle.visible = true
+	        m.MaskRectangle.visible = true
         end if
-            print itemcontent
+            m.title.text = m.top.itemContent.Title
 	        m.Poster.uri = itemcontent.HDPOSTERURL
 	    end sub
 
@@ -46,6 +50,7 @@
             width="262"
             height="10"
             translation="[0,137]"
+            visible = "false"
              />
       <Rectangle
             id="ProgressRectangle"
@@ -53,8 +58,15 @@
             width="0"
             height="10"
             translation="[0,137]"
+            visible = "false"
              />
       </Poster>
+
+      <Label
+        id="epi_title"
+        color="#FFFFFF"
+        width="240"
+        translation="[0.0, 150]"/>
 
      
   </children>
