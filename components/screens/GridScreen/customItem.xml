@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
+
+<component name="customItem" extends="Group">
+
+  <interface>
+    <field id="width"       type="float" onChange="updateLayout"/>
+    <field id="height"      type="float" onChange="updateLayout"/>
+    <field id="itemContent" type="node" onChange="showcontent" />
+  </interface>
+
+  <script type="text/brightscript">
+    <![CDATA[
+	    sub init()
+			m.Poster = m.top.findNode("poster")
+			m.ProgressRectangle = m.top.findNode("ProgressRectangle")
+			m.MaskRectangle = m.top.findNode("maskRectangle")
+			m.title = m.top.findNode("epi_title")
+	    end sub
+	
+	    sub showcontent()
+	      m.title.text = m.top.itemContent.Title
+	      itemcontent = m.top.itemContent
+	      sec = createObject("roRegistrySection", "MySection")
+	      if sec.Exists(itemcontent.id)
+	        readJsonString =  sec.read(itemcontent.id)
+	        readJsonObject = parseJson(readJsonString)
+	        duration = Val(readJsonObject.duration)
+	        timestamp  = readJsonObject.time
+	        m.ProgressRectangle.width = 262*(timestamp/duration)
+        end if
+            m.title.text = m.top.itemContent.Title
+	        m.Poster.uri = itemcontent.HDPOSTERURL
+	    end sub
+
+            ]]>
+  </script>
+
+  <children>
+      <Poster id="poster" 
+        translation = "[ 0, 0 ]" 
+        width = "262" 
+        height = "147" >
+      <Rectangle
+            id="maskRectangle"
+            opacity = "0.5" 
+            color="#FFFFFF"
+            width="262"
+            height="10"
+            translation="[0,137]"
+             />
+      <Rectangle
+            id="ProgressRectangle"
+            color="#50cddd"
+            width="0"
+            height="10"
+            translation="[0,137]"
+             />
+      </Poster>
+      <Label
+        id="epi_title"
+        color="#FFFFFF"
+        width="240"
+        translation="[0.0, 150]"/>
+
+     
+  </children>
+
+</component>

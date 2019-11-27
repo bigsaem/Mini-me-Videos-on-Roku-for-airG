@@ -33,6 +33,7 @@ Function Init()
     tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
     customizeProgressBar(m.videoPlayer2.bufferingBar)
     customizeProgressBar(m.videoPlayer2.progressBar)
+
     
     m.option = m.top.findNode("option_btn")
 
@@ -93,12 +94,14 @@ Function OnRowItemSelected()
             'init of video player and start playback
             'm.detailsScreen.visible = true
             'm.detailsScreen.videoPlayerVisible = true
+
             m.videoPlayer2.visible = true
             m.videoPlayer2.setFocus(true)
             m.videoPlayer2.content = selectedItem
             m.videoPlayer2.control = "play"
             sec = createObject("roRegistrySection", "MySection")
             Key = m.videoPlayer2.content.id
+            print Key
             if sec.Exists(Key)
               ' Parse json to get bookmark time
               readJsonString =  sec.Read(Key)
@@ -155,7 +158,7 @@ End Function
 '        Key = m.videoPlayer2.content.id
 '        print m.videoPlayer2.content
 '        ' Construct json here
-'        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
+'        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.duration}
 '        ' Then turn json into string
 '        valueJsonString = FormatJson(valueJson, 0)
 '        sec = createObject("roRegistrySection", "MySection")
@@ -170,11 +173,14 @@ Sub OnVideoPlayerStateChange()
     if m.videoPlayer2.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer2.position)
         Key = m.videoPlayer2.content.id
+        sec = createObject("roRegistrySection", "MySection")
+        readJsonString =  sec.Read(Key)
+        readJsonObject = parseJson(readJsonString)
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key}
+        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration, "name": readJsonObject.name}
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
-        sec = createObject("roRegistrySection", "MySection")
+        print valueJsonString
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
@@ -219,23 +225,18 @@ Function OnKeyEvent(key, press) as Boolean
                 updateRow()
                 result = true
                 
-            ' if Episodes opened
-
-            else if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.episodes.visible = true
-                m.optionCont.visible = "false"
-                m.episodes.setFocus(true)
-                result = true
             else if m.detailsScreen.videoPlayerVisible = true
                 m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible=false
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
-                'print "this one runs"
                 result = true 
             else if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
+                print m.videoPlayer2.content
                 m.videoPlayer2.control = "stop"
-                m.detailsScreen.visible = false
+                'm.detailsScreen.visible = false
+                updateRow()
                 m.GridScreen.visible = true
                 m.GridScreen.setFocus(true)
                 result = true
