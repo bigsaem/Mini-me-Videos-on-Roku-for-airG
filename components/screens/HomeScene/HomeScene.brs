@@ -171,7 +171,7 @@ Sub OnVideoPlayerStateChange()
         readJsonString =  sec.Read(Key)
         readJsonObject = parseJson(readJsonString)
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration}
+        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration, "name": readJsonObject.name}
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
         print valueJsonString
@@ -230,6 +230,7 @@ Function OnKeyEvent(key, press) as Boolean
                 print m.videoPlayer2.content
                 m.videoPlayer2.control = "stop"
                 'm.detailsScreen.visible = false
+                updateRow()
                 m.GridScreen.visible = true
                 m.GridScreen.setFocus(true)
                 result = true
