@@ -50,6 +50,7 @@ Sub onVisibleChange()
     m.buttongrpp.setFocus(true)
     
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
+        m.epTask.id = m.top.id
         m.epTask.contenturi = m.top.epUrl
         print m.epTask.contenturi
         m.epTask.control = "RUN"

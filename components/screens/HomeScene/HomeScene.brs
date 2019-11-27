@@ -127,9 +127,9 @@ Function OnRowItemSelected()
         'm.episodes.visible = false
         print "hellooooooooooooooooooooo"
         print m.episodes.focusedContent.id
+        m.detailsScreen.id = m.episodes.focusedContent.id
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
-        print m.episodes.focusedContent.Title
         m.detailsScreen.passedTitle = m.episodes.focusedContent.SHORTDESCRIPTIONLINE1
         m.detailsScreen.thumbnail = m.episodes.focusedContent.SDGRIDPOSTERURL
         m.detailsScreen.visible = true
