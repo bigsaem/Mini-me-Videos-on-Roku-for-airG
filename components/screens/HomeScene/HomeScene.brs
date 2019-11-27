@@ -168,7 +168,6 @@ End Function
 'End Sub
 
 Sub OnVideoPlayerStateChange()
-    print "in HS onVideoPlayerStateChange"
     ? "HomeScene > OnVideoPlayerStateChange : state == ";m.videoPlayer2.state
     if m.videoPlayer2.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer2.position)

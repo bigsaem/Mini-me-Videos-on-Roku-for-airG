@@ -14,12 +14,15 @@
 	    sub init()
 			m.Poster = m.top.findNode("poster")
 			m.ProgressRectangle = m.top.findNode("ProgressRectangle")
-			m.MaskRectangle = m.top.findNode("maskRectangle")			
+			m.MaskRectangle = m.top.findNode("maskRectangle")		
+
 	    end sub
 	
 	    sub showcontent()
 	      m.title = m.top.findNode("epi_title")
 	      m.title.text = m.top.itemContent.Title
+          m.ProgressRectangle.visible = false
+          m.MaskRectangle.visible = false
 	      itemcontent = m.top.itemContent
 	      sec = createObject("roRegistrySection", "MySection")
 	      if sec.Exists(itemcontent.id)
