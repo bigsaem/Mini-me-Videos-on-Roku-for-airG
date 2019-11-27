@@ -25,7 +25,10 @@ Sub OnItemFocused()
     itemFocused = m.top.itemFocused
     m.top.focusedContent = m.top.content.getChild(itemFocused)
 End Sub
-
+function updateRow()
+    m.CWTask = CreateObject("roSGNode", "GetEpisodes")
+    m.CWTask.control = "RUN"
+end function
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
@@ -39,15 +42,14 @@ Sub onVisibleChange()
         'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
-        
         m.sceneTask.showName = m.top.showName
-        
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"
         m.top.canCallApi = false
     end if
 
     if m.top.visible = true then
+        
         m.posterGrid.setFocus(true)
     end if
 

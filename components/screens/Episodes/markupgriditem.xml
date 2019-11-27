@@ -21,6 +21,8 @@
     end sub
 
     sub showcontent()
+      m.pro_back.visible = false
+      m.progress.visible = false
       itemcontent = m.top.itemContent
       sec = createObject("roRegistrySection", "MySection")
       if sec.Exists(itemcontent.id)

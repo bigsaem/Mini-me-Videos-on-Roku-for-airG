@@ -66,9 +66,6 @@
         name = ""
                
         for each item in videosArray
-<<<<<<< HEAD
-
-=======
         	testCWItem = {}
         	port2 = CreateObject("roMessagePort")
 	        req2 = CreateObject("roUrlTransfer")
@@ -83,7 +80,6 @@
 	        end if
 	        title = mid(jsonTaskParsed.name, hyphenIndex)
 	        duration = jsonTaskParsed.duration.seconds
->>>>>>> 01845523386e32d02d9edbaeeff2d1b5cbd861bf
             if item.quality = "1080p"
                 fUrl = item.url
                 id = item.id
@@ -108,19 +104,11 @@
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
-<<<<<<< HEAD
-
         tempNode.id = m.top.id
-=======
-        tempNode.id = id
-<<<<<<< HEAD
         tempNode.title = m.top.episodeName
-=======
->>>>>>> 3b8cf36ea2d69cf83b1d8f11700488a085773e3f
         tempNode.description = StrI(duration)
         print title
         tempNode.Title = title
->>>>>>> 01845523386e32d02d9edbaeeff2d1b5cbd861bf
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl
