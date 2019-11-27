@@ -8,6 +8,8 @@
     <field id = "fEpUrl" type = "string" />
     <field id = "passNode" type = "node" />
     <field id = "id" type = "string" />
+    <field id = "durationString" type = "string" />
+
   </interface>
   <script type="text/brightscript">
     
@@ -22,7 +24,7 @@
         port = CreateObject("roMessagePort")
         req = CreateObject("roUrlTransfer")
         req.setRequest("GET")
-        req.setURL(m.top.contenturi)        
+        req.setURL(m.top.contenturi)     
         req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
         jsonTaskString = req.GetToString()
         jsonTaskParsed = ParseJson(jsonTaskString)
@@ -51,6 +53,7 @@
                 videos = {}
                 videos.quality = video.quality
                 videos.url = video._links.source.href
+                videos.video_url = video._links.video.href
                 videos.id = video.id
                 videosArray.push(videos)
             end if
@@ -58,35 +61,56 @@
         
         fUrl = ""
         id = ""
+        duration = 1
                
         
         for each item in videosArray
         	testCWItem = {}
+        	port2 = CreateObject("roMessagePort")
+	        req2 = CreateObject("roUrlTransfer")
+	        req2.setRequest("GET")
+	        req2.setURL(videos.video_url)        
+	        req2.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+	        jsonTaskString = req2.GetToString()
+	        jsonTaskParsed = ParseJson(jsonTaskString)
             if item.quality = "1080p"
                 fUrl = item.url
                 id = item.id
+                duration = jsonTaskParsed.duration.seconds
                 exit for
             else if item.quality = "720p"
                 fUrl = item.url
                 id = item.id
+                duration = jsonTaskParsed.duration.seconds
                 testCW.push(testCWItem)
                 exit for
             else if item.quality = "540p"
                 fUrl = item.url
                 id = item.id
+                duration = jsonTaskParsed.duration.seconds
                 exit for
             else if item.quality = "360p"
                 fUrl = item.url
                 id = item.id
+                duration = jsonTaskParsed.duration.seconds
                 exit for
             end if
         end for
         
-        
+        print duration
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
+<<<<<<< HEAD
         tempNode.id = m.top.id
+=======
+        tempNode.id = id
+        tempNode.description = StrI(duration)
+        m.top.durationString = StrI(duration)
+        print tempNode
+        print tempNode.description
+        print m.top.durationString
+>>>>>>> bc7d4d146c11790eaa6842cdef848efb10d69a77
         m.content = tempNode
         m.top.passNode = tempNode
         m.top.fEpUrl = fUrl
