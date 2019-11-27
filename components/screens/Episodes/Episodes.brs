@@ -78,7 +78,12 @@ function gotContent()
             item.HDGRIDPOSTERURL = episode.thumbnail.small
             item.SDGRIDPOSTERURL = episode.thumbnail.medium
             item.Title = "Season " + i.toStr()
-            item.SHORTDESCRIPTIONLINE1 = episode.title   
+            hyphenIndex = Instr(1, episode.title, "-")
+            if hyphenIndex > 3
+                hyphenIndex = hyphenIndex - 3
+            end if
+            title = mid(episode.title, hyphenIndex)
+            item.SHORTDESCRIPTIONLINE1 = title
             item.url = episode._links.files.href
             item.episodeNumber = episode.episode_number
             item.ContentType = "wow"
