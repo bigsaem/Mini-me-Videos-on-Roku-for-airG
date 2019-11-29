@@ -11,10 +11,6 @@ Function Init()
     ' GridScreen node with RowList
     m.gridScreen = m.top.findNode("GridScreen")
 
-    
-    
-    
-
     m.episodes = m.top.findNode("Episodes")
 
     m.errorScene = m.top.findNode("ErrorScene")
@@ -33,7 +29,6 @@ Function Init()
     tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
     customizeProgressBar(m.videoPlayer2.bufferingBar)
     customizeProgressBar(m.videoPlayer2.progressBar)
-
     
     m.option = m.top.findNode("option_btn")
 
@@ -49,6 +44,10 @@ Function Init()
     
     m.top.observeField("playSelected", "OnRowItemSelected")
     
+    m.videoPlayer1 = m.detailsScreen.findNode("VideoPlayer")
+    m.top.observeField("DetailsScreen.videoPlayerVisible", "checkEndOfEpisode")
+    
+    
     
     ' loading indicator starts at initializatio of channel
     'm.loadingIndicator = m.top.findNode("loadingIndicator")
@@ -60,6 +59,12 @@ Function Init()
     m.rowAnim = m.top.findNode("slideUpRowlist")
     'print type(m.detailsScreen.videoPlayer)
 End Function 
+
+function checkEndOfEpisode()
+    if m.top.videoPlayer1.visible = false and m.videoPlayer1.state = "finished"
+        videoEnded()
+    end if
+end function
 
 ' if content set, focus on GridScreen
 Function OnChangeContent()
@@ -240,9 +245,7 @@ Function OnKeyEvent(key, press) as Boolean
                 m.GridScreen.setFocus(true)
                 result = true
             else if m.detailsScreen.visible = true and m.detailsScreen.videoPlayerVisible = false
-                m.detailsScreen.visible=false
-                m.episodes.visible = true
-                m.episodes.setFocus(true)
+                videoEnded()
                 result = true
             else if m.gridScreen.visible = false and m.episodes.visible = true
                 updateRow()
@@ -259,13 +262,9 @@ Function OnKeyEvent(key, press) as Boolean
 '                m.episodes.visible = true
 '                m.detailsScreen.visible = false
 '                result = true
-                
-
-
             'end if
             'if video player opened
             else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
-            
                 m.detailsScreen.videoPlayerVisible = false
                 m.detailsScreen.visible = false
                 m.episodes.visible = false
@@ -278,6 +277,12 @@ Function OnKeyEvent(key, press) as Boolean
     end if
     return result
 End Function
+
+function videoEnded()
+    m.detailsScreen.visible=false
+    m.episodes.visible = true
+    m.episodes.setFocus(true)
+end function
 
 sub customizeProgressBar(progressBar as Dynamic)
     bar = progressBar

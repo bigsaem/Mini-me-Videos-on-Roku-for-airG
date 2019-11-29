@@ -11,6 +11,7 @@ Function Init()
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
+    
 
    ' m.itemmask = m.top.findNode("itemMask")
     'm.description   =   m.top.findNode("Description")   

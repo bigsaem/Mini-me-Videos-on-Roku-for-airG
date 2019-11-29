@@ -9,6 +9,7 @@
     <field id="showName" type="string"/>
 	<field id="isCached" type="bool"/>
     <field id = "content" type = "assocarray" />
+    <field id="apiNode" type = "assocarray" />
   </interface>
   <script type="text/brightscript">
     
@@ -22,35 +23,36 @@
   		print "*******showname****"
   		print m.top.showName
   		
-
-  			
-  		if m.top.content <> invalid
-  		for each season in m.top.content.keys()
-            for each episode in m.top.content[Season]._embedded.items
-  				if m.top.showName = episode.metadata.series_name
-  					m.top.content = m.top.content
-  					m.top.isCached = true
-  					return
-  				end if
-  				'print episode.series_name
-  			end for
-  		end for
   		
-  			'print m.top.content.Season1._embedded.items.title
+  		
+  		'This checks to see if the api for this show has been called before
+  		'If it was called previously, then no new API call is made and instead
+  		'The contents are retreived from the node that saves all api calls
+  		if m.top.content <> invalid
+  			if m.top.apiNode.DoesExist(m.top.showName)
+  				for each show in m.top.apiNode.keys()
+  					if show = m.top.showName
+			  			print m.top.apiNode
+			  			print show
+			  			print m.top.apiNode[show]
+			  			m.top.content = m.top.apiNode[show]
+  					end if
+  				end for
+  			end if
   		end if
   		
-  		'if m.top.content <> invalid and
-  		   	
+  		'The following lines prepare the required variables for the API call
   		port = CreateObject("roMessagePort")
     	req = CreateObject("roUrlTransfer")
     	req.setRequest("GET")
     	req.setURL(m.top.seasonUrl)
-    	'req.setURL(m.top.contenturi)    	
     	req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     	jsonTaskString = req.GetToString()
     	jsonTaskParsed = ParseJson(jsonTaskString)
     	errorArray = CreateObject("roAssociativeArray")
     	
+    	'If there was an issue with the API call, show the error screen
+    	'Else continue with the next API call for the season to get the episodes
     	if jsonTaskString = "" or jsonTaskParsed = invalid
     		'If there is an error with the API call
     		errorLabel:    		
@@ -63,13 +65,10 @@
             	msg = Wait(0, port)
             	? "------------------"
             	? "msg = ";
-        	end while
-        	
-    		
+        	end while	
     	else    	
 	    	indexOfChild = 1
 	    	seasonsArray = CreateObject("roAssociativeArray")
-	    	
 	     	for each season in jsonTaskParsed._embedded.items
 	     	
 	        	episodesAPI = season._links.episodes.href
@@ -78,6 +77,8 @@
 	    		jsonTaskParsed = ParseJson(jsonTaskString)
 	    		
 	    		print "API"
+	    		
+	    		'If there was an error with the episodes API call
 	    		if jsonTaskString = "" or jsonTaskParsed = invalid
 	    			Goto errorLabel
 	    		end if
@@ -86,12 +87,24 @@
 	    		indexOfChild++   	
 	    		
 	    	end for		
-	    		
+
+	    	'This techincally runs the first time only. after that it always goes to the "else" block
+	    	'It is checking if the apiNode was created. If it's not created then create a new one,
+	    	'If it was previously created, then pass the apiNode to apiArray so that we can add new shows to it
+	    	'then assign the array back to the node therefore we can cache everyseason the user opens
+	    	if m.top.apiNode = invalid
+	        	apiArray =  CreateObject("roAssociativeArray")
+	        else
+	        	apiArray = m.top.apiNode
+	        end if
+	    		    	
+	    	apiArray.AddReplace(m.top.showName, seasonsArray)
+	    	print apiArray
+	    	m.top.apiNode = apiArray	    	
 	    	m.top.content = seasonsArray
+
     	end if
-    	
-    	endLabel:
-  	end sub
+   	end sub
   ]]> 
   </script>
 </component>
