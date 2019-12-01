@@ -90,7 +90,7 @@ Sub onVideoVisibleChange()
         readJsonString =  sec.Read(Key)
         readJsonObject = parseJson(readJsonString)
         ' Construct json here
-        valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description, "name": m.videoPlayer.content.Title }
+        valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.top.epUrl, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description, "name": m.videoPlayer.content.Title }
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
         print valueJsonString

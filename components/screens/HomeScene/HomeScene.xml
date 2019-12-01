@@ -93,7 +93,7 @@
             translation="[0, 0]"
             width="1280"
             height="720"/>
-		 
+
         <!-- Details screen with Play button -->
         <!--<DetailsScreen
             id="DetailsScreen"
@@ -142,11 +142,11 @@
                 fieldToInterp="itemMask.translation" />
         </Animation> 
         <Animation id="slideDown" 
-            duration="0.2"
+            duration="0.5"
             easeFunction="linear" >
             <Vector2DFieldInterpolator id = "slidedownfull"
                 key="[0.0, 0.7, 1.0]"
-                keyValue="[ [0.0, 0.0], [0.0, 100.0],[0.0, 350.0] ]"
+                keyValue="[ [0.0, 0.0], [0.0, 420.0],[0.0, 350.0] ]"
                 fieldToInterp="itemMask.translation" />
         </Animation> 
     </children>
