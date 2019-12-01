@@ -154,7 +154,6 @@ Sub OnVideoPlayerStateChange()
         sec = createObject("roRegistrySection", "MySection")
         sec.Delete(Key)      
         print m.videoPlayer.visible
-        stop  
     end if
 End Sub
 

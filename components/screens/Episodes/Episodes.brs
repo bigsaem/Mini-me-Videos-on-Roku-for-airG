@@ -12,9 +12,6 @@ Function Init()
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
     
-
-   ' m.itemmask = m.top.findNode("itemMask")
-    'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -26,6 +23,7 @@ Sub OnItemFocused()
     itemFocused = m.top.itemFocused
     m.top.focusedContent = m.top.content.getChild(itemFocused)
 End Sub
+
 function updateRow()
     m.CWTask = CreateObject("roSGNode", "GetEpisodes")
     m.CWTask.control = "RUN"
@@ -49,8 +47,12 @@ Sub onVisibleChange()
         m.top.canCallApi = false
     end if
 
-    if m.top.visible = true then
+    if m.top.visible = true then     
+
         
+        'print m.posterGrid.content
+        'print m.top.content
+        'm.posterGrid.content = m.top.content
         m.posterGrid.setFocus(true)
     end if
 
@@ -66,7 +68,6 @@ End Sub
 
 function gotContent()        
     jsonParsed = m.sceneTask.content
-    'print jasonParsed[Season1]._embedded.items
 
     result  = []
     x = 0
@@ -113,9 +114,7 @@ function gotContent()
         }
     ]
     
-    'print list
     m.top.allEpisodes = list
-    'print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
 
     m.busyspinner.visible = false
@@ -136,7 +135,6 @@ function parseJSONObject(list as Object)
             end for
             row.appendChild(item)
         end for
-'        RowItems.appendChild(row)
     end for
 
     return row

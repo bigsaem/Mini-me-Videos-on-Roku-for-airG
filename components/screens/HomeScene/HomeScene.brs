@@ -45,13 +45,7 @@ Function Init()
     m.top.observeField("playSelected", "OnRowItemSelected")
     
     m.videoPlayer1 = m.detailsScreen.findNode("VideoPlayer")
-    m.top.observeField("DetailsScreen.videoPlayerVisible", "checkEndOfEpisode")
-    
-    
-    
-    ' loading indicator starts at initializatio of channel
-    'm.loadingIndicator = m.top.findNode("loadingIndicator")
-
+    m.videoPlayer1.observeField("state", "checkEndOfEpisode")    
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
     
@@ -60,8 +54,9 @@ Function Init()
     'print type(m.detailsScreen.videoPlayer)
 End Function 
 
+'When a video is completed go back to episode screen with focus on last item selected
 function checkEndOfEpisode()
-    if m.top.videoPlayer1.visible = false and m.videoPlayer1.state = "finished"
+    if m.videoPlayer1.visible = true and m.videoPlayer1.state = "finished"    
         videoEnded()
     end if
 end function
@@ -90,23 +85,18 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
-    print  m.top.rowCount
     if m.gridScreen.visible = true and m.episodes.visible = false 
         if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
 
             m.gridScreen.visible = "false"
             selectedItem = m.gridScreen.focusedContent
-            'init of video player and start playback
-            'm.detailsScreen.visible = true
-            'm.detailsScreen.videoPlayerVisible = true
-
             m.videoPlayer2.visible = true
             m.videoPlayer2.setFocus(true)
             m.videoPlayer2.content = selectedItem
             m.videoPlayer2.control = "play"
             sec = createObject("roRegistrySection", "MySection")
             Key = m.videoPlayer2.content.id
-            print Key
+          '  print Key
             if sec.Exists(Key)
               ' Parse json to get bookmark time
               readJsonString =  sec.Read(Key)
@@ -136,9 +126,7 @@ Function OnRowItemSelected()
 
     else if m.gridScreen.visible = false and m.episodes.visible = true
         
-        'm.episodes.visible = false
-        print "hellooooooooooooooooooooo"
-        print m.episodes.focusedContent.id
+        'print m.episodes.focusedContent.id
         m.detailsScreen.id = m.episodes.focusedContent.id
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
         m.detailsScreen.content = m.episodes.focusedContent
@@ -146,31 +134,10 @@ Function OnRowItemSelected()
         m.detailsScreen.thumbnail = m.episodes.focusedContent.SDGRIDPOSTERURL
         m.detailsScreen.visible = true
         m.detailsScreen.setFocus(true)
-        'm.detailsScreen.allEpisodes = m.episodes.allEpisodes
-        
-        
-        'm.detailsScreen.videoPlayerVisible = true
         result = true
     end if
     
 End Function
-
-' set proper focus on buttons and stops video if return from Playback to details
-'Sub onVideoVisibleChange()
-'    print "in HS onVideoVisibleChange"
-'    if m.videoPlayer2.visible = false and (m.top.visible = true or m.top.visible = false)
-'        TimeStamp = Str(m.videoPlayer2.position)
-'        Key = m.videoPlayer2.content.id
-'        print m.videoPlayer2.content
-'        ' Construct json here
-'        valueJson = {"time":  m.videoPlayer2.position, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.duration}
-'        ' Then turn json into string
-'        valueJsonString = FormatJson(valueJson, 0)
-'        sec = createObject("roRegistrySection", "MySection")
-'        sec.Write(Key, valueJsonString)
-'        sec.Flush()
-'    end if
-'End Sub
 
 Sub OnVideoPlayerStateChange()
     ? "HomeScene > OnVideoPlayerStateChange : state == ";m.videoPlayer2.state
@@ -184,7 +151,7 @@ Sub OnVideoPlayerStateChange()
         valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration, "name": readJsonObject.name}
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
-        print valueJsonString
+        'print valueJsonString
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
@@ -222,7 +189,7 @@ Function OnKeyEvent(key, press) as Boolean
             end if
 
         else if key = "back"
-        print "back pressed"
+        'print "back pressed"
             if (m.optionCont.visible = true or m.option.hasFocus() = true ) and m.gridScreen.visible = true
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
@@ -237,7 +204,7 @@ Function OnKeyEvent(key, press) as Boolean
                 result = true 
             else if m.gridScreen.visible = false and m.videoPlayer2.visible = true
                 m.videoPlayer2.visible = false
-                print m.videoPlayer2.content
+                'print m.videoPlayer2.content
                 m.videoPlayer2.control = "stop"
                 'm.detailsScreen.visible = false
                 updateRow()
@@ -279,6 +246,7 @@ Function OnKeyEvent(key, press) as Boolean
 End Function
 
 function videoEnded()
+    m.videoPlayer1.visible=false
     m.detailsScreen.visible=false
     m.episodes.visible = true
     m.episodes.setFocus(true)

@@ -150,7 +150,6 @@ function GetContinueWatchingArray()
     sec = createObject("roRegistrySection", "MySection")
     list = sec.GetKeyList()
     for each item in list
-        print item
         jsonString = sec.Read(item)
         jsonObject = parseJson(jsonString)
         tempItem = {}
