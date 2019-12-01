@@ -95,7 +95,6 @@
             else if item.quality = "360p"
                 fUrl = item.url
                 id = item.id
-                
                 exit for
             end if            
         end for
