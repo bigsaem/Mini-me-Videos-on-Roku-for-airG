@@ -33,7 +33,7 @@
 	        m.ProgressRectangle.width = 262*(timestamp/duration)
 	        m.ProgressRectangle.visible = true
 	        m.MaskRectangle.visible = true
-        end if
+       end if
             m.title.text = m.top.itemContent.Title
 	        m.Poster.uri = itemcontent.HDPOSTERURL
 	    end sub

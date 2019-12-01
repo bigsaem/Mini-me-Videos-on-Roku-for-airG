@@ -11,8 +11,6 @@ Function Init()
     m.btn_begin.observeField("buttonSelected", "onBeginButtonSelected")
     m.btn_resume = m.top.findNode("resume")
     m.btn_resume.observeField("buttonSelected","onResumeButtonSelected")
-'    m.buttongrpp.textFont.size = 10
-'    m.buttongrpp.focusedTextFont.size = 10
     m.eptitle = m.top.findNode("ep_title")
     m.eptitle.translation = "[440,470]"
     m.poster = m.top.findNode("thumbnail_box")
@@ -65,7 +63,6 @@ function gotContent()
     Key = m.epTask.passNode.id
     if sec.Exists(Key)
         m.popupbox.visible = true
-
         print m.top.thumbnail
         m.poster.uri = m.top.thumbnail
         print m.top.passedTitle
@@ -155,8 +152,9 @@ Sub OnVideoPlayerStateChange()
         m.videoPlayer.visible = false
         Key = m.videoPlayer.content.id
         sec = createObject("roRegistrySection", "MySection")
-        sec.Delete(Key)
-        onItemSelected()
+        sec.Delete(Key)      
+        print m.videoPlayer.visible
+        stop  
     end if
 End Sub
 
@@ -180,7 +178,7 @@ Sub onItemSelected()
           readJsonObject = parseJson(readJsonString)
           m.videoPlayer.seek = readJsonObject.time
         end if        
-        m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
+          m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
         
     'End if
 End Sub

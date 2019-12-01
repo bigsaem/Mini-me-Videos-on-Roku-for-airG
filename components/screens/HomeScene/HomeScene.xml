@@ -87,21 +87,7 @@
 		  translation="[1280,0]" 
 		 />
 		 
-		 <Video
-            id="videoPlayer2"
-            visible="false"
-            translation="[0, 0]"
-            width="1280"
-            height="720"/>
 
-        <!-- Details screen with Play button -->
-        <!--<DetailsScreen
-            id="DetailsScreen"
-            translation = "[440,160]"
-            color="#FFFFFF"
-            width = "400"
-            height = "450"
-            visible="false"/>-->
         <DetailsScreen
             id="DetailsScreen"
             visible = "false"/>

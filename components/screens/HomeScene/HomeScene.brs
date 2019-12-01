@@ -18,16 +18,7 @@ Function Init()
     ' DetailsScreen Node with description, Video Player
 
     m.detailsScreen = m.top.findNode("DetailsScreen")
-    
-    m.videoPlayer2 = m.top.findNode("videoPlayer2")
-    customizeProgressBar(m.videoPlayer2.retrievingBar)
-    tpbar = m.videoPlayer2.trickPlayBar
-    customizeProgressBar(tpbar)
-    tpbar.completedBarImageUri = "pkg:/images/barcolor.png"
-    customizeProgressBar(m.videoPlayer2.bufferingBar)
-    customizeProgressBar(m.videoPlayer2.progressBar)
-
-    
+  
     m.option = m.top.findNode("option_btn")
 
     m.optionCont = m.top.findNode("optionCont")
@@ -61,6 +52,7 @@ function OnVisibleChange()
         m.videoFromEpisode = true
     end if
 End Function
+
 ' if content set, focus on GridScreen
 Function OnChangeContent()
     m.gridAnim.control = "start"
@@ -195,11 +187,3 @@ Function OnKeyEvent(key, press) as Boolean
     end if
     return result
 End Function
-
-sub customizeProgressBar(progressBar as Dynamic)
-    bar = progressBar
-    if bar <> invalid
-        bar.filledBarImageUri = "pkg:/images/barcolor.png"
-        bar.filledBarBlendColor = "0xFFFFFFFF"
-    end if
-end sub
