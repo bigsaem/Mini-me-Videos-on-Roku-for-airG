@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
 <component name="ContinueWatching" extends="Task">
   <interface>
     
@@ -12,11 +11,11 @@
   	m.top.functionName = "updateList"
   end sub
   
+  'This function updates the continue watching row dynamically.
+  'It is on a new thread that retrieves data from the registry to populate the Continue Watching row
   function updateList()
-
+	'Get current active scene
     myScene = m.top.GetScene()
-    
-    
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=seriesXXX"
     oneRow = GetContinueWatchingArray()
     
@@ -79,13 +78,11 @@ function parseJSONObject(list as Object)
     RowItems = CreateObject("RoSGNode", "ContentNode")
 
     for each rowAA in list
-        ' for index = 0 to 1
         row = CreateObject("RoSGNode", "ContentNode")
         row.Title = rowAA.Title
 
         for each itemAA in rowAA.ContentList
             item = CreateObject("RoSGNode", "ContentNode")
-            ' We don't use item.setFields(itemAA) as doesn't cast streamFormat to proper value
             for each key in itemAA
                 item[key] = itemAA[key]
             end for
@@ -104,9 +101,6 @@ function GetApiArray(APIURL)
     request.SetUrl(APIURL)
     request.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
     jsonString = request.GetToString()
-    
-    
-
     result = []
     
     if jsonString = ""
@@ -118,23 +112,16 @@ function GetApiArray(APIURL)
     if jsonParsed = invalid
         return invalid
     end if
-        
-
 
     for each show in jsonParsed._embedded.collections
         item = {}
         item.HDPosterUrl = show.thumbnail.medium
-        'item.hdBackgroundImageUrl = show.thumbnail.large '
         item.Title = show.name
-        'item.ReleaseDate = " "'
-        'item.Description = " " '
         item.seasonUrl = show._links.seasons.href
         item.seasonNumber = show.seasons_count.ToStr()
         result.push(item)
     end for
-    
-	print "**********************************"
-	
+    	
     return result
 end function
 
@@ -147,7 +134,6 @@ function GetContinueWatchingArray()
         jsonString = sec.Read(item)
         jsonObject = parseJson(jsonString)
         tempItem = {}
-        'tempNode = CreateObject("roSGNode", "ContentNode")
         tempItem.streamFormat = jsonObject.streamFormat
         tempItem.url = jsonObject.url
         tempItem.id = item

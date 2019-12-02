@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
 <component name="GetEpisodes" extends="Task">
   <interface>
     <field id = "contenturi" type = "string" />
@@ -20,8 +19,7 @@
   	end sub
   	
   	sub getAPIResponse()	
-  		
-  		
+
   		'This checks to see if the api for this show has been called before
   		'If it was called previously, then no new API call is made and instead
   		'The contents are retreived from the node that saves all api calls
