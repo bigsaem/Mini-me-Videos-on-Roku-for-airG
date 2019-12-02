@@ -3,16 +3,6 @@
 '* All Rights Reserved
 '*****************************************************************
 
-' Functions in this file:
-'
-'     TestSuite__Main
-'     MainTestSuite__SetUp
-'     MainTestSuite__TearDown
-'     TestCase__Main_CheckDataCount
-'     TestCase__Main_CheckItemAttributes
-'     TestCase__Main_CheckStreamFormatType
-'     TestCase__Main_TestAddPrefixFunction__Failed
-'     TestCase__Main_TestAddPrefixFunction__Passed
 
 '----------------------------------------------------------------
 ' Main setup function.
