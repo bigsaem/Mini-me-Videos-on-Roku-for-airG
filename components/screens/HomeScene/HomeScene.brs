@@ -42,7 +42,7 @@ function checkEndOfEpisode()
     if m.videoPlayer.visible = true and m.videoPlayer.state = "finished"    
         videoEnded()
     end if
-    end function
+end function
     
 function OnVisibleChange()
     if m.top.visible = true
@@ -169,6 +169,7 @@ End Function
 function videoEnded()
 
     if m.videoFromEpisode = true 
+        m.episodes.content = {}
         m.episodes.content = m.episodes.refreshNode
         'm.episodes.refreshNode = {}
         m.detailsScreen.videoPlayerVisible = false
