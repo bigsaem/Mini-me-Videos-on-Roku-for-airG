@@ -15,8 +15,7 @@
         <field id="refreshNode" type="node"/>
         <field id="apiNode" type="roArray" />
         <field id="focusedItemHolder" type="int"/>
-        
-        
+               
                 
         
         <!-- Row item selection handler -->
@@ -29,7 +28,6 @@
         <field id="seasonUrl" type="string"/>
         <field id="seasonCount" type="string"/>
         <field id="epUrl" type="string"/>
-        <field id="showTitle" type="string"/>
         
         <!-- Row item focused handler 
         <field id="itemFocused" type="int" alias="MarkupGrid.itemFocused" onChange="OnItemFocused"/>-->
@@ -42,9 +40,11 @@
     <script type="text/brightscript" uri="pkg:/components/screens/Episodes/Episodes.brs" />
     <!--  itemComponentName = "MarkupGridItem" -->
     <children>
+
+
         <MarkupGrid 
 		      id = "MarkupGrid" 
-		      translation = "[ 100, 100 ]" 
+		      translation = "[ 100, 125 ]" 
 		      itemComponentName = "MarkupGridItem"
 		      focusBitmapUri="pkg:/images/focus_grid.9.png"
 		      numColumns = "4" 
@@ -52,9 +52,19 @@
               itemSize = "[ 240, 180 ]" 
               itemSpacing="[32,32]"
 		      />
-		<!--   <MarkupGrid 
-		      id = "seasonsApi" 
-		      />-->
+        <Poster
+            translation="[90, 36]"
+            width = "35"
+            height = "35"
+            uri="pkg:/images/arrow-resize.png"
+        />
+        <Label
+            id="show_title"
+            color="#FFFFFF"
+            font="font:MediumBoldSystemFont"
+            translation = "[ 137, 40 ]" 
+        />
+
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
