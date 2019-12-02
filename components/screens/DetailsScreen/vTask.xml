@@ -9,7 +9,7 @@
     <field id = "passNode" type = "node" />
     <field id = "id" type = "string" />
     <field id = "durationString" type = "string" />
-
+	<field id ="seriesTitle" type ="string"/>
   </interface>
   <script type="text/brightscript">
     
@@ -74,6 +74,8 @@
 	        req2.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
 	        jsonTaskString = req2.GetToString()
 	        jsonTaskParsed = ParseJson(jsonTaskString)
+	        m.top.seriesTitle = jsonTaskParsed.metadata.series_name
+	        print m.top.seriesTitle
 	        hyphenIndex = Instr(1, jsonTaskParsed.name, "-")
 			if hyphenIndex > 3
 	        	hyphenIndex = hyphenIndex - 3

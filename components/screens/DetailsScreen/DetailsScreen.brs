@@ -85,17 +85,20 @@ End Sub
 Sub onVideoVisibleChange()
     if m.videoPlayer.visible = false and (m.top.visible = true or m.top.visible = false)
         TimeStamp = Str(m.videoPlayer.position)
-        Key = m.videoPlayer.content.id
         sec = createObject("roRegistrySection", "MySection")
-        readJsonString =  sec.Read(Key)
-        readJsonObject = parseJson(readJsonString)
-        ' Construct json here
-        valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description, "name": m.videoPlayer.content.Title }
-        ' Then turn json into string
-        valueJsonString = FormatJson(valueJson, 0)
-        print valueJsonString
-        sec.Write(Key, valueJsonString)
-        sec.Flush()
+        Key = m.videoPlayer.content.id
+        if m.videoPlayer.position > 10 and m.videoPlayer.position < (Val(m.videoPlayer.content.description) - 10)
+            readJsonString =  sec.Read(Key)
+            readJsonObject = parseJson(readJsonString)
+            ' Construct json here
+            valueJson = {"time":  m.videoPlayer.position, "series": m.epTask.seriesTitle, "thumbnail":m.top.thumbnail, "url": m.videoPlayer.content.url, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description, "name": m.videoPlayer.content.Title }
+            ' Then turn json into string
+            valueJsonString = FormatJson(valueJson, 0)
+            sec.Write(Key, valueJsonString)
+            sec.Flush()
+        else 
+            sec.Delete(Key)
+        end if
     end if
 End Sub
 

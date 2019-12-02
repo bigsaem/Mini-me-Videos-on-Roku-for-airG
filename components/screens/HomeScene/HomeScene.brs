@@ -174,14 +174,20 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer2.content.id
         sec = createObject("roRegistrySection", "MySection")
         readJsonString =  sec.Read(Key)
+        print readJsonString
         readJsonObject = parseJson(readJsonString)
-        ' Construct json here
-        valueJson = {"time":  m.videoPlayer2.position, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration, "name": readJsonObject.name}
-        ' Then turn json into string
-        valueJsonString = FormatJson(valueJson, 0)
-        print valueJsonString
-        sec.Write(Key, valueJsonString)
-        sec.Flush()
+        print readJsonObject
+        if m.videoPlayer2.position > 10 and m.videoPlayer2.position < (Val(readJsonObject.duration) - 10)
+            ' Construct json here
+            valueJson = {"time":  m.videoPlayer2.position, "series": readJsonObject.series, "thumbnail": m.gridScreen.focusedContent.HDPosterUrl, "url": m.videoPlayer2.content.url, "streamFormat": "mp4", "id": Key, "duration": readJsonObject.duration, "name": readJsonObject.name}
+            ' Then turn json into string
+            valueJsonString = FormatJson(valueJson, 0)
+            print valueJsonString
+            sec.Write(Key, valueJsonString)
+            sec.Flush()
+        else
+            sec.Delete(Key)
+        end if
     end if
     
     if m.videoPlayer2.state = "error"
