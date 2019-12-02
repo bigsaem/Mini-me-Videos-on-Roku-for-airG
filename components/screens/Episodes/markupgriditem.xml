@@ -26,6 +26,7 @@
       itemcontent = m.top.itemContent
       sec = createObject("roRegistrySection", "MySection")
       if sec.Exists(itemcontent.id)
+        print "Exist"
         readJsonString =  sec.read(itemcontent.id)
         readJsonObject = parseJson(readJsonString)
         duration = Val(readJsonObject.duration)

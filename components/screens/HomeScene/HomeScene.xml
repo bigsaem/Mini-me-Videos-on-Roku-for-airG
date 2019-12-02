@@ -95,7 +95,7 @@
             translation = "[440,280]"
             color="#FFFFFF"
             width = "400"
-            height = "180"
+            height = "200"
             visible="false">
             <Label
 	           id="confirm_msg"

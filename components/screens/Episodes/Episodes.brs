@@ -51,8 +51,12 @@ end function
 Sub onVisibleChange()
 'print "in on visible change"
     
-    if m.top.seasonUrl <> "" and m.top.canCallApi = true
-        'loading indicator stuff
+'    if m.top.seasonUrl <> "" and m.top.canCallApi = true
+'        'loading indicator stuff
+'   
+'        'm.top.canCallApi = false    
+'    end if
+    if m.top.visible = true 
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
         centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
         m.busyspinner.translation = [ centerx, centery ]
@@ -63,10 +67,7 @@ Sub onVisibleChange()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
-        m.sceneTask.control = "RUN"      
-        m.top.canCallApi = false    
-    end if
-    if m.top.visible = true 
+        m.sceneTask.control = "RUN"   
         m.showTitle.text = m.top.showName
         m.seasonIndex = 0
         m.MarkupGrid.setFocus(true)

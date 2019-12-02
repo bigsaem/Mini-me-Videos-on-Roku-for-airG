@@ -28,12 +28,12 @@ Function Init()
     customizeProgressBar(m.videoPlayer.bufferingBar)
     customizeProgressBar(m.videoPlayer.progressBar)
     m.background  = m.top.findNode("Background")
-
     
     fileUrl = ""
     m.videoPlayer.tranlsation = "[0,0]"
     m.epTask = CreateObject("roSGNode", "getVideos")
     m.epTask.observeField("fEpUrl", "gotContent")
+    m.fuckingflag = false
 End Function
 
 
@@ -52,6 +52,9 @@ Sub onVisibleChange()
     else 'if m.videoPlayer.state = "playing"
         m.videoPlayer.visible = false
         m.videoPlayer.control = "stop"
+    end if
+    if m.top.visible = true
+        m.fuckingflag = false
     end if
 End Sub
 
@@ -88,6 +91,7 @@ Sub onVideoVisibleChange()
             valueJsonString = FormatJson(valueJson, 0)
             sec.Write(Key, valueJsonString)
             sec.Flush()
+            m.fuckingflag = true
         else 
             sec.Delete(Key)
         end if

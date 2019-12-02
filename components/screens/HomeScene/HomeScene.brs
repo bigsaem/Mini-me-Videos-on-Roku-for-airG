@@ -122,6 +122,7 @@ Function OnRowItemSelected()
         end if
 
     else if m.gridScreen.visible = false and m.episodes.visible = true
+        print m.episodes.focusedContent
         m.videoFromEpisode = true
         m.detailsScreen.id = m.episodes.focusedContent.id
         m.detailsScreen.epUrl = m.episodes.focusedContent.url
@@ -198,15 +199,17 @@ Function OnKeyEvent(key, press) as Boolean
 End Function
 
 function videoEnded()
-
     if m.videoFromEpisode = true 
-        m.episodes.content = {}
-        m.episodes.content = m.episodes.refreshNode
-        'm.episodes.refreshNode = {}
         m.detailsScreen.videoPlayerVisible = false
         m.detailsScreen.visible=false
+        
         m.episodes.visible = true        
         m.episodes.setFocus(true)
+        
+        print m.detailsScreen.fuckingflag
+        if m.detailsScreen.fuckingflag = true
+            m.episodes.content = m.episodes.refreshNode
+        end if
     else 
         m.detailsScreen.videoPlayerVisible = false
         m.detailsScreen.visible=false
