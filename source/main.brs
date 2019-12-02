@@ -1,9 +1,22 @@
-sub RunUserInterface(APIURL)
+sub RunUserInterface(args)
 
 '    screen2 = CreateObject("roSGScreen")
 '    scene2 = screen.CreateScene("GridScreen")
     'm.gridScreen = m.findNode("GridScreen")
-     
+    if args.RunTests = "true" and type(TestRunner) = "Function" then
+        Runner = TestRunner()
+
+        Runner.SetFunctions([
+            TestSuite__Main
+        ])
+
+        Runner.Logger.SetVerbosity(3)
+        Runner.Logger.SetEcho(false)
+        Runner.Logger.SetJUnit(false)
+        Runner.SetFailFast(true)
+        
+        Runner.Run()
+    end if
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=series"
     oneRow = GetContinueWatchingArray()
     twoRow = GetApiArray(APIURL)
@@ -23,11 +36,12 @@ sub RunUserInterface(APIURL)
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
-        
         while true
             msg = Wait(0, port)
+            msgType = type(msg)
             ? "------------------"
             ? "msg = "
+
         end while
     else
         screen = CreateObject("roSGScreen")
@@ -35,6 +49,10 @@ sub RunUserInterface(APIURL)
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
+        scene.backExitsScene = false
+        scene.observeField("exitApp", port)
+        scene.setFocus(true)
+       
         series = "Series"
         continue = "Continue watching..."
         
@@ -63,15 +81,20 @@ sub RunUserInterface(APIURL)
         
         scene.APIArray = twoRow         
         scene.gridContent = parseJSONObject(list)
-        
-        scene.setFocus(true)
-        scene.backExitsScene = false
 
     
         while true
             msg = Wait(0, port)
+            msgType = type(msg)
             ? "------------------"
             ? "msg = ";
+            if msgType = "roSGNodeEvent" then
+                field = msg.getField()
+                print field
+                if field = "exitApp" then
+                    return
+                end if
+            end if
         end while
         
         canGetApi = false

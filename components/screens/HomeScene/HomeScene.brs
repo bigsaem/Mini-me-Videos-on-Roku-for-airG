@@ -9,6 +9,7 @@ Function Init()
     m.background    =    m.top.findNode("Background")
     m.itemmask      =    m.top.findNode("itemMask")
     ' GridScreen node with RowList
+
     m.gridScreen    =    m.top.findNode("GridScreen")
     m.episodes      =    m.top.findNode("Episodes")
     m.errorScene    =    m.top.findNode("ErrorScene")
@@ -34,7 +35,25 @@ Function Init()
     m.rowAnim = m.top.findNode("slideUpRowlist")
     m.videoFromEpisode = true
 
+    m.exitConfirm = m.top.findNode("ExitConfirm")
+    m.exitButtongrp = m.top.findNode("yesOrNo")
+    m.mask = m.top.findNode("mask")
+    m.yes = m.top.findNode("Yes")
+    m.no = m.top.findNode("No")
+    m.yes.observeField("buttonSelected", "exitMMV")
+    m.no.observeField("buttonSelected", "exit_cancel")
+    'print type(m.detailsScreen.videoPlayer)
 End Function 
+function exitMMV()
+    m.top.exitApp = true
+end function
+function exit_cancel()
+    m.mask.visible = false
+    m.exitConfirm.visible = false
+    m.top.visible = true
+    m.gridScreen.setFocus(true)
+end function
+
 
 
 'When a video is completed go back to episode screen with focus on last item selected
@@ -43,7 +62,10 @@ function checkEndOfEpisode()
         videoEnded()
     end if
 end function
+<<<<<<< HEAD
     
+=======
+>>>>>>> 178ccc2efc66f39cd83bceb40c8158bc7067e73f
 function OnVisibleChange()
     if m.top.visible = true
         m.videoFromEpisode = true
@@ -67,6 +89,7 @@ end function
 
 'Option button selected handler
 Function OnOptionSelected()
+    m.mask.visible = true
     m.optionCont.visible = "true"
     m.animation.control = "start"
     m.optionCont.setFocus(true)
@@ -75,7 +98,6 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
-    
     if m.gridScreen.visible = true and m.episodes.visible = false 
         if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
             selectedItem = m.gridScreen.focusedContent
@@ -125,7 +147,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-            if m.detailsScreen.visible = false
+            if m.detailsScreen.visible = false and m.exitConfirm.visible = false
                 m.option.setFocus(true)
                 result  = true
             end if
@@ -133,11 +155,18 @@ Function OnKeyEvent(key, press) as Boolean
         else if key = "back"
         print "back pressed"
             if (m.optionCont.visible = true or m.option.hasFocus() = true) and m.gridScreen.visible = true
+                m.mask.visible = false
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
                 updateRow()
                 result = true
+            else if m.exitConfirm.visible = true
+               m.exitConfirm.visible = false
+               m.mask.visible = false
+               m.gridScreen.setFocus(true)
+               result = true   
             else if (m.optionCont.visible = true or m.option.hasFocus() = true) and m.episodes.visible = true
+                m.mask.visible = false
                 m.optionCont.visible = "false"
                 m.episodes.setFocus(true)
                 result = true
@@ -159,7 +188,13 @@ Function OnKeyEvent(key, press) as Boolean
                 m.gridScreen.setFocus(true)
                 m.gridScreen.visible = true
                 m.episodes.visible = false
-                result = true     
+                result = true            
+            else if m.gridScreen.visible = true and m.episodes.visible = false and m.detailsScreen.visible = false
+               m.exitConfirm.visible = true
+               m.mask.visible = true
+               m.exitButtongrp.setFocus(true)
+               result = true  
+
             end if
         end if
     end if

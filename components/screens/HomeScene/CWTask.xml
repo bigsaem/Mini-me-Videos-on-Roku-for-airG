@@ -16,7 +16,6 @@
 
     myScene = m.top.GetScene()
     
-    print type(myScene.APIArray)
     
     APIURL = "http://vstage-api.mini-me.co/collections?product=https%3A%2F%2Fapi.vhx.tv%2Fproducts%2F37342&type=seriesXXX"
     oneRow = GetContinueWatchingArray()
@@ -145,11 +144,8 @@ function GetContinueWatchingArray()
     sec = createObject("roRegistrySection", "MySection")
     list = sec.GetKeyList()
     for each item in list
-        print item
         jsonString = sec.Read(item)
-        print jsonString
         jsonObject = parseJson(jsonString)
-        print jsonObject
         tempItem = {}
         'tempNode = CreateObject("roSGNode", "ContentNode")
         tempItem.streamFormat = jsonObject.streamFormat
