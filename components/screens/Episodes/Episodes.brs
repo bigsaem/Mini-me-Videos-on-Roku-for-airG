@@ -16,14 +16,12 @@ Function Init()
     m.seasonIndex            =   0
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
-
 End Function
 
 ' handler of focused item in RowList
 Sub OnItemFocused()
     itemIndex = m.MarkupGrid.itemFocused
     itemsPerSeason = []
-    
     For x=0 To m.seasonNumber-1
         itemsPerSeason.push(m.top.content.getChild(x).getChildCount())
     End For
@@ -35,7 +33,6 @@ Sub OnItemFocused()
         season = season + 1
         sumOfItems = sumOfItems + itemsPerSeason[season]
     end while 
-    
     if season > 0
         sumOfItems = sumOfItems - itemsPerSeason[season]
         itemIndex = itemIndex - sumOfItems
@@ -47,23 +44,22 @@ Sub OnItemFocused()
 End Sub
 
 function updateRow()
-    m.CWTask = CreateObject("roSGNode", "GetEpisodes")
-    m.CWTask.control = "RUN"
+    m.sceneTask.control = "RUN"
 end function
 
 'When visibility changes i.active loading this screen or going back to this screen from episodes screen
 Sub onVisibleChange()    
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
-        'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
         centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
+         'loading indicator initiate
         m.busyspinner.translation = [ centerx, centery ]
         m.busyspinner.visible = true
-        'loading indicator ends
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
+
         m.sceneTask.control = "RUN"      
         m.top.canCallApi = false    
     end if
@@ -71,7 +67,7 @@ Sub onVisibleChange()
     if m.top.visible = true 
         m.showTitle.text = m.top.showName
         m.seasonIndex = 0
-        m.MarkupGrid.setFocus(true)        
+        m.MarkupGrid.setFocus(true)   
     else 
         m.sceneTask.unobserveField("content")
         m.MarkupGrid.unobserveField("itemFocused")
@@ -129,7 +125,6 @@ function gotContent()
 
     m.top.content = m.newContent
     m.top.refreshNode = m.newContent
-    print m.top.refreshNode
     m.busyspinner.visible = false
     m.MarkupGrid.observeField("itemFocused","OnItemFocused")
 end function

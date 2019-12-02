@@ -20,7 +20,6 @@ Function OnKeyEvent(key, press) as Boolean
             result  = true
             'back key handler
         else if key = "back"
-            print "Back button clicked"
         end if
     end if
     return result

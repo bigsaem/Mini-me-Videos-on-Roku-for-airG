@@ -120,7 +120,6 @@ Function OnRowItemSelected()
             m.episodes.content = m.gridScreen.focusedContent
             m.episodes.setFocus(true)
             m.episodes.visible = true 
-                        
             result = true 
         end if
 
@@ -152,7 +151,6 @@ Function OnKeyEvent(key, press) as Boolean
             end if
 
         else if key = "back"
-        print "back pressed"
             if (m.optionCont.visible = true or m.option.hasFocus() = true) and m.gridScreen.visible = true
                 m.mask.visible = false
                 m.optionCont.visible = "false"
@@ -203,7 +201,6 @@ End Function
 function videoEnded()
     'if coming back to episode screen
     if m.videoFromEpisode = true 
-        print m.episodes.content.change
         m.episodes.content = m.episodes.refreshNode
         m.videoScreen.videoPlayerVisible = false
         m.videoScreen.visible=false
