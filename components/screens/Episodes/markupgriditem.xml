@@ -6,7 +6,6 @@
  
   <interface> 
     <field id = "itemContent" type = "node" onChange = "showcontent"/>
-    <field id ="itemFocused" type = "boolean"/>
   </interface>
  
   <script type = "text/brightscript" >

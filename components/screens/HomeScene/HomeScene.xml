@@ -73,6 +73,14 @@
             focusBitmapUri="pkg:/images/focus_grid.9.png"
             translation = "[ 1000, 40 ]"
         />
+        <Rectangle
+          id="mask"
+          color="#00000077"
+          width="1300"
+          height="740"
+          visible= "false"
+          translation="[0,0]"
+        />
         <Option
 		  id="optionCont"
 		  width="250"
@@ -81,13 +89,13 @@
 		  color="#ed7740"
 		  translation="[1280,0]" 
 		 />
-		 
+
         <Rectangle
             id="ExitConfirm"
-            translation = "[440,260]"
+            translation = "[440,280]"
             color="#FFFFFF"
             width = "400"
-            height = "200"
+            height = "180"
             visible="false">
             <Label
 	           id="confirm_msg"
@@ -95,31 +103,39 @@
 	           width="400"
 	           color="#000000"
 	           horizAlign = "center"
-	           translation = "[0,20]"
+	           translation = "[0,25]"
 	           font="font:MediumBoldSystemFont"
 	           text="Are you sure you want to exit?" />
             <ButtonGroup
 	           id="yesOrNo"
-	           translation="[100, 60]"
+	           translation="[75, 70]"
+	           minWidth = "250"
 	           >
                 <Button
                      id="No"
                      text="CANCEL"
-                     textColor="#000000"
+                     textColor="#50cddd"
+                     focusedTextColor = "#FFFFFF"
                      focusedIconUri=""
                      iconUri=""
+                     width = "200"
+                     height = "60"
                      translation = "[0, 40]"
                      showFocusFootprint = "true"
-                     focusBitmapUri="pkg:/images/focus_grid.9.png" />
+                     focusBitmapUri="pkg:/images/barcolor.png"
+                      />
 	            <Button
 		             id="Yes"
 		             text="EXIT"
-		             textColor="#000000"
+		             textColor="#50cddd"
+		             focusedTextColor = "#FFFFFF"
 		             focusedIconUri=""
 		             iconUri=""
+                     width = "200"
+                     height = "60"
 		             translation = "[0, 80]"
 		             showFocusFootprint = "true"
-		             focusBitmapUri="pkg:/images/focus_grid.9.png" />
+		             focusBitmapUri="pkg:/images/barcolor.png" />
 
 	         </ButtonGroup>
          </Rectangle>
