@@ -6,54 +6,40 @@ Function Init()
     ' listen on port 8089
     ? "[HomeScene] Init"
     
-    m.background = m.top.findNode("Background")
-    m.itemmask = m.top.findNode("itemMask")
+    m.background    =    m.top.findNode("Background")
+    m.itemmask      =    m.top.findNode("itemMask")
     ' GridScreen node with RowList
-    m.gridScreen = m.top.findNode("GridScreen")
-    m.episodes = m.top.findNode("Episodes")
-    m.errorScene = m.top.findNode("ErrorScene")
-    m.rowList = m.top.findNode("rowList")
-    m.bg = m.top.findNode("GridScreen").getChild(0)
+    m.gridScreen    =    m.top.findNode("GridScreen")
+    m.episodes      =    m.top.findNode("Episodes")
+    m.errorScene    =    m.top.findNode("ErrorScene")
+    m.rowList       =    m.top.findNode("rowList")
+    m.bg            =    m.top.findNode("GridScreen").getChild(0)
+    m.videoPlayer   =    m.detailsScreen.findNode("VideoPlayer")
 
     ' DetailsScreen Node with description, Video Player
 
-    m.detailsScreen = m.top.findNode("DetailsScreen")
-  
-    m.option = m.top.findNode("option_btn")
-
+    m.detailsScreen =    m.top.findNode("DetailsScreen")
+    m.option        =    m.top.findNode("option_btn")
     m.optionCont = m.top.findNode("optionCont")
-
-    ' Observer to handle Item selection on RowList inside GridScreen (alias="GridScreen.rowItemSelected")
+    ' Observers
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
-    
-
     m.top.observeField("optionSelected", "OnOptionSelected")
-
-    m.top.observeField("episodesRowItemSelected", "OnRowItemSelected")
-    
+    m.top.observeField("episodesRowItemSelected", "OnRowItemSelected") 
     m.top.observeField("playSelected", "OnRowItemSelected")
-    
-
-    'm.videoPlayer1 = m.detailsScreen.findNode("VideoPlayer")
-    'm.videoPlayer1.observeField("state", "checkEndOfEpisode")    
-
+    m.videoPlayer.observeField("state", "checkEndOfEpisode")    
     m.top.observeField("visible", "OnVisibleChange")
-    
-
     'animation for option bar
     m.animation = m.top.FindNode("myAnim1")
-    
     m.gridAnim = m.top.findNode("slideUpItemMask")
     m.rowAnim = m.top.findNode("slideUpRowlist")
     m.videoFromEpisode = true
 
-    'print type(m.detailsScreen.videoPlayer)
 End Function 
 
 
 'When a video is completed go back to episode screen with focus on last item selected
 function checkEndOfEpisode()
-    if m.videoPlayer1.visible = true and m.videoPlayer1.state = "finished"    
+    if m.videoPlayer.visible = true and m.videoPlayer.state = "finished"    
         videoEnded()
     end if
     end function
@@ -187,14 +173,9 @@ function videoEnded()
         m.episodes.visible = true
         m.episodes.setFocus(true)
     else 
+        
         m.gridScreen.visible = true
         m.gridScreen.setFocus(true)
     end if 
-    'm.episodes.visible = true
-    'm.episodes.setFocus(true)
-'    m.videoPlayer1.visible=false
-'    m.detailsScreen.visible=false
-'    m.episodes.visible = true
-'    m.episodes.setFocus(true)
 end function
 
