@@ -23,11 +23,12 @@ sub RunUserInterface(APIURL)
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
-        
         while true
             msg = Wait(0, port)
+            msgType = type(msg)
             ? "------------------"
             ? "msg = "
+
         end while
     else
         screen = CreateObject("roSGScreen")
@@ -35,6 +36,10 @@ sub RunUserInterface(APIURL)
         port = CreateObject("roMessagePort")
         screen.SetMessagePort(port)
         screen.Show()
+        scene.backExitsScene = false
+        scene.observeField("exitApp", port)
+        scene.setFocus(true)
+       
         series = "Series"
         continue = "Continue watching..."
         
@@ -64,12 +69,19 @@ sub RunUserInterface(APIURL)
         scene.APIArray = twoRow         
         scene.gridContent = parseJSONObject(list)
 
-
     
         while true
             msg = Wait(0, port)
+            msgType = type(msg)
             ? "------------------"
             ? "msg = ";
+            if msgType = "roSGNodeEvent" then
+                field = msg.getField()
+                print field
+                if field = "exitApp" then
+                    return
+                end if
+            end if
         end while
         
         canGetApi = false

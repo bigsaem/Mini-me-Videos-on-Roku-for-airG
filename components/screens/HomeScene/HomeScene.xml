@@ -13,7 +13,7 @@
 		<field id="rowList" type = "node" alias="GridScreen.rowList"/>
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
-       
+        <field id="exitApp" type="boolean" value="false"/>
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
         
@@ -87,7 +87,50 @@
 		  translation="[1280,0]" 
 		 />
 		 
+        <Rectangle
+            id="ExitConfirm"
+            translation = "[440,260]"
+            color="#FFFFFF"
+            width = "400"
+            height = "200"
+            visible="false">
+            <Label
+	           id="confirm_msg"
+	           height="30"
+	           width="400"
+	           color="#000000"
+	           horizAlign = "center"
+	           translation = "[0,20]"
+	           font="font:MediumBoldSystemFont"
+	           text="Are you sure you want to exit?" />
+            <ButtonGroup
+	           id="yesOrNo"
+	           width="200"
+	           translation="[100, 60]"
+	           >
+                <Button
+                     id="No"
+                     text="CANCEL"
+                     textColor="#000000"
+                     focusedIconUri=""
+                     iconUri=""
+                     horizAlign = "center"
+                     translation = "[0, 40]"
+                     showFocusFootprint = "true"
+                     focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	            <Button
+		             id="Yes"
+		             text="EXIT"
+		             textColor="#000000"
+		             focusedIconUri=""
+		             iconUri=""
+		             horizAlign = "center"
+		             translation = "[0, 80]"
+		             showFocusFootprint = "true"
+		             focusBitmapUri="pkg:/images/focus_grid.9.png" />
 
+	         </ButtonGroup>
+         </Rectangle>
         <DetailsScreen
             id="DetailsScreen"
             visible = "false"/>

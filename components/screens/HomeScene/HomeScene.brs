@@ -14,7 +14,7 @@ Function Init()
     m.errorScene = m.top.findNode("ErrorScene")
     m.rowList = m.top.findNode("rowList")
     m.bg = m.top.findNode("GridScreen").getChild(0)
-
+    
     ' DetailsScreen Node with description, Video Player
 
     m.detailsScreen = m.top.findNode("DetailsScreen")
@@ -44,9 +44,24 @@ Function Init()
     m.gridAnim = m.top.findNode("slideUpItemMask")
     m.rowAnim = m.top.findNode("slideUpRowlist")
     m.videoFromEpisode = true
-
+    
+    m.exitConfirm = m.top.findNode("ExitConfirm")
+    m.exitButtongrp = m.top.findNode("yesOrNo")
+    m.yes = m.top.findNode("Yes")
+    m.no = m.top.findNode("No")
+    m.yes.observeField("buttonSelected", "exitMMV")
+    m.no.observeField("buttonSelected", "exit_cancel")
     'print type(m.detailsScreen.videoPlayer)
 End Function 
+function exitMMV()
+    print m.top.exitApp
+    m.top.exitApp = true
+end function
+function exit_cancel()
+    m.exitConfirm.visible = false
+    m.top.visible = true
+    m.gridScreen.setFocus(true)
+end function
 function OnVisibleChange()
     if m.top.visible = true
         m.videoFromEpisode = true
@@ -129,7 +144,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-            if m.detailsScreen.visible = false
+            if m.detailsScreen.visible = false and m.exitConfirm = false
                 m.option.setFocus(true)
                 result  = true
             end if
@@ -175,13 +190,15 @@ Function OnKeyEvent(key, press) as Boolean
                 m.gridScreen.visible = true
                 m.episodes.visible = false
                 result = true            
-            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
-            
-                m.detailsScreen.videoPlayerVisible = false
-                m.detailsScreen.visible = false
-                m.episodes.visible = false
-                m.episodes.setFocus(false)
-                result = true   
+'            else if m.gridScreen.visible = false and m.episodes.videoPlayerVisible = true
+'                m.detailsScreen.videoPlayerVisible = false
+'                m.detailsScreen.visible = false
+'                m.episodes.visible = false
+'                m.episodes.setFocus(false)
+'                result = true   
+            else if m.gridScreen.visible = true and m.episodes.visible = false and m.detailsScreen.visible = false
+               m.exitConfirm.visible = true
+               m.exitButtongrp.setFocus(true)
             end if
         end if
     end if
