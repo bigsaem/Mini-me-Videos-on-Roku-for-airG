@@ -5,12 +5,12 @@
     handles bookmark buttons
     handles start of video playback
  -->
-<component name="Episodes" extends="Group" initialFocus="PosterGrid" >
+<component name="Episodes" extends="Group" initialFocus="MarkupGrid" >
     <interface>
         	        
 
         <!-- Episodes Content Node -->
-        <field id="content" type="node" alias="PosterGrid.content" />
+        <field id="content" type="node" alias="MarkupGrid.content" />
         <field id="episodesList" type="node"/>
         <field id="apiNode" type="roArray" />
         
@@ -18,7 +18,7 @@
                 
         
         <!-- Row item selection handler -->
-        <field id="itemSelected" type="intarray" alwaysnotify="true" alias="PosterGrid.itemSelected"/>
+        <field id="itemSelected" type="intarray" alwaysnotify="true" alias="MarkupGrid.itemSelected"/>
         
         <field id="allEpisodes" type="roArray" />
         
@@ -29,8 +29,8 @@
         <field id="epUrl" type="string"/>
         <field id="showTitle" type="string"/>
         
-        <!-- Row item focused handler -->
-        <field id="itemFocused" type="int" alias="PosterGrid.itemFocused" onChange="OnItemFocused"/>
+        <!-- Row item focused handler 
+        <field id="itemFocused" type="int" alias="MarkupGrid.itemFocused" onChange="OnItemFocused"/>-->
 
         <!-- Interface to focused item (Content Node) -->
         <field id="focusedContent"  type="node"/>
@@ -41,7 +41,7 @@
     <!--  itemComponentName = "MarkupGridItem" -->
     <children>
         <MarkupGrid 
-		      id = "PosterGrid" 
+		      id = "MarkupGrid" 
 		      translation = "[ 100, 100 ]" 
 		      itemComponentName = "MarkupGridItem"
 		      focusBitmapUri="pkg:/images/focus_grid.9.png"
@@ -50,20 +50,9 @@
               itemSize = "[ 240, 180 ]" 
               itemSpacing="[32,32]"
 		      />
-		 <MarkupGrid 
+		<!--   <MarkupGrid 
 		      id = "seasonsApi" 
-		      />
-        <!--  <PosterGrid
-			  id="PosterGrid"
-			  translation="[100,100]"
-			  focusBitmapUri="pkg:/images/focus_grid.9.png"
-			  basePosterSize="[240,150]"
-			  itemSpacing="[32,32]"
-			  caption1NumLines="1"
-			  caption2NumLines="1"
-			  numColumns="4"
-			  numRows="3"/>-->
-			  
+		      />-->
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"

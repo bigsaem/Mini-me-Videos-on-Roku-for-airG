@@ -60,12 +60,7 @@
             visible="false"
             translation="[0,0]" />
             
-        <!-- Overhang logo -->
-        <Poster
-            translation="[79, 36]"
-            uri="pkg:/images/overhangLogo.png"
-            width="156"
-            height="49"  />
+
         
         <!--  option button -->
         <Button
@@ -105,7 +100,6 @@
 	           text="Are you sure you want to exit?" />
             <ButtonGroup
 	           id="yesOrNo"
-	           width="200"
 	           translation="[100, 60]"
 	           >
                 <Button
@@ -114,7 +108,6 @@
                      textColor="#000000"
                      focusedIconUri=""
                      iconUri=""
-                     horizAlign = "center"
                      translation = "[0, 40]"
                      showFocusFootprint = "true"
                      focusBitmapUri="pkg:/images/focus_grid.9.png" />
@@ -124,7 +117,6 @@
 		             textColor="#000000"
 		             focusedIconUri=""
 		             iconUri=""
-		             horizAlign = "center"
 		             translation = "[0, 80]"
 		             showFocusFootprint = "true"
 		             focusBitmapUri="pkg:/images/focus_grid.9.png" />

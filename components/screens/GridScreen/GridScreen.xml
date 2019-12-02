@@ -29,7 +29,12 @@
          
 
 	        
-
+        <!-- Overhang logo -->
+    <Poster
+        translation="[79, 36]"
+        uri="pkg:/images/overhangLogo.png"
+        width="156"
+        height="49"  />
     <RowList
        id="RowList"
        itemComponentName="customItem"
