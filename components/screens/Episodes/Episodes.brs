@@ -5,7 +5,7 @@
 Function Init()
     ? "[Episodes] Init"
         
-    m.posterGrid    =   m.top.findNode("PosterGrid")
+    m.MarkupGrid    =   m.top.findNode("MarkupGrid")
     m.background    =   m.top.findNode("Background")
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
@@ -13,16 +13,33 @@ Function Init()
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
-    
+    m.seasonNumber = 0
+    m.seasonIndex = 0
 End Function
 
 ' handler of focused item in RowList
 Sub OnItemFocused()
-    itemFocused = m.top.itemFocused 
-    
-    m.top.focusedContent = m.top.content.getChild(itemFocused)
-
-
+    'print m.top.itemFocused
+    itemIndex = m.MarkupGrid.itemFocused
+    itemsPerSeason = []
+    For x=0 To m.seasonNumber-1
+        print "wiow"
+        itemsPerSeason.push(m.top.content.getChild(x).getChildCount())
+    End For
+    season = 0
+    sumOfItems = itemsPerSeason[0]
+    while itemIndex >= sumOfItems
+        season = season + 1
+        sumOfItems = sumOfItems + itemsPerSeason[season]
+    end while 
+    if season > 0
+        sumOfItems = sumOfItems - itemsPerSeason[season]
+        itemIndex = itemIndex - sumOfItems
+    end if
+    print itemindex
+    aa = CreateObject("roSGNode", "ContentNode")
+    aa = m.top.content.getChild(season)
+    m.top.focusedContent = aa.getChild(itemIndex)
 End Sub
 
 function updateRow()
@@ -32,7 +49,6 @@ end function
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
-        
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
@@ -40,44 +56,51 @@ Sub onVisibleChange()
         m.busyspinner.translation = [ centerx, centery ]
         m.busyspinner.visible = true
         'loading indicator ends
+        print "in visible change"
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
         m.sceneTask.control = "RUN"      
         m.top.canCallApi = false    
-
     end if
-
-    if m.top.visible = true then     
-        m.posterGrid.setFocus(true)
-    end if    
+    if m.top.visible = true 
+        m.seasonIndex = 0
+        m.MarkupGrid.setFocus(true)
+    else 
+        m.sceneTask.unobserveField("content")
+        m.MarkupGrid.unobserveField("itemFocused")
+    end if
+  
 End Sub
 
 
 Sub OnFocusedChildChange()
-    if m.top.isInFocusChain() and not m.posterGrid.hasFocus() then
-        m.posterGrid.setFocus(true)
+    if m.top.isInFocusChain() and not m.MarkupGrid.hasFocus() then
+        m.MarkupGrid.setFocus(true)
     end if
 End Sub
 
 
 function gotContent()        
     jsonParsed = m.sceneTask.content
-
     result  = []
     x = 0
     y = 0
-    i = 0
+    m.seasonNumber = 0
+    m.newContent = createObject("RoSGNode", "ContentNode")
     for each season in jsonParsed.keys()
-        i = i+1    
+        m.seasonNumber = m.seasonNumber+1 
+        m.sectionContent = m.newContent.createChild("ContentNode")
+        m.sectionContent.CONTENTTYPE = "SECTION"
+        m.sectionContent.title = "Season " + m.seasonNumber.toStr()
+        print "this one should be printed before number"
         for each episode in jsonParsed[Season]._embedded.items
-            
-            item = {}
+            item = m.sectionContent.createChild("ContentNode")
             item.id = episode.id
             item.HDGRIDPOSTERURL = episode.thumbnail.small
             item.SDGRIDPOSTERURL = episode.thumbnail.medium
-            item.Title = "Season " + i.toStr()
+            item.Title = episode.title
             hyphenIndex = Instr(1, episode.title, "-")
             if hyphenIndex > 3
                 hyphenIndex = hyphenIndex - 3
@@ -86,8 +109,6 @@ function gotContent()
             item.SHORTDESCRIPTIONLINE1 = title
             item.url = episode._links.files.href
             item.episodeNumber = episode.episode_number
-            item.ContentType = "wow"
-            
             if x < 4 then
                 item.X = x
                 item.Y = y
@@ -98,23 +119,13 @@ function gotContent()
                 item.Y = y
             end if
             x = x + 1
-            result.push(item)
         end for
-    end for  
+    end for
 
-    series = "Episodes"
-    list = [
-        {
-            TITLE: series
-            ContentList: result
-        }
-    ]
-    
-    m.top.allEpisodes = list
-    m.top.content = parseJSONObject(list)
-    m.top.refreshNode = parseJSONObject(list)
-    
+    m.top.content = m.newContent
+    m.top.refreshNode = m.newContent
     m.busyspinner.visible = false
+    m.MarkupGrid.observeField("itemFocused","OnItemFocused")
 end function
 
 ' set proper focus to RowList in case if return from Details Screen

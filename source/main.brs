@@ -68,12 +68,6 @@ sub RunUserInterface(APIURL)
         
         scene.APIArray = twoRow         
         scene.gridContent = parseJSONObject(list)
-<<<<<<< HEAD
-=======
-        
-        scene.setFocus(true)
-        scene.backExitsScene = false
->>>>>>> c601e59904da9c9ce8e30850689ba477372d508b
 
     
         while true

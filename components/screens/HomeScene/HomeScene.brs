@@ -44,7 +44,6 @@ Function Init()
     'print type(m.detailsScreen.videoPlayer)
 End Function 
 function exitMMV()
-    print m.top.exitApp
     m.top.exitApp = true
 end function
 function exit_cancel()
@@ -92,7 +91,6 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
-    
     if m.gridScreen.visible = true and m.episodes.visible = false 
         if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
             selectedItem = m.gridScreen.focusedContent
@@ -142,7 +140,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-            if m.detailsScreen.visible = false and m.exitConfirm = false
+            if m.detailsScreen.visible = false and m.exitConfirm.visible = false
                 m.option.setFocus(true)
                 result  = true
             end if
