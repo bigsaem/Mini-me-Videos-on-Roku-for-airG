@@ -7,14 +7,9 @@ Function Init()
         
     m.MarkupGrid    =   m.top.findNode("MarkupGrid")
     m.background    =   m.top.findNode("Background")
-
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
-    
-
-   ' m.itemmask = m.top.findNode("itemMask")
-    'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -27,7 +22,6 @@ Sub OnItemFocused()
     'print m.top.itemFocused
     itemIndex = m.MarkupGrid.itemFocused
     itemsPerSeason = []
-    print type(m.top.content.getChild(0).getChildCount())
     For x=0 To m.seasonNumber-1
         print "wiow"
         itemsPerSeason.push(m.top.content.getChild(x).getChildCount())
@@ -46,8 +40,8 @@ Sub OnItemFocused()
     aa = CreateObject("roSGNode", "ContentNode")
     aa = m.top.content.getChild(season)
     m.top.focusedContent = aa.getChild(itemIndex)
-
 End Sub
+
 function updateRow()
     m.CWTask = CreateObject("roSGNode", "GetEpisodes")
     m.CWTask.control = "RUN"
@@ -67,10 +61,9 @@ Sub onVisibleChange()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
-        m.sceneTask.control = "RUN"
-        m.top.canCallApi = false
+        m.sceneTask.control = "RUN"      
+        m.top.canCallApi = false    
     end if
-
     if m.top.visible = true 
         m.seasonIndex = 0
         m.MarkupGrid.setFocus(true)
@@ -78,7 +71,7 @@ Sub onVisibleChange()
         m.sceneTask.unobserveField("content")
         m.MarkupGrid.unobserveField("itemFocused")
     end if
-
+  
 End Sub
 
 
@@ -128,19 +121,9 @@ function gotContent()
             x = x + 1
         end for
     end for
-'    series = "Episodes"
-'    list = [
-'        {
-'            TITLE: series
-'            ContentList: result
-'        }
-'    ]
-    
-    'print list
-'    m.top.allEpisodes = list
-    'print m.top.allEpisodes
-    'm.top.content = parseJSONObject(list)
+
     m.top.content = m.newContent
+    m.top.refreshNode = m.newContent
     m.busyspinner.visible = false
     m.MarkupGrid.observeField("itemFocused","OnItemFocused")
 end function
@@ -160,7 +143,6 @@ function parseJSONObject(list as Object)
             end for
             row.appendChild(item)
         end for
-'        RowItems.appendChild(row)
     end for
 
     return row
