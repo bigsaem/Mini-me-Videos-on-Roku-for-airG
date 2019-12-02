@@ -14,11 +14,11 @@ Function Init()
     m.errorScene    =    m.top.findNode("ErrorScene")
     m.rowList       =    m.top.findNode("rowList")
     m.bg            =    m.top.findNode("GridScreen").getChild(0)
-    m.videoPlayer   =    m.detailsScreen.findNode("VideoPlayer")
-
     ' DetailsScreen Node with description, Video Player
 
     m.detailsScreen =    m.top.findNode("DetailsScreen")
+    m.videoPlayer   =    m.detailsScreen.findNode("VideoPlayer")
+    
     m.option        =    m.top.findNode("option_btn")
     m.optionCont = m.top.findNode("optionCont")
     ' Observers
@@ -75,13 +75,13 @@ End Function
 ' Row item selected handler
 Function OnRowItemSelected()
     ?"On row item selected"
+    
     if m.gridScreen.visible = true and m.episodes.visible = false 
         if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
             selectedItem = m.gridScreen.focusedContent
-            print m.gridScreen.focusedContent
             m.videoFromEpisode = false
             m.detailsScreen.id = m.gridScreen.focusedContent.id
-            m.detailsScreen.epUrl = m.gridScreen.focusedContent.url
+            m.detailsScreen.epUrl = m.gridScreen.focusedContent.url            
             m.detailsScreen.content = m.gridScreen.focusedContent
             m.detailsScreen.passedTitle = m.gridScreen.focusedContent.Title
             m.detailsScreen.thumbnail = m.gridScreen.focusedContent.HDPOSTERURL
@@ -141,7 +141,7 @@ Function OnKeyEvent(key, press) as Boolean
                 m.optionCont.visible = "false"
                 m.episodes.setFocus(true)
                 result = true
-            else if m.detailsScreen.videoPlayerVisible = true
+            else if m.detailsScreen.videoPlayerVisible = true            
                 videoEnded()       
                 result = true 
             else if m.gridScreen.visible = true and m.detailsScreen.visible = true
@@ -159,7 +159,7 @@ Function OnKeyEvent(key, press) as Boolean
                 m.gridScreen.setFocus(true)
                 m.gridScreen.visible = true
                 m.episodes.visible = false
-                result = true            
+                result = true     
             end if
         end if
     end if
@@ -167,13 +167,17 @@ Function OnKeyEvent(key, press) as Boolean
 End Function
 
 function videoEnded()
-    m.detailsScreen.videoPlayerVisible = false
-    m.detailsScreen.visible=false
-    if m.videoFromEpisode = true
-        m.episodes.visible = true
+
+    if m.videoFromEpisode = true 
+        m.episodes.content = m.episodes.refreshNode
+        'm.episodes.refreshNode = {}
+        m.detailsScreen.videoPlayerVisible = false
+        m.detailsScreen.visible=false
+        m.episodes.visible = true        
         m.episodes.setFocus(true)
     else 
-        
+        m.detailsScreen.videoPlayerVisible = false
+        m.detailsScreen.visible=false
         m.gridScreen.visible = true
         m.gridScreen.setFocus(true)
     end if 

@@ -14,7 +14,6 @@ Function Init()
     m.eptitle = m.top.findNode("ep_title")
     m.eptitle.translation = "[440,470]"
     m.poster = m.top.findNode("thumbnail_box")
-    print m.top.thumbnail
     m.poster.uri = m.top.thumbnail
     m.top.observeField("visible", "onVisibleChange")
    ' m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -48,7 +47,6 @@ Sub onVisibleChange()
     if m.top.epUrl <> "" and (m.videoPlayer.state = "none" or m.videoPlayer.state = "stopped")
         m.epTask.id = m.top.id
         m.epTask.contenturi = m.top.epUrl
-        print m.epTask.contenturi
         m.epTask.episodeName = m.top.content.ShortDescriptionLine1
         m.epTask.control = "RUN"
     else 'if m.videoPlayer.state = "playing"
@@ -58,14 +56,11 @@ Sub onVisibleChange()
 End Sub
 
 function gotContent()
-    print m.epTask.passNode
     sec = createObject("roRegistrySection", "MySection")
     Key = m.epTask.passNode.id
     if sec.Exists(Key)
         m.popupbox.visible = true
-        print m.top.thumbnail
         m.poster.uri = m.top.thumbnail
-        print m.top.passedTitle
         m.eptitle.text = m.top.passedTitle
     else 
         onBeginButtonSelected()
@@ -90,7 +85,6 @@ Sub onVideoVisibleChange()
         valueJson = {"time":  m.videoPlayer.position, "thumbnail":m.top.thumbnail, "url": m.top.epUrl, "streamFormat": "mp4", "id": Key, "duration": m.videoPlayer.content.description, "name": m.videoPlayer.content.Title }
         ' Then turn json into string
         valueJsonString = FormatJson(valueJson, 0)
-        print valueJsonString
         sec.Write(Key, valueJsonString)
         sec.Flush()
     end if
@@ -98,18 +92,12 @@ End Sub
 
 function onResumeButtonSelected()
     m.top.content = m.epTask.passNode
-    print m.top.content
-    print "this is content id"
-    print m.top.content.id
     m.videoPlayer.content = m.top.content    
     playFromLastTime()
 end function
 
 function onBeginButtonSelected()
     m.top.content = m.epTask.passNode
-    print m.top.content
-    print "this is content id"
-    print m.top.content.id
     m.videoPlayer.content = m.top.content    
     playFromBeginning()
 end function
@@ -117,7 +105,6 @@ function playFromBeginning()
     
     m.videoPlayer.visible = true
     m.videoPlayer.setFocus(true)
-    print "started playing"
     m.videoPlayer.control = "play"
     sec = createObject("roRegistrySection", "MySection")
     ' TODO change my section to something else?     
@@ -126,7 +113,6 @@ end function
 function playFromLastTime()
     m.videoPlayer.visible = true
     m.videoPlayer.setFocus(true)
-    print "started playing"
     m.videoPlayer.control = "play"
     sec = createObject("roRegistrySection", "MySection")
     ' TODO change my section to something else? 
@@ -141,8 +127,6 @@ function playFromLastTime()
 end function
 ' event handler of Video player msg
 Sub OnVideoPlayerStateChange()
-    print "finished playing"
-    print m.videoPlayer.state
     if m.videoPlayer.state = "error"
         ' error handling
         m.videoPlayer.visible = false
@@ -153,7 +137,6 @@ Sub OnVideoPlayerStateChange()
         Key = m.videoPlayer.content.id
         sec = createObject("roRegistrySection", "MySection")
         sec.Delete(Key)      
-        print m.videoPlayer.visible
     end if
 End Sub
 
@@ -166,7 +149,6 @@ Sub onItemSelected()
         'm.top.visible = false
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
-        print "started playing"
         m.videoPlayer.control = "play"
         sec = createObject("roRegistrySection", "MySection")
         ' TODO change my section to something else? 

@@ -7,11 +7,9 @@ Function Init()
         
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
-
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
-    
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -20,8 +18,11 @@ End Function
 
 ' handler of focused item in RowList
 Sub OnItemFocused()
-    itemFocused = m.top.itemFocused
+    itemFocused = m.top.itemFocused 
+    
     m.top.focusedContent = m.top.content.getChild(itemFocused)
+
+
 End Sub
 
 function updateRow()
@@ -43,19 +44,14 @@ Sub onVisibleChange()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
-        m.sceneTask.control = "RUN"
-        m.top.canCallApi = false
+        m.sceneTask.control = "RUN"      
+        m.top.canCallApi = false    
+
     end if
 
     if m.top.visible = true then     
-
-        
-        'print m.posterGrid.content
-        'print m.top.content
-        'm.posterGrid.content = m.top.content
         m.posterGrid.setFocus(true)
-    end if
-
+    end if    
 End Sub
 
 
@@ -116,7 +112,8 @@ function gotContent()
     
     m.top.allEpisodes = list
     m.top.content = parseJSONObject(list)
-
+    m.top.refreshNode = parseJSONObject(list)
+    
     m.busyspinner.visible = false
 end function
 
