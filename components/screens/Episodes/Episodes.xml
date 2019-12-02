@@ -12,7 +12,9 @@
         <!-- Episodes Content Node -->
         <field id="content" type="node" alias="PosterGrid.content" />
         <field id="episodesList" type="node"/>
+        <field id="refreshNode" type="node"/>
         <field id="apiNode" type="roArray" />
+        <field id="focusedItemHolder" type="int"/>
         
         
                 
