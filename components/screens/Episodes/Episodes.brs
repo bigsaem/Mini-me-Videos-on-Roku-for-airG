@@ -1,34 +1,34 @@
-' ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** 
  ' inits grid screen
  ' creates all children
  ' sets all observers 
 Function Init()
     ? "[Episodes] Init"
         
-    m.MarkupGrid    =   m.top.findNode("MarkupGrid")
-    m.background    =   m.top.findNode("Background")
-    m.errorScene = m.top.findNode("ErrorScene")
-    m.busyspinner = m.top.findNode("BusySpinner")
-    m.busyspinner.poster.uri = "pkg:/images/loader2.png"
-    m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
+    m.MarkupGrid             =   m.top.findNode("MarkupGrid")
+    m.background             =   m.top.findNode("Background")
+    m.errorScene             =   m.top.findNode("ErrorScene")
+    m.busyspinner            =   m.top.findNode("BusySpinner")
+    m.busyspinner.poster.uri =   "pkg:/images/loader2.png"
+    m.sceneTask              =   CreateObject("roSGNode", "GetEpisodes")
+    m.showTitle              =   m.top.findNode("show_title")
+    m.showTitle.font.size    =   30
+    m.seasonNumber           =   0
+    m.seasonIndex            =   0
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
-    m.showTitle = m.top.findNode("show_title")
-    m.showTitle.font.size = 30
-    m.seasonNumber = 0
-    m.seasonIndex = 0
 End Function
 
 ' handler of focused item in RowList
 Sub OnItemFocused()
-    'print m.top.itemFocused
     itemIndex = m.MarkupGrid.itemFocused
     itemsPerSeason = []
     For x=0 To m.seasonNumber-1
         itemsPerSeason.push(m.top.content.getChild(x).getChildCount())
     End For
+    
     season = 0
     sumOfItems = itemsPerSeason[0]
+    
     while itemIndex >= sumOfItems
         season = season + 1
         sumOfItems = sumOfItems + itemsPerSeason[season]
@@ -37,40 +37,37 @@ Sub OnItemFocused()
         sumOfItems = sumOfItems - itemsPerSeason[season]
         itemIndex = itemIndex - sumOfItems
     end if
-    print itemindex
+    
     aa = CreateObject("roSGNode", "ContentNode")
     aa = m.top.content.getChild(season)
     m.top.focusedContent = aa.getChild(itemIndex)
 End Sub
 
 function updateRow()
-    m.CWTask = CreateObject("roSGNode", "GetEpisodes")
-    m.CWTask.control = "RUN"
+    m.sceneTask.control = "RUN"
 end function
-' set proper focus to RowList in case if return from Details Screen
-Sub onVisibleChange()
-'print "in on visible change"
-    
-'    if m.top.seasonUrl <> "" and m.top.canCallApi = true
-'        'loading indicator stuff
-'   
-'        'm.top.canCallApi = false    
-'    end if
-    if m.top.visible = true 
+
+'When visibility changes i.active loading this screen or going back to this screen from episodes screen
+Sub onVisibleChange()    
+    if m.top.seasonUrl <> "" and m.top.canCallApi = true
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
         centery = (720 - m.busyspinner.poster.bitmapHeight) / 2
+         'loading indicator initiate
         m.busyspinner.translation = [ centerx, centery ]
         m.busyspinner.visible = true
-        'loading indicator ends
-        print "thread runs again"
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
-        m.sceneTask.control = "RUN"   
+
+        m.sceneTask.control = "RUN"      
+        m.top.canCallApi = false    
+    end if
+    
+    if m.top.visible = true 
         m.showTitle.text = m.top.showName
         m.seasonIndex = 0
-        m.MarkupGrid.setFocus(true)
+        m.MarkupGrid.setFocus(true)   
     else 
         m.sceneTask.unobserveField("content")
         m.MarkupGrid.unobserveField("itemFocused")
@@ -78,14 +75,13 @@ Sub onVisibleChange()
   
 End Sub
 
-
 Sub OnFocusedChildChange()
     if m.top.isInFocusChain() and not m.MarkupGrid.hasFocus() then
         m.MarkupGrid.setFocus(true)
     end if
 End Sub
 
-
+'Once API call returns from the second thread, thus function runs to parse the JSON file and populate the grid with episodes
 function gotContent()      
       
     jsonParsed = m.sceneTask.content
@@ -99,7 +95,6 @@ function gotContent()
         m.sectionContent = m.newContent.createChild("ContentNode")
         m.sectionContent.CONTENTTYPE = "SECTION"
         m.sectionContent.title = "Season " + m.seasonNumber.toStr()
-        print "this one should be printed before number"
         for each episode in jsonParsed[Season]._embedded.items
             
             item = m.sectionContent.createChild("ContentNode")

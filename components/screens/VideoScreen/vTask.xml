@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
 <component name="getVideos" extends="Task">
   <interface>
     <field id = "contenturi" type = "string" />
@@ -99,14 +98,12 @@
             end if            
         end for
         
-        print duration
         tempNode = CreateObject("roSGNode", "ContentNode")
         tempNode.streamFormat = "mp4"
         tempNode.url = fUrl
         tempNode.id = m.top.id
         tempNode.title = m.top.episodeName
         tempNode.description = StrI(duration)
-        print title
         tempNode.Title = title
         m.content = tempNode
         m.top.passNode = tempNode

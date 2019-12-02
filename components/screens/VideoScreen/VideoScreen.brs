@@ -1,9 +1,7 @@
-' ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** 
- ' inits details screen
+ ' inits video screen
  ' sets all observers 
- ' configures buttons for Details screen
 Function Init()
-    ? "[DetailsScreen] init"
+    ? "[VideoScreen] init"
     m.popupbox = m.top.findNode("popupBox")
     m.buttongrpp = m.top.findNode("button_grpp")
     m.buttongrpp.translation = "[440,500]"
@@ -40,7 +38,7 @@ End Function
 ' set proper focus to buttons if Details opened and stops Video if Details closed
 Sub onVisibleChange()
 
-    ? "[DetailsScreen] onVisibleChange"
+    ? "[VideoScreen] onVisibleChange"
 
     m.buttongrpp.setFocus(true)
     m.popupbox.visible = false
@@ -58,6 +56,7 @@ Sub onVisibleChange()
     end if
 End Sub
 
+'callback function for when the vTask completes the API call
 function gotContent()
     sec = createObject("roRegistrySection", "MySection")
     Key = m.epTask.passNode.id
@@ -69,12 +68,6 @@ function gotContent()
         onBeginButtonSelected()
     end if
 end function
-' set proper focus to Buttons in case if return from Video PLayer
-Sub OnFocusedChildChange()
-    if m.top.isInFocusChain() and not m.buttons.hasFocus() and not m.videoPlayer.hasFocus() then
-        m.buttons.setFocus(true)
-    end if
-End Sub
 
 ' set proper focus on buttons and stops video if return from Playback to details
 Sub onVideoVisibleChange()
@@ -98,32 +91,35 @@ Sub onVideoVisibleChange()
     end if
 End Sub
 
+'Handles when the user chooses to resume episode
 function onResumeButtonSelected()
     m.top.content = m.epTask.passNode
     m.videoPlayer.content = m.top.content    
     playFromLastTime()
 end function
 
+'Handles when user chooses to play from beginning
 function onBeginButtonSelected()
     m.top.content = m.epTask.passNode
     m.videoPlayer.content = m.top.content    
     playFromBeginning()
 end function
+
+'Starts episode from beginning if the user chosses to play from beginning
 function playFromBeginning()
-    
     m.videoPlayer.visible = true
     m.videoPlayer.setFocus(true)
     m.videoPlayer.control = "play"
     sec = createObject("roRegistrySection", "MySection")
-    ' TODO change my section to something else?     
     m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
 end function
+
+'Playes episode from the same time that it was stopped last
 function playFromLastTime()
     m.videoPlayer.visible = true
     m.videoPlayer.setFocus(true)
     m.videoPlayer.control = "play"
     sec = createObject("roRegistrySection", "MySection")
-    ' TODO change my section to something else? 
     Key = m.videoPlayer.content.id
     if sec.Exists(Key)
       ' Parse json to get bookmark time
@@ -133,6 +129,8 @@ function playFromLastTime()
     end if        
     m.videoPlayer.observeField("state", "OnVideoPlayerStateChange")
 end function
+
+
 ' event handler of Video player msg
 Sub OnVideoPlayerStateChange()
     if m.videoPlayer.state = "error"
@@ -152,14 +150,11 @@ End Sub
 
 Sub onItemSelected()
     ' first button is Play
-            
-    'if m.top.itemSelected = 0
-        'm.top.visible = false
+        
         m.videoPlayer.visible = true
         m.videoPlayer.setFocus(true)
         m.videoPlayer.control = "play"
         sec = createObject("roRegistrySection", "MySection")
-        ' TODO change my section to something else? 
         Key = m.videoPlayer.content.id
         if sec.Exists(Key)
           ' Parse json to get bookmark time
@@ -172,8 +167,6 @@ Sub onItemSelected()
     'End if
 End Sub
 
-
-'///////////////////////////////////////////'
 ' Helper function convert AA to Node
 Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" as String) as Object
     result = createObject("roSGNode",nodeType)
@@ -187,6 +180,7 @@ Function ContentList2SimpleNode(contentList as Object, nodeType = "ContentNode" 
     return result
 End Function
 
+'Formats the progress bar to have the majestic mini-me blue colour
 sub customizeProgressBar(progressBar as Dynamic)
     bar = progressBar
     if bar <> invalid

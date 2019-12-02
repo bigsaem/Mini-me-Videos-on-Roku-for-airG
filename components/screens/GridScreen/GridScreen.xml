@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
 
 <!-- node that renders Grid Screen 
-    handles bookmark buttons
     handles start of video playback
  -->
 <component name="GridScreen" extends="Group" initialFocus="RowList">
@@ -29,12 +27,13 @@
          
 
 	        
-        <!-- Overhang logo -->
+    <!-- Overhang logo -->
     <Poster
         translation="[79, 36]"
         uri="pkg:/images/overhangLogo.png"
         width="156"
-        height="49"  />
+        height="49"  
+        />
     <RowList
        id="RowList"
        itemComponentName="customItem"
@@ -50,7 +49,7 @@
        showRowLabel="true"
        showRowCounter="true"
        rowLabelOffset="[[147, 20]]"
-     />
+    	/>
             
     <Poster
       id = "itemPoster"
@@ -63,12 +62,9 @@
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
             width="2000"
-            height="95" />
+            height="95" 
+            />
 
-        <Description
-            id="Description"
-			translation="[106, 400]"
-            itemSpacings="[7,17]"/>
 
     </children>
 </component>

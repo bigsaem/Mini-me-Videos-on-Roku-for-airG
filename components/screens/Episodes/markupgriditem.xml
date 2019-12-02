@@ -1,7 +1,4 @@
 <?xml version = "1.0" encoding = "utf-8" ?>
-
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
-
 <component name = "MarkupGridItem" extends = "Group" >
  
   <interface> 
@@ -26,7 +23,6 @@
       itemcontent = m.top.itemContent
       sec = createObject("roRegistrySection", "MySection")
       if sec.Exists(itemcontent.id)
-        print "Exist"
         readJsonString =  sec.read(itemcontent.id)
         readJsonObject = parseJson(readJsonString)
         duration = Val(readJsonObject.duration)
@@ -62,7 +58,8 @@
         height = "10" 
         visible = "false"
         translation = "[0.0, 140.0]"
-        scaleRotateCenter = "[ 0.0, 140.0 ]"/>
+        scaleRotateCenter = "[ 0.0, 140.0 ]"
+        />
        <Rectangle 
         id = "progress" 
         color = "#50cddd"  
@@ -70,7 +67,8 @@
         height = "10" 
         visible = "false"
         translation = "[0.0, 140.0]"
-        scaleRotateCenter = "[ 0.0, 140.0 ]"/>
+        scaleRotateCenter = "[ 0.0, 140.0 ]"
+        />
 
     </Poster>
     <Label
@@ -78,7 +76,7 @@
         color="#FFFFFF"
         width="240"
         translation="[0.0, 150]"
-    />
+    	/>
   </children>
 
 </component>

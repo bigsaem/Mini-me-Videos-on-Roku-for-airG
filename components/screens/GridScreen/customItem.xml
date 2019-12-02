@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- Copyright 2016 Roku Corp.  All Rights Reserved. -->
-
 <component name="customItem" extends="Group">
 
   <interface>
@@ -15,7 +13,6 @@
 			m.Poster = m.top.findNode("poster")
 			m.ProgressRectangle = m.top.findNode("ProgressRectangle")
 			m.MaskRectangle = m.top.findNode("maskRectangle")		
-
 	    end sub
 	
 	    sub showcontent()
@@ -26,14 +23,14 @@
 	      itemcontent = m.top.itemContent
 	      sec = createObject("roRegistrySection", "MySection")
 	      if sec.Exists(itemcontent.id)
-	        readJsonString =  sec.read(itemcontent.id)
+	      	readJsonString =  sec.read(itemcontent.id)
 	        readJsonObject = parseJson(readJsonString)
 	        duration = Val(readJsonObject.duration)
 	        timestamp  = readJsonObject.time
 	        m.ProgressRectangle.width = 262*(timestamp/duration)
 	        m.ProgressRectangle.visible = true
 	        m.MaskRectangle.visible = true
-       end if
+          end if
             m.title.text = m.top.itemContent.Title
 	        m.Poster.uri = itemcontent.HDPOSTERURL
 	    end sub
@@ -62,14 +59,15 @@
             height="10"
             translation="[0,137]"
             visible = "false"
-             />
+            />
       </Poster>
 
       <Label
         id="epi_title"
         color="#FFFFFF"
         width="240"
-        translation="[0.0, 150]"/>
+        translation="[0.0, 150]"
+        />
 
      
   </children>

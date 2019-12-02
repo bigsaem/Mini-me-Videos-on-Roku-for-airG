@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
-
 <!-- 
     main node which handles home screen children 
     -->
@@ -19,7 +17,7 @@
         
         <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
         
-        <field id="playSelected" type="intarray" alwaysNotify="true" alias="DetailsScreen.videoPlayerVisible"/>
+        <field id="playSelected" type="intarray" alwaysNotify="true" alias="VideoScreen.videoPlayerVisible"/>
         <field id="APIArray" type="roArray"/>
         <field id="rowCount" type="integer" value="0"/>
         
@@ -36,7 +34,8 @@
             width = "1280"
             height = "720"
             loadSync = "true"
-            uri = "pkg:/images/Background720.png"/>
+            uri = "pkg:/images/Background720.png"
+            />
         <Poster
             id = "itemMask"
             width = "1280"
@@ -47,18 +46,21 @@
         <GridScreen
             id="GridScreen"
             visible="true"
-            translation="[0,0]" />
+            translation="[0,0]" 
+            />
             
         <Episodes
             id="Episodes"
             enableRenderTracking="true"
             visible="false"
-            translation="[0,0]" />
+            translation="[0,0]" 
+            />
             
         <ErrorScene
             id="ErrorScene"
             visible="false"
-            translation="[0,0]" />
+            translation="[0,0]" 
+            />
             
 
         
@@ -72,7 +74,7 @@
             iconUri=""
             focusBitmapUri="pkg:/images/focus_grid.9.png"
             translation = "[ 1000, 40 ]"
-        />
+        	/>
         <Rectangle
           id="mask"
           color="#00000077"
@@ -80,7 +82,7 @@
           height="740"
           visible= "false"
           translation="[0,0]"
-        />
+        	/>
         <Option
 		  id="optionCont"
 		  width="250"
@@ -88,7 +90,7 @@
 		  visible="false"
 		  color="#ed7740"
 		  translation="[1280,0]" 
-		 />
+		  />
 
         <Rectangle
             id="ExitConfirm"
@@ -139,8 +141,8 @@
 
 	         </ButtonGroup>
          </Rectangle>
-        <DetailsScreen
-            id="DetailsScreen"
+        <VideoScreen
+            id="VideoScreen"
             visible = "false"/>
 
         <!-- animation for option bar -->    

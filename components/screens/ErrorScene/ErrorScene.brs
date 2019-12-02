@@ -16,14 +16,10 @@ Function OnKeyEvent(key, press) as Boolean
     result = false
     if press then
         if key = "options"
-            ' option key handler
-
-            'm.option.setFocus(true)
-            'print m.option.hasFocus()
+            ' option key handler (do nothing)
             result  = true
-            
+            'back key handler
         else if key = "back"
-            print "Back button clicked"
         end if
     end if
     return result

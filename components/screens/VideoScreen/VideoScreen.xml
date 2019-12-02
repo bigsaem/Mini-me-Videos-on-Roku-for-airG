@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
-
 <!--
-    node that renders details screen 
+    node that renders video screen 
     handles start of video playback
  -->
-<component name="DetailsScreen" extends="Rectangle">
+<component name="VideoScreen" extends="Rectangle">
     <interface>
         <!-- Button press handler -->
         <!--  <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />-->
@@ -25,7 +23,7 @@
     </interface>
     
     <!-- main handler -->
-    <script type="text/brightscript" uri="pkg:/components/screens/DetailsScreen/DetailsScreen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/VideoScreen/VideoScreen.brs" />
     
     <children>
         <Rectangle
