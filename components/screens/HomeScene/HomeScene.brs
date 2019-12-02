@@ -37,6 +37,7 @@ Function Init()
 
     m.exitConfirm = m.top.findNode("ExitConfirm")
     m.exitButtongrp = m.top.findNode("yesOrNo")
+    m.mask = m.top.findNode("mask")
     m.yes = m.top.findNode("Yes")
     m.no = m.top.findNode("No")
     m.yes.observeField("buttonSelected", "exitMMV")
@@ -47,6 +48,7 @@ function exitMMV()
     m.top.exitApp = true
 end function
 function exit_cancel()
+    m.mask.visible = false
     m.exitConfirm.visible = false
     m.top.visible = true
     m.gridScreen.setFocus(true)
@@ -83,6 +85,7 @@ end function
 
 'Option button selected handler
 Function OnOptionSelected()
+    m.mask.visible = true
     m.optionCont.visible = "true"
     m.animation.control = "start"
     m.optionCont.setFocus(true)
@@ -148,11 +151,18 @@ Function OnKeyEvent(key, press) as Boolean
         else if key = "back"
         print "back pressed"
             if (m.optionCont.visible = true or m.option.hasFocus() = true) and m.gridScreen.visible = true
+                m.mask.visible = false
                 m.optionCont.visible = "false"
                 m.gridScreen.setFocus(true)
                 updateRow()
                 result = true
+            else if m.exitConfirm.visible = true
+               m.exitConfirm.visible = false
+               m.mask.visible = false
+               m.gridScreen.setFocus(true)
+               result = true   
             else if (m.optionCont.visible = true or m.option.hasFocus() = true) and m.episodes.visible = true
+                m.mask.visible = false
                 m.optionCont.visible = "false"
                 m.episodes.setFocus(true)
                 result = true
@@ -177,8 +187,10 @@ Function OnKeyEvent(key, press) as Boolean
                 result = true            
             else if m.gridScreen.visible = true and m.episodes.visible = false and m.detailsScreen.visible = false
                m.exitConfirm.visible = true
+               m.mask.visible = true
                m.exitButtongrp.setFocus(true)
-                result = true     
+               result = true  
+
             end if
         end if
     end if
