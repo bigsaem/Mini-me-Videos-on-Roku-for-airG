@@ -1,4 +1,3 @@
-' ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** 
  ' inits grid screen
  ' creates all children
  ' sets all observers 
@@ -21,21 +20,18 @@ Sub OnItemFocused()
         focusedContent          = m.top.content.getChild(itemFocused[0]).getChild(itemFocused[1])
         if focusedContent <> invalid then
             m.top.focusedContent    = focusedContent
-'            m.description.content   = focusedContent
-'            m.background.uri        = "pkg:/images/focus_grid.9.png"
         end if
     end if
 End Sub
 
-' set proper focus to RowList in case if return from Details Screen
+' set proper focus to RowList in case if return from Video Screen
 Sub onVisibleChange()
-print "in GS on visible change"
     if m.top.visible = true then
         m.rowList.setFocus(true)
     end if
 End Sub
 
-' set proper focus to RowList in case if return from Details Screen
+' set proper focus to RowList in case if return from Video Screen
 Sub OnFocusedChildChange()
     if m.top.isInFocusChain() and not m.rowList.hasFocus() then
         m.rowList.setFocus(true)

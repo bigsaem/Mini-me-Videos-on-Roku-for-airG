@@ -1,4 +1,3 @@
-' ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** 
  ' inits grid screen
  ' creates all children
  ' sets all observers 
@@ -15,13 +14,14 @@ Function Init()
     m.errorScene    =    m.top.findNode("ErrorScene")
     m.rowList       =    m.top.findNode("rowList")
     m.bg            =    m.top.findNode("GridScreen").getChild(0)
-    ' DetailsScreen Node with description, Video Player
+    
+    ' VideoScreen Node with Video Player
 
-    m.detailsScreen =    m.top.findNode("DetailsScreen")
-    m.videoPlayer   =    m.detailsScreen.findNode("VideoPlayer")
+    m.videoScreen   =    m.top.findNode("VideoScreen")
+    m.videoPlayer   =    m.videoScreen.findNode("VideoPlayer")
     
     m.option        =    m.top.findNode("option_btn")
-    m.optionCont = m.top.findNode("optionCont")
+    m.optionCont    =    m.top.findNode("optionCont")
     ' Observers
     m.top.observeField("rowItemSelected", "OnRowItemSelected")
     m.top.observeField("optionSelected", "OnOptionSelected")
@@ -42,11 +42,14 @@ Function Init()
     m.no = m.top.findNode("No")
     m.yes.observeField("buttonSelected", "exitMMV")
     m.no.observeField("buttonSelected", "exit_cancel")
-    'print type(m.detailsScreen.videoPlayer)
 End Function 
+
+'brings up the exit confirmation box
 function exitMMV()
     m.top.exitApp = true
 end function
+
+'handles the cancel button from the exit app confirmation box
 function exit_cancel()
     m.mask.visible = false
     m.exitConfirm.visible = false
@@ -54,18 +57,13 @@ function exit_cancel()
     m.gridScreen.setFocus(true)
 end function
 
-
-
 'When a video is completed go back to episode screen with focus on last item selected
 function checkEndOfEpisode()
     if m.videoPlayer.visible = true and m.videoPlayer.state = "finished"    
         videoEnded()
     end if
 end function
-<<<<<<< HEAD
-    
-=======
->>>>>>> 178ccc2efc66f39cd83bceb40c8158bc7067e73f
+
 function OnVisibleChange()
     if m.top.visible = true
         m.videoFromEpisode = true
@@ -81,6 +79,7 @@ Function OnChangeContent()
     'm.loadingIndicator.control = "stop"
 End Function
 
+'Updates the continue watching row dynamically by calling a second thread to read the registry
 function updateRow()
     m.CWTask = CreateObject("roSGNode", "ContinueWatching")
     m.CWTask.control = "RUN"
@@ -102,13 +101,13 @@ Function OnRowItemSelected()
         if m.gridScreen.itemFocused[0] = 0 and m.top.rowCount > 1
             selectedItem = m.gridScreen.focusedContent
             m.videoFromEpisode = false
-            m.detailsScreen.id = m.gridScreen.focusedContent.id
-            m.detailsScreen.epUrl = m.gridScreen.focusedContent.url            
-            m.detailsScreen.content = m.gridScreen.focusedContent
-            m.detailsScreen.passedTitle = m.gridScreen.focusedContent.Title
-            m.detailsScreen.thumbnail = m.gridScreen.focusedContent.HDPOSTERURL
-            m.detailsScreen.visible = true
-            m.detailsScreen.setFocus(true)
+            m.videoScreen.id = m.gridScreen.focusedContent.id
+            m.videoScreen.epUrl = m.gridScreen.focusedContent.url            
+            m.videoScreen.content = m.gridScreen.focusedContent
+            m.videoScreen.passedTitle = m.gridScreen.focusedContent.Title
+            m.videoScreen.thumbnail = m.gridScreen.focusedContent.HDPOSTERURL
+            m.videoScreen.visible = true
+            m.videoScreen.setFocus(true)
         else
             m.itemmask.height = "720"
             m.slideFull = m.top.findNode("slideUpFull")
@@ -127,13 +126,13 @@ Function OnRowItemSelected()
 
     else if m.gridScreen.visible = false and m.episodes.visible = true
         m.videoFromEpisode = true
-        m.detailsScreen.id = m.episodes.focusedContent.id
-        m.detailsScreen.epUrl = m.episodes.focusedContent.url
-        m.detailsScreen.content = m.episodes.focusedContent
-        m.detailsScreen.passedTitle = m.episodes.focusedContent.SHORTDESCRIPTIONLINE1
-        m.detailsScreen.thumbnail = m.episodes.focusedContent.SDGRIDPOSTERURL
-        m.detailsScreen.visible = true
-        m.detailsScreen.setFocus(true)
+        m.videoScreen.id = m.episodes.focusedContent.id
+        m.videoScreen.epUrl = m.episodes.focusedContent.url
+        m.videoScreen.content = m.episodes.focusedContent
+        m.videoScreen.passedTitle = m.episodes.focusedContent.SHORTDESCRIPTIONLINE1
+        m.videoScreen.thumbnail = m.episodes.focusedContent.SDGRIDPOSTERURL
+        m.videoScreen.visible = true
+        m.videoScreen.setFocus(true)
         result = true
     end if
     
@@ -147,7 +146,7 @@ Function OnKeyEvent(key, press) as Boolean
     if press then
         if key = "options"
             ' option key handler
-            if m.detailsScreen.visible = false and m.exitConfirm.visible = false
+            if m.videoScreen.visible = false and m.exitConfirm.visible = false
                 m.option.setFocus(true)
                 result  = true
             end if
@@ -170,16 +169,16 @@ Function OnKeyEvent(key, press) as Boolean
                 m.optionCont.visible = "false"
                 m.episodes.setFocus(true)
                 result = true
-            else if m.detailsScreen.videoPlayerVisible = true            
+            else if m.videoScreen.videoPlayerVisible = true            
                 videoEnded()       
                 result = true 
-            else if m.gridScreen.visible = true and m.detailsScreen.visible = true
-                m.detailsScreen.visible = false
+            else if m.gridScreen.visible = true and m.videoScreen.visible = true
+                m.videoScreen.visible = false
                 m.GridScreen.visible = true
                 m.GridScreen.setFocus(true)
                 result = true
-            else if m.episodes.visible = true and m.detailsScreen.visible = true
-                m.detailsScreen.visible=false
+            else if m.episodes.visible = true and m.videoScreen.visible = true
+                m.videoScreen.visible=false
                 m.episodes.visible = true
                 m.episodes.setFocus(true)
                 result = true
@@ -189,31 +188,31 @@ Function OnKeyEvent(key, press) as Boolean
                 m.gridScreen.visible = true
                 m.episodes.visible = false
                 result = true            
-            else if m.gridScreen.visible = true and m.episodes.visible = false and m.detailsScreen.visible = false
+            else if m.gridScreen.visible = true and m.episodes.visible = false and m.videoScreen.visible = false
                m.exitConfirm.visible = true
                m.mask.visible = true
                m.exitButtongrp.setFocus(true)
                result = true  
-
             end if
         end if
     end if
     return result
 End Function
 
+'When the video ended this method is called. It checks to see which screen it should navigate back to
 function videoEnded()
-
+    'if coming back to episode screen
     if m.videoFromEpisode = true 
-        m.episodes.content = {}
+        print m.episodes.content.change
         m.episodes.content = m.episodes.refreshNode
-        'm.episodes.refreshNode = {}
-        m.detailsScreen.videoPlayerVisible = false
-        m.detailsScreen.visible=false
+        m.videoScreen.videoPlayerVisible = false
+        m.videoScreen.visible=false
         m.episodes.visible = true        
         m.episodes.setFocus(true)
+    'If coming back from continue watching    
     else 
-        m.detailsScreen.videoPlayerVisible = false
-        m.detailsScreen.visible=false
+        m.videoScreen.videoPlayerVisible = false
+        m.videoScreen.visible=false
         m.gridScreen.visible = true
         m.gridScreen.setFocus(true)
     end if 
