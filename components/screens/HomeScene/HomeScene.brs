@@ -188,6 +188,7 @@ End Function
 function videoEnded()
 
     if m.videoFromEpisode = true 
+        m.episodes.content = {}
         m.episodes.content = m.episodes.refreshNode
         'm.episodes.refreshNode = {}
         m.detailsScreen.videoPlayerVisible = false

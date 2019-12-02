@@ -13,6 +13,8 @@ Function Init()
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
+    m.showTitle = m.top.findNode("show_title")
+    m.showTitle.font.size = 30
     m.seasonNumber = 0
     m.seasonIndex = 0
 End Function
@@ -23,7 +25,6 @@ Sub OnItemFocused()
     itemIndex = m.MarkupGrid.itemFocused
     itemsPerSeason = []
     For x=0 To m.seasonNumber-1
-        print "wiow"
         itemsPerSeason.push(m.top.content.getChild(x).getChildCount())
     End For
     season = 0
@@ -49,6 +50,7 @@ end function
 ' set proper focus to RowList in case if return from Details Screen
 Sub onVisibleChange()
 'print "in on visible change"
+    
     if m.top.seasonUrl <> "" and m.top.canCallApi = true
         'loading indicator stuff
         centerx = (1280 - m.busyspinner.poster.bitmapWidth) / 2
@@ -56,7 +58,7 @@ Sub onVisibleChange()
         m.busyspinner.translation = [ centerx, centery ]
         m.busyspinner.visible = true
         'loading indicator ends
-        print "in visible change"
+        print "thread runs again"
         m.sceneTask.seasonCount = m.top.seasonCount.ToInt()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
@@ -65,6 +67,7 @@ Sub onVisibleChange()
         m.top.canCallApi = false    
     end if
     if m.top.visible = true 
+        m.showTitle.text = m.top.showName
         m.seasonIndex = 0
         m.MarkupGrid.setFocus(true)
     else 
@@ -82,7 +85,8 @@ Sub OnFocusedChildChange()
 End Sub
 
 
-function gotContent()        
+function gotContent()      
+      
     jsonParsed = m.sceneTask.content
     result  = []
     x = 0
@@ -96,6 +100,7 @@ function gotContent()
         m.sectionContent.title = "Season " + m.seasonNumber.toStr()
         print "this one should be printed before number"
         for each episode in jsonParsed[Season]._embedded.items
+            
             item = m.sectionContent.createChild("ContentNode")
             item.id = episode.id
             item.HDGRIDPOSTERURL = episode.thumbnail.small
