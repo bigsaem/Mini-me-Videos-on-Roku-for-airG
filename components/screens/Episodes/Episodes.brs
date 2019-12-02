@@ -7,14 +7,9 @@ Function Init()
         
     m.posterGrid    =   m.top.findNode("PosterGrid")
     m.background    =   m.top.findNode("Background")
-
     m.errorScene = m.top.findNode("ErrorScene")
     m.busyspinner = m.top.findNode("BusySpinner")
     m.busyspinner.poster.uri = "pkg:/images/loader2.png"
-    
-
-   ' m.itemmask = m.top.findNode("itemMask")
-    'm.description   =   m.top.findNode("Description")   
     m.sceneTask = CreateObject("roSGNode", "GetEpisodes")
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -23,9 +18,13 @@ End Function
 
 ' handler of focused item in RowList
 Sub OnItemFocused()
-    itemFocused = m.top.itemFocused
+    itemFocused = m.top.itemFocused 
+    
     m.top.focusedContent = m.top.content.getChild(itemFocused)
+
+
 End Sub
+
 function updateRow()
     m.CWTask = CreateObject("roSGNode", "GetEpisodes")
     m.CWTask.control = "RUN"
@@ -45,15 +44,14 @@ Sub onVisibleChange()
         m.sceneTask.seasonUrl = m.top.seasonUrl
         m.sceneTask.showName = m.top.showName
         m.sceneTask.observeField("content","gotContent")
-        m.sceneTask.control = "RUN"
-        m.top.canCallApi = false
+        m.sceneTask.control = "RUN"      
+        m.top.canCallApi = false    
+
     end if
 
-    if m.top.visible = true then
-        
+    if m.top.visible = true then     
         m.posterGrid.setFocus(true)
-    end if
-
+    end if    
 End Sub
 
 
@@ -66,7 +64,6 @@ End Sub
 
 function gotContent()        
     jsonParsed = m.sceneTask.content
-    'print jasonParsed[Season1]._embedded.items
 
     result  = []
     x = 0
@@ -113,11 +110,10 @@ function gotContent()
         }
     ]
     
-    'print list
     m.top.allEpisodes = list
-    'print m.top.allEpisodes
     m.top.content = parseJSONObject(list)
-
+    m.top.refreshNode = parseJSONObject(list)
+    
     m.busyspinner.visible = false
 end function
 
@@ -136,7 +132,6 @@ function parseJSONObject(list as Object)
             end for
             row.appendChild(item)
         end for
-'        RowItems.appendChild(row)
     end for
 
     return row
