@@ -13,7 +13,7 @@
 		<field id="rowList" type = "node" alias="GridScreen.rowList"/>
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
-       
+        <field id="exitApp" type="boolean" value="false"/>
         <!-- option selection handler -->
         <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
         
@@ -60,12 +60,7 @@
             visible="false"
             translation="[0,0]" />
             
-        <!-- Overhang logo -->
-        <Poster
-            translation="[79, 36]"
-            uri="pkg:/images/overhangLogo.png"
-            width="156"
-            height="49"  />
+
         
         <!--  option button -->
         <Button
@@ -87,21 +82,47 @@
 		  translation="[1280,0]" 
 		 />
 		 
-		 <Video
-            id="videoPlayer2"
-            visible="false"
-            translation="[0, 0]"
-            width="1280"
-            height="720"/>
-		 
-        <!-- Details screen with Play button -->
-        <!--<DetailsScreen
-            id="DetailsScreen"
-            translation = "[440,160]"
+        <Rectangle
+            id="ExitConfirm"
+            translation = "[440,260]"
             color="#FFFFFF"
             width = "400"
-            height = "450"
-            visible="false"/>-->
+            height = "200"
+            visible="false">
+            <Label
+	           id="confirm_msg"
+	           height="30"
+	           width="400"
+	           color="#000000"
+	           horizAlign = "center"
+	           translation = "[0,20]"
+	           font="font:MediumBoldSystemFont"
+	           text="Are you sure you want to exit?" />
+            <ButtonGroup
+	           id="yesOrNo"
+	           translation="[100, 60]"
+	           >
+                <Button
+                     id="No"
+                     text="CANCEL"
+                     textColor="#000000"
+                     focusedIconUri=""
+                     iconUri=""
+                     translation = "[0, 40]"
+                     showFocusFootprint = "true"
+                     focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	            <Button
+		             id="Yes"
+		             text="EXIT"
+		             textColor="#000000"
+		             focusedIconUri=""
+		             iconUri=""
+		             translation = "[0, 80]"
+		             showFocusFootprint = "true"
+		             focusBitmapUri="pkg:/images/focus_grid.9.png" />
+
+	         </ButtonGroup>
+         </Rectangle>
         <DetailsScreen
             id="DetailsScreen"
             visible = "false"/>
@@ -142,11 +163,11 @@
                 fieldToInterp="itemMask.translation" />
         </Animation> 
         <Animation id="slideDown" 
-            duration="0.2"
+            duration="0.5"
             easeFunction="linear" >
             <Vector2DFieldInterpolator id = "slidedownfull"
                 key="[0.0, 0.7, 1.0]"
-                keyValue="[ [0.0, 0.0], [0.0, 100.0],[0.0, 350.0] ]"
+                keyValue="[ [0.0, 0.0], [0.0, 420.0],[0.0, 350.0] ]"
                 fieldToInterp="itemMask.translation" />
         </Animation> 
     </children>
