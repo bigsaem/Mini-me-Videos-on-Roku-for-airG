@@ -14,7 +14,7 @@ Function Init()
     m.showTitle.font.size    =   30
     m.seasonNumber           =   0
     m.seasonIndex            =   0
-    m.MarkupGrid.sectionDividerTextColor = "#50cddd"
+    m.MarkupGrid.sectionDividerTextColor = "#FFFFFF"
     m.MarkupGrid.sectionDividerFont.size = 25
     m.top.observeField("visible", "onVisibleChange")
     m.top.observeField("focusedChild", "OnFocusedChildChange")
@@ -86,7 +86,6 @@ End Sub
 
 'Once API call returns from the second thread, thus function runs to parse the JSON file and populate the grid with episodes
 function gotContent()      
-    print "in got content"
     jsonParsed = m.sceneTask.content
     result  = []
     x = 0

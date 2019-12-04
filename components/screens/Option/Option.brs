@@ -17,7 +17,6 @@ Function onButtonSelected()
     sec = createObject("roRegistrySection", "MySection")
     list = sec.GetKeyList()
     for each item in list
-        print item
         sec.Delete(item)
     end for
 End Function

@@ -83,7 +83,6 @@ Sub onVideoVisibleChange()
             valueJsonString = FormatJson(valueJson, 0)
             sec.Write(Key, valueJsonString)
             sec.Flush()
-            print "registry stored"
         else 
             sec.Delete(Key)
         end if
