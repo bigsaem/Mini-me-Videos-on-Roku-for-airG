@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!-- 
+    main node which handles home screen children 
+    -->
+<component name="ErrorScene" extends="Scene">
+<script type="text/brightscript" uri="pkg:/components/screens/ErrorScene/ErrorScene.brs" />
+  <children>
+	  <Poster
+	     id="Background"
+	     width = "1280"
+	     height = "720"
+	     translation="[0,0]"
+	     uri = "pkg:/images/error_bgnd1280.jpg"
+	     /> 
+     <Label
+		  id="Label"
+		  height="360"
+		  width="1280"
+		  color="#000080"
+		  text = "Server Error Occurred"
+		  font="font:MediumBoldSystemFont"
+		  horizAlign = "center"
+		  vertAlign = "bottom"
+		  translation="[0,0]" 
+		  />
+     <Label
+          id="Labell"
+          height="360"
+          width="1280"
+          color="#000080"
+          wrap = "true"
+          font="font:MediumBoldSystemFont"
+          horizAlign = "center"
+          vertAlign = "top"
+          translation="[0,360]" 
+          />
+  </children>
+</component>

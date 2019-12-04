@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="getVideos" extends="Task">
+  <interface>
+    <field id = "contenturi" type = "string" />
+    <field id="thumbnail" type = "string"/>
+    <field id = "episodeName" type = "string" />
+    <field id = "fEpUrl" type = "string" />
+    <field id = "passNode" type = "node" />
+    <field id = "id" type = "string" />
+    <field id = "durationString" type = "string" />
+
+  </interface>
+  <script type="text/brightscript">
+    
+  <![CDATA[
+  
+    sub init()
+        m.top.functionName = "getAPIResponse"
+    end sub
+    
+    sub getAPIResponse()    
+        
+        port = CreateObject("roMessagePort")
+        req = CreateObject("roUrlTransfer")
+        req.setRequest("GET")
+        req.setURL(m.top.contenturi)     
+        req.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+        jsonTaskString = req.GetToString()
+        jsonTaskParsed = ParseJson(jsonTaskString)
+        
+        videoLink = ""
+        
+        videosArray = []
+        
+        if jsonTaskString = "" or jsonTaskParsed = invalid
+            'If there is an error with the API call         
+            screen = CreateObject("roSGScreen")
+            scene = screen.CreateScene("ErrorScene")
+            port = CreateObject("roMessagePort")
+            screen.SetMessagePort(port)
+            screen.Show()
+            while true
+                msg = Wait(0, port)
+                ? "------------------"
+                ? "msg = ";
+            end while
+            return
+        end if
+        
+        for each video in jsonTaskParsed        
+            if video.size.bytes > 500
+                videos = {}
+                videos.quality = video.quality
+                videos.url = video._links.source.href
+                videos.video_url = video._links.video.href
+                videos.id = video.id
+                videos.title = m.episodeName
+                videosArray.push(videos)
+            end if
+        end for
+        
+        fUrl = ""
+        id = ""
+        duration = 1
+        name = ""
+               
+        for each item in videosArray
+        	testCWItem = {}
+        	port2 = CreateObject("roMessagePort")
+	        req2 = CreateObject("roUrlTransfer")
+	        req2.setRequest("GET")
+	        req2.setURL(videos.video_url)        
+	        req2.AddHeader("auth", "KPBR41wti28eGnLvVuQikPnPOVpv2TCk")
+	        jsonTaskString = req2.GetToString()
+	        jsonTaskParsed = ParseJson(jsonTaskString)
+	        hyphenIndex = Instr(1, jsonTaskParsed.name, "-")
+			if hyphenIndex > 3
+	        	hyphenIndex = hyphenIndex - 3
+	        end if
+	        title = mid(jsonTaskParsed.name, hyphenIndex)
+	        duration = jsonTaskParsed.duration.seconds
+            if item.quality = "1080p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "720p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "540p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            else if item.quality = "360p"
+                fUrl = item.url
+                id = item.id
+                exit for
+            end if            
+        end for
+        
+        tempNode = CreateObject("roSGNode", "ContentNode")
+        tempNode.streamFormat = "mp4"
+        tempNode.url = fUrl
+        tempNode.id = m.top.id
+        tempNode.title = m.top.episodeName
+        tempNode.description = StrI(duration)
+        tempNode.Title = title
+        m.content = tempNode
+        m.top.passNode = tempNode
+        m.top.fEpUrl = fUrl
+        m.fEpUrl = m.top.fEpUrl
+        
+        
+    end sub
+  ]]> 
+  </script>
+</component>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--
+    node that renders video screen 
+    handles start of video playback
+ -->
+<component name="VideoScreen" extends="Rectangle">
+    <interface>
+        <!-- Button press handler -->
+        <!--  <field id="itemSelected" type="integer" alwaysnotify="true" alias="Buttons.itemSelected" onChange="onItemSelected" />-->
+
+        <field id="epUrl" type="string"/>
+        <field id ="thumbnail" type = "string" />
+		<field id="allEpisodes" type="roArray" />
+        <field id="fEpUrl" type="string"/>
+        <field id="passedTitle" type="string"/>
+        <!-- Playback flag -->
+        <field id="videoPlayerVisible" type="bool" alwaysnotify="true" alias="VideoPlayer.visible"  onChange="onVideoVisibleChange" />
+        <field id="id" type="string"/>
+        <!-- Content fields -->
+        <!-- <field id="content" type="node" alwaysnotify="true" onChange="OnContentChange" /> -->
+        <field id="content" type="node" />
+        
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/VideoScreen/VideoScreen.brs" />
+    
+    <children>
+        <Rectangle
+          id="mask"
+          color="#00000077"
+          width="1300"
+          height="740"
+          visible= "false"
+          translation="[0,0]"
+            />
+        <Rectangle
+            id="popupBox"
+            translation = "[440,160]"
+            color="#FFFFFF"
+            width = "400"
+            height = "450"
+            visible="false">
+	        <poster
+	            id="thumbnail_box"
+	            width="400"
+	            height="300"
+	        />
+	        <Label
+			  id="ep_title"
+			  height="30"
+			  width="400"
+			  inheritParentTransform = "false"
+			  color="#000000"
+			  font="font:MediumBoldSystemFont"
+			  horizAlign = "center"
+			  vertAlign = "center" />
+	        <ButtonGroup
+	          id="button_grpp"
+	          inheritParentTransform = "false"
+	          >
+	          <Button
+	            id="resume"
+	            text="Resume"
+	            textColor="#000000"
+	            focusedIconUri=""
+	            iconUri=""
+	            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	          <Button
+	            id="play_from_beginning"
+	            text="Play from the beginning"
+	            textColor="#000000"
+	            focusedIconUri=""
+	            iconUri=""
+	            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+	        </ButtonGroup>
+        </Rectangle>
+        <Video
+            id="VideoPlayer"
+            inheritParentTransform = "false"
+            visible="false"
+            translation="[0, 0]"
+            filledBarImageUri = "pkg:/images/bg-tile.png"
+            emptyBarBlendColor = "pkg:/images/bg-tile.png"
+            trackImageUri = "pkg:/images/bg-tile.png"
+            />
+
+
+    </children> 
+</component>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
 
 <!-- node that renders Grid Screen 
-    handles bookmark buttons
     handles start of video playback
  -->
 <component name="GridScreen" extends="Group" initialFocus="RowList">
     <interface>
         <!-- Grid Content Node -->
         <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
+        
+        <field id="rowList" type = "node" alias="RowList"/>
         
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysnotify="true" alias="RowList.rowItemSelected"/>
@@ -24,38 +24,47 @@
     <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
     
     <children>
-        <FadingBackground
-            id="Background"
-			width="1280"
-			height="720"
-            color="0xAAAAAA"
-            ShadeOpacity="0.8"/>
+         
+
+	        
+    <!-- Overhang logo -->
+    <Poster
+        translation="[79, 36]"
+        uri="pkg:/images/overhangLogo.png"
+        width="156"
+        height="49"  
+        />
+    <RowList
+       id="RowList"
+       itemComponentName="customItem"
+       focusBitmapUri="pkg:/images/focus_grid.9.png"
+       translation="[-60, 372]"
+       itemSize="[1327, 218]"
+       numRows="2"
+       itemSpacing="[13, 30]"
+       focusXOffset="[147]"
+       rowFocusAnimationStyle="fixedFocusWrap"
+       rowItemSize="[[262, 175]]"
+       rowItemSpacing="[[16.5, 3]]"
+       showRowLabel="true"
+       showRowCounter="true"
+       rowLabelOffset="[[147, 20]]"
+    	/>
             
-        <RowList
-            id="RowList"
-            focusBitmapUri="pkg:/images/focus_grid.9.png"
-			translation="[-60, 372]"
-			itemSize="[1327, 218]"
-			numRows="2"
-			itemSpacing="[13, 0]"
-			focusXOffset="[147]"
-			rowFocusAnimationStyle="fixedFocusWrap"
-			rowItemSize="[[262, 147]]"
-			rowItemSpacing="[[16.5, 3]]"
-			showRowLabel="true"
-			showRowCounter="true"
-			rowLabelOffset="[[147, 20]]"
-            />
-            
+    <Poster
+      id = "itemPoster"
+      translation = "[ 10, 10 ]"
+      width = "512"
+      height = "288"
+      scaleRotateCenter = "[ 256.0, 144.0 ]" >
+    </Poster>
         <Poster
 			translation="[0, 650]"
             uri="pkg:/images/BG_dark_down.png"
             width="2000"
-            height="95" />
+            height="95" 
+            />
 
-        <Description
-            id="Description"
-			translation="[106, 119]"
-            itemSpacings="[7,17]"/>
+
     </children>
 </component>

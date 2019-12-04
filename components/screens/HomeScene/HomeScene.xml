@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?> 
-<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
-
 <!-- 
     main node which handles home screen children 
     -->
@@ -8,10 +6,21 @@
     
     <interface>
         <!-- Content for RowList in GridScreen on Home Scene -->
-        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />
-
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent" />      
+                      
+		<field id="rowList" type = "node" alias="GridScreen.rowList"/>
         <!-- Row item selection handler -->
         <field id="rowItemSelected" type="intarray" alwaysNotify="true" alias="GridScreen.rowItemSelected"/>
+        <field id="exitApp" type="boolean" value="false"/>
+        <!-- option selection handler -->
+        <field id="optionSelected" type="intarray" alwaysnotify="true" alias="option_btn.buttonSelected"/>
+        
+        <field id="episodesRowItemSelected" type="intarray" alwaysNotify="true" alias="Episodes.itemSelected"/>
+        
+        <field id="playSelected" type="intarray" alwaysNotify="true" alias="VideoScreen.videoPlayerVisible"/>
+        <field id="APIArray" type="roArray"/>
+        <field id="rowCount" type="integer" value="0"/>
+        
     </interface>
     
     <!-- main handler -->
@@ -20,40 +29,164 @@
     <children>
 
         <!-- Grid screen with RowList on Home Scene -->
+        <Poster
+            id="Background"
+            width = "1280"
+            height = "720"
+            loadSync = "true"
+            uri = "pkg:/images/Background720.png"
+            />
+        <Poster
+            id = "itemMask"
+            width = "1280"
+            height = "380"
+            translation = "[ 0, 720 ]"
+            uri="pkg:/images/bg-tile.png"
+            />
         <GridScreen
             id="GridScreen"
             visible="true"
-            translation="[0,0]" />
-
-        <!-- Overhang logo -->
-        <Poster
-            translation="[79, 36]"
-            uri="pkg:/images/overhangLogo.png"
-            width="156"
-            height="49"  />
-
-        <!-- Details screen with Play button -->
-        <DetailsScreen
-            id="DetailsScreen"
-            visible="false"/>
+            translation="[0,0]" 
+            />
             
-        <LoadingIndicator
-		      id="loadingIndicator"
-		      imageUri="pkg:/components/screens/LoadingIndicator/loader.png"
-		      clockwise="true"
-		      spinInterval="2"
-		      fadeInterval="0.5"
-		      spacing="20"
-		      imageWidth="100"
-		      text="Loading..."
-		      width="1280"
-		      height="720"
-		      centered="false"
-              translation="[0, 0]"
-		      textPadding="10"
-		      font="font:SmallBoldSystemFont"
-		      backgroundColor="0x551A8B"
-		      backgroundOpacity="0"/>
+        <Episodes
+            id="Episodes"
+            enableRenderTracking="true"
+            visible="false"
+            translation="[0,0]" 
+            />
+            
+        <ErrorScene
+            id="ErrorScene"
+            visible="false"
+            translation="[0,0]" 
+            />
+            
 
+        
+        <!--  option button -->
+        <Button
+            id="option_btn"
+            text="Option*"
+            textColor="#50cddd"
+            focusedTextColor="#50cddd"
+            focusedIconUri=""
+            iconUri=""
+            focusBitmapUri="pkg:/images/focus_grid.9.png"
+            translation = "[ 1000, 40 ]"
+        	/>
+        <Rectangle
+          id="mask"
+          color="#00000077"
+          width="1300"
+          height="740"
+          visible= "false"
+          translation="[0,0]"
+        	/>
+        <Option
+		  id="optionCont"
+		  width="250"
+		  height="720"
+		  visible="false"
+		  color="#ed7740"
+		  translation="[1280,0]" 
+		  />
+
+        <Rectangle
+            id="ExitConfirm"
+            translation = "[440,280]"
+            color="#FFFFFF"
+            width = "400"
+            height = "200"
+            visible="false">
+            <Label
+	           id="confirm_msg"
+	           height="30"
+	           width="400"
+	           color="#000000"
+	           horizAlign = "center"
+	           translation = "[0,25]"
+	           font="font:MediumBoldSystemFont"
+	           text="Are you sure you want to exit?" />
+            <ButtonGroup
+	           id="yesOrNo"
+	           translation="[75, 70]"
+	           minWidth = "250"
+	           >
+                <Button
+                     id="No"
+                     text="CANCEL"
+                     textColor="#50cddd"
+                     focusedTextColor = "#FFFFFF"
+                     focusedIconUri=""
+                     iconUri=""
+                     width = "200"
+                     height = "60"
+                     translation = "[0, 30]"
+                     showFocusFootprint = "true"
+                     focusBitmapUri="pkg:/images/barcolor.png"
+                      />
+	            <Button
+		             id="Yes"
+		             text="EXIT"
+		             textColor="#50cddd"
+		             focusedTextColor = "#FFFFFF"
+		             focusedIconUri=""
+		             iconUri=""
+                     width = "200"
+                     height = "60"
+		             translation = "[0, 90]"
+		             showFocusFootprint = "true"
+		             focusBitmapUri="pkg:/images/barcolor.png" />
+
+	         </ButtonGroup>
+         </Rectangle>
+        <VideoScreen
+            id="VideoScreen"
+            visible = "false"/>
+
+        <!-- animation for option bar -->    
+        <Animation id="myAnim1" 
+			duration="0.35"
+			easeFunction="linear" >
+		    <Vector2DFieldInterpolator id = "Anim1"
+			    key="[0.0, 0.7, 1.0]"
+			    keyValue="[ [1280.0, 0.0], [1030.0, 0.0], [1040.0, 0.0] ]"
+		        fieldToInterp="optionCont.translation" />
+        </Animation>    
+
+         <!--  animation for row background -->
+        <Animation id="slideUpItemMask" 
+            duration="0.5"
+            easeFunction="linear" >
+            <Vector2DFieldInterpolator id = "slideUpItemMaskAnim"
+                key="[0.0, 0.7, 1.0]"
+                keyValue="[ [0.0, 720.0], [0.0, 330.0], [0.0, 350.0]]"
+                fieldToInterp="itemMask.translation" />
+        </Animation>       
+        <Animation id="slideUpRowlist" 
+            duration="0.5"
+            easeFunction="linear" >
+            <Vector2DFieldInterpolator id = "slideUpItemMaskAnim"
+                key="[0.0, 0.7, 1.0]"
+                keyValue="[ [-60.0, 720.0], [-60.0, 350.0], [-60.0, 372.0]]"
+                fieldToInterp="rowList.translation" />
+        </Animation>  
+        <Animation id="slideUpFull" 
+            duration="0.3"
+            easeFunction="linear" >
+            <Vector2DFieldInterpolator id = "slideUpfull"
+                key="[0.0, 0.7, 1.0]"
+                keyValue="[ [0.0, 350.0], [0.0, 100.0], [0.0, 0.0]]"
+                fieldToInterp="itemMask.translation" />
+        </Animation> 
+        <Animation id="slideDown" 
+            duration="0.5"
+            easeFunction="linear" >
+            <Vector2DFieldInterpolator id = "slidedownfull"
+                key="[0.0, 0.7, 1.0]"
+                keyValue="[ [0.0, 0.0], [0.0, 420.0],[0.0, 350.0] ]"
+                fieldToInterp="itemMask.translation" />
+        </Animation> 
     </children>
 </component>

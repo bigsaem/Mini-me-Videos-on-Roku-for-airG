@@ -1,0 +1,83 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<component name = "MarkupGridItem" extends = "Group" >
+ 
+  <interface> 
+    <field id = "itemContent" type = "node" onChange = "showcontent"/>
+  </interface>
+ 
+  <script type = "text/brightscript" >
+
+    <![CDATA[
+
+    sub init()
+      m.itemposter = m.top.findNode("itemPoster") 
+      m.itemmask = m.top.findNode("itemMask")
+      m.title = m.top.findNode("epi_title")
+      m.pro_back = m.top.findNode("pro_background")
+      m.progress = m.top.findNode("progress")
+    end sub
+
+    sub showcontent()
+      m.pro_back.visible = false
+      m.progress.visible = false
+      itemcontent = m.top.itemContent
+      sec = createObject("roRegistrySection", "MySection")
+      if sec.Exists(itemcontent.id)
+        print "registry exists here"
+        readJsonString =  sec.read(itemcontent.id)
+        readJsonObject = parseJson(readJsonString)
+        duration = Val(readJsonObject.duration)
+        timestamp  = readJsonObject.time
+        m.progress.width = 240*(timestamp/duration)
+        m.pro_back.visible = true
+        m.progress.visible = true
+      end if
+
+      m.itemposter.uri = itemcontent.HDGRIDPOSTERURL
+      m.title.text = itemcontent.SHORTDESCRIPTIONLINE1
+    end sub
+
+    ]]>
+
+  </script>
+
+  <children >
+
+    <Poster 
+      id = "itemPoster" 
+      translation = "[ 0, 0 ]" 
+      width = "240" 
+      height = "150" 
+      
+      >
+
+       <Rectangle 
+        id = "pro_background" 
+        color = "#FFFFFF" 
+        opacity = "0.75" 
+        width = "240" 
+        height = "10" 
+        visible = "false"
+        translation = "[0.0, 140.0]"
+        scaleRotateCenter = "[ 0.0, 140.0 ]"
+        />
+       <Rectangle 
+        id = "progress" 
+        color = "#50cddd"  
+        width = "120" 
+        height = "10" 
+        visible = "false"
+        translation = "[0.0, 140.0]"
+        scaleRotateCenter = "[ 0.0, 140.0 ]"
+        />
+
+    </Poster>
+    <Label
+        id="epi_title"
+        color="#FFFFFF"
+        width="240"
+        translation="[0.0, 150]"
+    	/>
+  </children>
+
+</component>

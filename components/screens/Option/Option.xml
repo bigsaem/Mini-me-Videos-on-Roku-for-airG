@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="Option" extends="Rectangle"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+<script type="text/brightscript" uri="pkg:/components/screens/Option/Option.brs" />
+
+<children>
+
+        <ButtonGroup
+          id="button_grp">
+          <Button
+            id="option_btn1"
+            text="Clear view history"
+            textColor="0xFFFFFF"
+            focusedTextColor = "0xFFFFFF"
+            focusedIconUri=""
+            iconUri=""
+            focusBitmapUri="pkg:/images/focus_grid.9.png" />
+        </ButtonGroup>
+        
+
+</children>
+
+</component>
