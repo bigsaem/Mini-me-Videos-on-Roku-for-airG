@@ -5,6 +5,6 @@ This is a indstustry project requested by airG to create a proof of concept prod
 
 This project was completed by 4 people and developed with BrightScript which is a script language for Roku OS.
 
-The project was successfully completed and delivered to the client (airG), satisfying all the requirements including unit tests.
+The project was successfully completed and delivered to the client (airG), satisfying all the requirements including unit tests, user manual and development guide for Roku.
 
 Here are some screen shots of the product.
